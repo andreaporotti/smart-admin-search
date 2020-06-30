@@ -8,11 +8,14 @@
  */
 ?>
 
-<!-- Smart Admin Search Modal -->
 <div class="sas-search-modal">
 
 	<div class="sas-search-modal__content">
-		
+
+		<select class="sas-search-modal__select">
+			<option></option>
+		</select>
+
 	</div>
 
 </div>
