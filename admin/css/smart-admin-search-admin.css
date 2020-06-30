@@ -13,14 +13,49 @@
 	height: 100%;
 	overflow: auto;
 	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.6); /* Black with opacity */
+	background-color: rgba(0,0,0,0.5); /* Black with opacity */
 }
 
 /* Content/Box */
 .sas-search-modal__content {
+	position: relative;
 	background-color: #ffffff;
 	margin: 5% auto;
 	padding: 20px;
 	border: 1px solid #333333;
 	width: 60%;
+	
+	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+	
+	-webkit-animation-name: sas-search-modal-content-animate;
+	-webkit-animation-duration: 0.3s;
+	animation-name: sas-search-modal-content-animate;
+	animation-duration: 0.3s
+}
+
+/* Animations */
+@-webkit-keyframes sas-search-modal-content-animate {
+  from {
+	top: -300px;
+	opacity: 0
+  }
+  
+  to {
+	top: 0;
+	opacity: 1
+  }
+}
+
+@keyframes sas-search-modal-content-animate {
+  from {
+	top: -300px;
+	opacity: 0
+  }
+  
+  to {
+	top: 0;
+	opacity: 1
+  }
 }
