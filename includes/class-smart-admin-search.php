@@ -150,6 +150,8 @@ class Smart_Admin_Search {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		
+		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
 
 	}
 

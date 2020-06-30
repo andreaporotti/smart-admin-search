@@ -69,5 +69,16 @@ class Smart_Admin_Search_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+	
+	/**
+	 * Adds content to admin footer.
+	 *
+	 * @since    1.0.0
+	 */
+	public function admin_footer() {
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smart-admin-search-admin-search-modal.php';
+
+	}
 
 }

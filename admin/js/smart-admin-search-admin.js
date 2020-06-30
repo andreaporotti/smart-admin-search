@@ -1,32 +1,55 @@
 (function( $ ) {
 	'use strict';
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	$(function() {
+
+		/*
+		 * ELEMENTS
+		 */
+		let sasDocument = $( document );
+		let sasSearchModal = $( '.sas-search-modal' );
+		
+		/*
+		 * KEY PRESS
+		 */
+		// Array of pressed keys.
+		let pressedKeys = [];
+		
+		// Check the pressed keys.
+		sasDocument.on( 'keydown', function( e ) {
+			if ( pressedKeys.includes( e.which ) === false ) {
+				pressedKeys.push( e.which );
+			}
+			
+			if ( pressedKeys.includes( 16 ) && pressedKeys.includes( 17 ) && pressedKeys.includes( 70 ) ) {
+				// Keys: SHIFT (16), CTRL (17), F (70).
+				showSearchModal();
+			} else if ( pressedKeys.includes( 27 ) ) {
+				// Keys: ESC (27).
+				hideSearchModal();
+			}
+		} );
+		
+		// Reset pressed keys array.
+		sasDocument.on( 'keyup', function( e ) {
+			pressedKeys = [];
+		} );
+		
+		/*
+		 * MODAL
+		 */
+		function showSearchModal() {
+			sasSearchModal.css( 'display', 'block' );
+		}
+		
+		function hideSearchModal() {
+			sasSearchModal.css( 'display', 'none' );
+		}
+		
+		sasSearchModal.on( 'click', function() {
+			hideSearchModal();
+		} );
+
+	});
 
 })( jQuery );
