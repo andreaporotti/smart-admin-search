@@ -49,7 +49,7 @@
 			sasSearchModalSelect.select2( {
 				dropdownParent: sasSearchModal,
 				width         : '100%',
-				placeholder   : "what are you looking for?",
+				placeholder   : sas_strings.search_select_placeholder,
 			} );
 			
 			setTimeout( function() {

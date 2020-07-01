@@ -72,8 +72,25 @@ class Smart_Admin_Search_Admin {
 		
 		wp_enqueue_script( $this->plugin_name . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
 
+		wp_localize_script(
+			$this->plugin_name . '-admin',
+			'sas_ajax',
+			array(
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( $this->plugin_name ),
+			)
+		);
+		
+		wp_localize_script(
+			$this->plugin_name . '-admin',
+			'sas_strings',
+			array(
+				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
+			)
+		);
+		
 	}
 	
 	/**
