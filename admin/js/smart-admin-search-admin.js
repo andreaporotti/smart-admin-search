@@ -43,13 +43,57 @@
 		/*
 		 * SEARCH MODAL
 		 */
+		function formatSearchResult( result ) {
+			if( result.loading ) {
+				return result.text;
+			}
+			
+			let template = $(
+				'<div class="result-item">' +
+					'<div class="name">' + result.text + '</div>' + 
+					'<div class="description">' + result.description + '</div>' +
+				'</div>'
+			);
+			
+			return template;
+		}
+		
+		function formatSearchResultSelection( result ) {
+			if ( result.id === '' ) {
+				return sas_strings.search_select_placeholder;
+			}
+	
+			return result.text;
+		}
+		
 		function showSearchModal() {
 			sasSearchModal.css( 'display', 'block' );
 			
 			sasSearchModalSelect.select2( {
-				dropdownParent: sasSearchModal,
-				width         : '100%',
-				placeholder   : sas_strings.search_select_placeholder,
+				dropdownParent    : sasSearchModal,
+				width             : '100%',
+				placeholder       : sas_strings.search_select_placeholder,
+				minimumInputLength: 3,
+				allowClear        : true,
+				templateResult    : formatSearchResult,
+				templateSelection : formatSearchResultSelection,
+				ajax              : {
+					method        : 'POST',
+					url           : sas_ajax.url,
+					delay         : 500,
+					data          : function ( params ) {
+						return {
+							_ajax_nonce: sas_ajax.nonce,
+							action     : 'smart_admin_search',
+							query      : params.term
+						};
+					},
+					processResults: function ( result ) {
+						return {
+							results: result.data
+						};
+					}
+				}
 			} );
 			
 			setTimeout( function() {

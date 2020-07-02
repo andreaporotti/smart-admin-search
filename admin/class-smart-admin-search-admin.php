@@ -103,5 +103,43 @@ class Smart_Admin_Search_Admin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smart-admin-search-admin-search-modal.php';
 
 	}
+	
+	/**
+	 * Performs the main search (called by ajax).
+	 *
+	 * @since    1.0.0
+	 */
+	public function smart_admin_search() {
+		
+		// Checks the nonce.
+		check_ajax_referer( $this->plugin_name );
+		
+		error_log( print_r( $_POST, true ) );
+		
+		// Get the search query.
+		$query = ( isset( $_POST['query'] ) ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
+		
+		$id = 0;
+		$results = array();
+		
+		$results[] = array(
+			'id'          => $id++,
+			'text'        => 'Result 1',
+			'description' => 'description 1...'
+		);
+		$results[] = array(
+			'id'          => $id++,
+			'text'        => 'Result 2',
+			'description' => 'description 2...'
+		);
+		$results[] = array(
+			'id'          => $id++,
+			'text'        => 'Result 3',
+			'description' => 'description 3...'
+		);
+		
+		wp_send_json_success( $results );
+		
+	}
 
 }
