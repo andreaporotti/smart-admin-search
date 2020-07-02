@@ -117,26 +117,29 @@ class Smart_Admin_Search_Admin {
 		// Get the search query.
 		$query = ( isset( $_POST['query'] ) ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 		
-		$id = 0;
-		$results = array();
+		// Get global results.
+		global $smart_admin_search_results;
 		
-		$results[] = array(
-			'id'          => $id++,
-			'text'        => 'Result 1',
-			'description' => 'description 1...'
-		);
-		$results[] = array(
-			'id'          => $id++,
-			'text'        => 'Result 2',
-			'description' => 'description 2...'
-		);
-		$results[] = array(
-			'id'          => $id++,
-			'text'        => 'Result 3',
-			'description' => 'description 3...'
+		$smart_admin_search_results[] = array(
+			'text'        => 'Main demo result',
+			'description' => 'demo result from main function...',
+			'link_url'    => '',
 		);
 		
-		wp_send_json_success( $results );
+		// Run custom search functions.
+		do_action( 'smart_admin_search_custom_function', $query );
+		
+		// Add IDs to the results.
+		if ( ! empty( $smart_admin_search_results ) ) {
+			$id = 1;
+			
+			foreach ( $smart_admin_search_results as $key => $result ) {
+				$smart_admin_search_results[$key]['id'] = $id;
+				$id++;
+			}
+		}
+		
+		wp_send_json_success( $smart_admin_search_results );
 		
 	}
 

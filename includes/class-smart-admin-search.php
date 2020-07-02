@@ -96,16 +96,19 @@ class Smart_Admin_Search {
 	private function load_dependencies() {
 
 		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
+		 * The class responsible for orchestrating the actions and filters of the core plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smart-admin-search-loader.php';
 
 		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
+		 * The class responsible for defining internationalization functionality of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smart-admin-search-i18n.php';
+
+		/**
+		 * The class providing the custom search functions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smart-admin-search-functions.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -113,8 +116,7 @@ class Smart_Admin_Search {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smart-admin-search-admin.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
+		 * The class responsible for defining all actions that occur in the public-facing side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-smart-admin-search-public.php';
 
@@ -150,10 +152,12 @@ class Smart_Admin_Search {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
-		
 		$this->loader->add_action( 'wp_ajax_smart_admin_search', $plugin_admin, 'smart_admin_search' );
+		
+		$search_functions = new Smart_Admin_Search_Functions();
+		
+		$this->loader->add_action( 'smart_admin_search_custom_function', $search_functions, 'demo_search_function' );
 
 	}
 
