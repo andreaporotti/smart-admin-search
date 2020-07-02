@@ -114,8 +114,6 @@ class Smart_Admin_Search_Admin {
 		// Checks the nonce.
 		check_ajax_referer( $this->plugin_name );
 		
-		error_log( print_r( $_POST, true ) );
-		
 		// Get the search query.
 		$query = ( isset( $_POST['query'] ) ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 		

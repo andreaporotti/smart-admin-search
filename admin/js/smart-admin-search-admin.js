@@ -104,7 +104,9 @@
 		function hideSearchModal() {
 			sasSearchModal.css( 'display', 'none' );
 			
-			sasSearchModalSelect.select2( 'destroy' );
+			if ( sasSearchModalSelect.hasClass( 'select2-hidden-accessible' ) ) {
+				sasSearchModalSelect.select2( 'destroy' );
+			}
 		}
 		
 		sasSearchModal.on( 'click', function( e ) {
