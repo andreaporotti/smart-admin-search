@@ -153,10 +153,10 @@ class Smart_Admin_Search {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
-		$this->loader->add_action( 'wp_ajax_smart_admin_search', $plugin_admin, 'smart_admin_search' );
-		
+		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
+
 		$search_functions = new Smart_Admin_Search_Functions();
-		
+
 		$this->loader->add_action( 'smart_admin_search_custom_function', $search_functions, 'demo_search_function' );
 
 	}

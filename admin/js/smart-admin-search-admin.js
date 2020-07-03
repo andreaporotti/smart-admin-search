@@ -78,19 +78,20 @@
 				templateResult    : formatSearchResult,
 				templateSelection : formatSearchResultSelection,
 				ajax              : {
-					method        : 'POST',
-					url           : sas_ajax.url,
+					method        : 'GET',
+					url           : sas_ajax.search_url,
 					delay         : 500,
+					beforeSend    : function (xhr) {
+						xhr.setRequestHeader( 'X-WP-NONCE', sas_ajax.nonce );
+					},
 					data          : function ( params ) {
 						return {
-							_ajax_nonce: sas_ajax.nonce,
-							action     : 'smart_admin_search',
-							query      : params.term
+							query: params.term
 						};
 					},
 					processResults: function ( result ) {
 						return {
-							results: result.data
+							results: result
 						};
 					}
 				}

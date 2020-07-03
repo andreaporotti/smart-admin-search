@@ -18,12 +18,12 @@ class Smart_Admin_Search_Functions {
 
 	public function demo_search_function( $query ) {
 		global $smart_admin_search_results;
-		
+
 		$smart_admin_search_results[] = array(
 			'text'        => 'Demo result',
 			'description' => 'demo result from demo function...',
 			'link_url'    => '',
 		);
 	}
-	
+
 }

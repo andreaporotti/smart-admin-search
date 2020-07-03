@@ -43,7 +43,7 @@ define( 'SMART_ADMIN_SEARCH_VERSION', '1.0.0' );
 
 /*
  * Global search results added by the search functions.
- * 
+ *
  * @since    1.0.0
  */
 global $smart_admin_search_results;

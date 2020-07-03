@@ -6,6 +6,7 @@
  * @package    Smart_Admin_Search
  * @subpackage Smart_Admin_Search/admin/partials
  */
+
 ?>
 
 <div class="sas-search-modal">

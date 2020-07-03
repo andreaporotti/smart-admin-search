@@ -38,8 +38,8 @@ class Smart_Admin_Search_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string $plugin_name       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
+	 * @param      string $plugin_name The name of this plugin.
+	 * @param      string $version     The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -69,7 +69,7 @@ class Smart_Admin_Search_Admin {
 
 		global $locale;
 		$short_locale = substr( $locale, 0, 2 );
-		
+
 		wp_enqueue_script( $this->plugin_name . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
@@ -78,11 +78,11 @@ class Smart_Admin_Search_Admin {
 			$this->plugin_name . '-admin',
 			'sas_ajax',
 			array(
-				'url'   => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( $this->plugin_name ),
+				'search_url' => esc_url_raw( rest_url() ) . $this->plugin_name . '/v1/search',
+				'nonce'      => wp_create_nonce( 'wp_rest' ),
 			)
 		);
-		
+
 		wp_localize_script(
 			$this->plugin_name . '-admin',
 			'sas_strings',
@@ -90,9 +90,9 @@ class Smart_Admin_Search_Admin {
 				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
 			)
 		);
-		
+
 	}
-	
+
 	/**
 	 * Adds content to admin footer.
 	 *
@@ -103,44 +103,67 @@ class Smart_Admin_Search_Admin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smart-admin-search-admin-search-modal.php';
 
 	}
-	
+
 	/**
-	 * Performs the main search (called by ajax).
+	 * Registers a REST-API custom endpoint for the main search function.
 	 *
 	 * @since    1.0.0
 	 */
-	public function smart_admin_search() {
-		
-		// Checks the nonce.
-		check_ajax_referer( $this->plugin_name );
-		
-		// Get the search query.
-		$query = ( isset( $_POST['query'] ) ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
-		
-		// Get global results.
-		global $smart_admin_search_results;
-		
-		$smart_admin_search_results[] = array(
-			'text'        => 'Main demo result',
-			'description' => 'demo result from main function...',
-			'link_url'    => '',
+	public function rest_api_register_search() {
+
+		register_rest_route(
+			$this->plugin_name . '/v1',
+			'search',
+			array(
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => array( $this, 'smart_admin_search' ),
+			)
 		);
-		
-		// Run custom search functions.
-		do_action( 'smart_admin_search_custom_function', $query );
-		
-		// Add IDs to the results.
-		if ( ! empty( $smart_admin_search_results ) ) {
-			$id = 1;
-			
-			foreach ( $smart_admin_search_results as $key => $result ) {
-				$smart_admin_search_results[$key]['id'] = $id;
-				$id++;
+
+	}
+
+	/**
+	 * The main search function.
+	 *
+	 * @since    1.0.0
+	 * @param    array $data Request data.
+	 */
+	public function smart_admin_search( $data ) {
+
+		if ( is_user_logged_in() ) {
+
+			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
+
+			// Get global results.
+			global $smart_admin_search_results;
+
+			$smart_admin_search_results[] = array(
+				'text'        => 'Main demo result',
+				'description' => 'demo result from main function...',
+				'link_url'    => '',
+			);
+
+			// Run custom search functions.
+			do_action( 'smart_admin_search_custom_function', $query );
+
+			// Add IDs to the results.
+			if ( ! empty( $smart_admin_search_results ) ) {
+				$id = 1;
+
+				foreach ( $smart_admin_search_results as $key => $result ) {
+					$smart_admin_search_results[ $key ]['id'] = $id;
+					$id++;
+				}
 			}
+
+			return $smart_admin_search_results;
+
+		} else {
+
+			return 'Access denied.';
+
 		}
-		
-		wp_send_json_success( $smart_admin_search_results );
-		
+
 	}
 
 }
