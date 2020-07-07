@@ -43,20 +43,27 @@ define( 'SMART_ADMIN_SEARCH_VERSION', '1.0.0' );
 
 /**
  * Plugin name.
- * 
- * @since	1.0.0
+ *
+ * @since    1.0.0
  */
 define( 'SMART_ADMIN_SEARCH_PLUGIN_NAME', 'Smart Admin Search' );
 
 /**
  * Plugin slug.
- * 
- * @since	1.0.0
+ *
+ * @since    1.0.0
  */
 define( 'SMART_ADMIN_SEARCH_PLUGIN_SLUG', 'smart-admin-search' );
 
 /*
- * Global search results added by the search functions.
+ * Details about the registered search functions.
+ *
+ * @since    1.0.0
+ */
+global $smart_admin_search_registered_functions;
+
+/*
+ * Results added by the search functions.
  *
  * @since    1.0.0
  */

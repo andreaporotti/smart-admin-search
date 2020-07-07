@@ -24,7 +24,7 @@ class Smart_Admin_Search_Admin {
 	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	private $plugin_name;
-	
+
 	/**
 	 * The slug of this plugin.
 	 *
@@ -134,6 +134,34 @@ class Smart_Admin_Search_Admin {
 	}
 
 	/**
+	 * Creates a list of functions added by the plugin hook.
+	 *
+	 * @since    1.0.0
+	 */
+	public function get_added_functions() {
+
+		global $wp_filter;
+
+		$added_functions = array();
+
+		array_walk(
+			$wp_filter['smart_admin_search_add_function']->callbacks,
+			function( $item, $key ) use ( &$added_functions ) {
+				foreach ( $item as $callback ) {
+					if ( is_string( $callback['function'] ) ) {
+						$added_functions[] = $callback['function'];
+					} elseif ( is_array( $callback['function'] ) ) {
+						$added_functions[] = $callback['function'][1];
+					}
+				}
+			}
+		);
+
+		return $added_functions;
+
+	}
+
+	/**
 	 * The main search function.
 	 *
 	 * @since    1.0.0
@@ -143,10 +171,9 @@ class Smart_Admin_Search_Admin {
 
 		if ( is_user_logged_in() ) {
 
-			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
+			global $smart_admin_search_registered_functions, $smart_admin_search_results;
 
-			// Get global results.
-			global $smart_admin_search_results;
+			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
 			$smart_admin_search_results[] = array(
 				'text'        => 'Main demo result',
@@ -154,10 +181,22 @@ class Smart_Admin_Search_Admin {
 				'link_url'    => '',
 			);
 
-			// Run custom search functions.
-			do_action( 'smart_admin_search_custom_function', $query );
+			// Get functions added to the hook.
+			$added_functions = $this->get_added_functions();
 
-			// Add IDs to the results.
+			// Remove functions added but not registered.
+			foreach ( $added_functions as $function ) {
+				$key = array_search( $function, array_column( $smart_admin_search_registered_functions, 'name' ), true );
+
+				if ( false === $key ) {
+					remove_action( 'smart_admin_search_add_function', $function );
+				}
+			}
+
+			// Run search functions.
+			do_action( 'smart_admin_search_add_function', $query );
+
+			// Add numeric IDs to the results.
 			if ( ! empty( $smart_admin_search_results ) ) {
 				$id = 1;
 

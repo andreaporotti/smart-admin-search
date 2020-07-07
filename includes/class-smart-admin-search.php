@@ -43,7 +43,7 @@ class Smart_Admin_Search {
 	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	protected $plugin_name;
-	
+
 	/**
 	 * The slug of this plugin.
 	 *
@@ -72,10 +72,10 @@ class Smart_Admin_Search {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		
+
 		$this->plugin_name = SMART_ADMIN_SEARCH_PLUGIN_NAME;
 		$this->plugin_slug = SMART_ADMIN_SEARCH_PLUGIN_SLUG;
-		$this->version = SMART_ADMIN_SEARCH_VERSION;
+		$this->version     = SMART_ADMIN_SEARCH_VERSION;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -121,7 +121,7 @@ class Smart_Admin_Search {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smart-admin-search-admin.php';
-		
+
 		/**
 		 * The class responsible for building the options page.
 		 */
@@ -165,15 +165,16 @@ class Smart_Admin_Search {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
-		
+
 		// Plugin options.
 		$plugin_options = new Smart_Admin_Search_Options( $this->get_plugin_name(), $this->get_plugin_slug() );
 		$this->loader->add_action( 'admin_menu', $plugin_options, 'options_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_options, 'options_init' );
 
-		// Search functions
+		// Search functions.
 		$search_functions = new Smart_Admin_Search_Functions();
-		$this->loader->add_action( 'smart_admin_search_custom_function', $search_functions, 'demo_search_function' );
+		$this->loader->add_action( 'smart_admin_search_register_function', $search_functions, 'register_demo_search_function' );
+		$this->loader->add_action( 'smart_admin_search_add_function', $search_functions, 'demo_search_function' );
 
 	}
 
@@ -211,7 +212,7 @@ class Smart_Admin_Search {
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
-	
+
 	/**
 	 * The slug of the plugin.
 	 *

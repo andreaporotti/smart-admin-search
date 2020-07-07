@@ -24,7 +24,7 @@ class Smart_Admin_Search_Public {
 	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	private $plugin_name;
-	
+
 	/**
 	 * The slug of this plugin.
 	 *

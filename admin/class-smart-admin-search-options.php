@@ -17,7 +17,7 @@
  * @author     Andrea Porotti
  */
 class Smart_Admin_Search_Options {
-	
+
 	/**
 	 * The name of this plugin.
 	 *
@@ -26,7 +26,7 @@ class Smart_Admin_Search_Options {
 	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	private $plugin_name;
-	
+
 	/**
 	 * The slug of this plugin.
 	 *
@@ -35,7 +35,7 @@ class Smart_Admin_Search_Options {
 	 * @var      string    $plugin_slug    The slug of this plugin.
 	 */
 	private $plugin_slug;
-	
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -101,5 +101,5 @@ class Smart_Admin_Search_Options {
 	public function options_init() {
 
 	}
-	
+
 }
