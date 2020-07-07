@@ -36,13 +36,22 @@ class Smart_Admin_Search {
 	protected $loader;
 
 	/**
-	 * The unique identifier of this plugin.
+	 * The name of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	protected $plugin_name;
+	
+	/**
+	 * The slug of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $plugin_slug    The slug of this plugin.
+	 */
+	protected $plugin_slug;
 
 	/**
 	 * The current version of the plugin.
@@ -63,12 +72,10 @@ class Smart_Admin_Search {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'SMART_ADMIN_SEARCH_VERSION' ) ) {
-			$this->version = SMART_ADMIN_SEARCH_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
-		$this->plugin_name = 'smart-admin-search';
+		
+		$this->plugin_name = SMART_ADMIN_SEARCH_PLUGIN_NAME;
+		$this->plugin_slug = SMART_ADMIN_SEARCH_PLUGIN_SLUG;
+		$this->version = SMART_ADMIN_SEARCH_VERSION;
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -148,7 +155,7 @@ class Smart_Admin_Search {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Smart_Admin_Search_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Smart_Admin_Search_Admin( $this->get_plugin_name(), $this->get_plugin_slug(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -169,7 +176,7 @@ class Smart_Admin_Search {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Smart_Admin_Search_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Smart_Admin_Search_Public( $this->get_plugin_name(), $this->get_plugin_slug(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -194,6 +201,16 @@ class Smart_Admin_Search {
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
+	}
+	
+	/**
+	 * The slug of the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The slug of the plugin.
+	 */
+	public function get_plugin_slug() {
+		return $this->plugin_slug;
 	}
 
 	/**

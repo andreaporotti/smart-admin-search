@@ -17,13 +17,22 @@
 class Smart_Admin_Search_Admin {
 
 	/**
-	 * The ID of this plugin.
+	 * The name of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	private $plugin_name;
+	
+	/**
+	 * The slug of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_slug    The slug of this plugin.
+	 */
+	private $plugin_slug;
 
 	/**
 	 * The version of this plugin.
@@ -39,11 +48,13 @@ class Smart_Admin_Search_Admin {
 	 *
 	 * @since    1.0.0
 	 * @param      string $plugin_name The name of this plugin.
+	 * @param      string $plugin_slug The slug of this plugin.
 	 * @param      string $version     The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $plugin_slug, $version ) {
 
 		$this->plugin_name = $plugin_name;
+		$this->plugin_slug = $plugin_slug;
 		$this->version     = $version;
 
 	}
@@ -55,8 +66,8 @@ class Smart_Admin_Search_Admin {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_slug . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -70,21 +81,21 @@ class Smart_Admin_Search_Admin {
 		global $locale;
 		$short_locale = substr( $locale, 0, 2 );
 
-		wp_enqueue_script( $this->plugin_name . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_slug . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_slug . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_slug . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
 
 		wp_localize_script(
-			$this->plugin_name . '-admin',
+			$this->plugin_slug . '-admin',
 			'sas_ajax',
 			array(
-				'search_url' => esc_url_raw( rest_url() ) . $this->plugin_name . '/v1/search',
+				'search_url' => esc_url_raw( rest_url() ) . $this->plugin_slug . '/v1/search',
 				'nonce'      => wp_create_nonce( 'wp_rest' ),
 			)
 		);
 
 		wp_localize_script(
-			$this->plugin_name . '-admin',
+			$this->plugin_slug . '-admin',
 			'sas_strings',
 			array(
 				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
@@ -112,7 +123,7 @@ class Smart_Admin_Search_Admin {
 	public function rest_api_register_search() {
 
 		register_rest_route(
-			$this->plugin_name . '/v1',
+			$this->plugin_slug . '/v1',
 			'search',
 			array(
 				'methods'  => WP_REST_Server::READABLE,

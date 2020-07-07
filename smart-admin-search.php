@@ -41,6 +41,20 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'SMART_ADMIN_SEARCH_VERSION', '1.0.0' );
 
+/**
+ * Plugin name.
+ * 
+ * @since	1.0.0
+ */
+define( 'SMART_ADMIN_SEARCH_PLUGIN_NAME', 'Smart Admin Search' );
+
+/**
+ * Plugin slug.
+ * 
+ * @since	1.0.0
+ */
+define( 'SMART_ADMIN_SEARCH_PLUGIN_SLUG', 'smart-admin-search' );
+
 /*
  * Global search results added by the search functions.
  *

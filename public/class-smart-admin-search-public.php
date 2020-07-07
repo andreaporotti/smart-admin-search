@@ -17,13 +17,22 @@
 class Smart_Admin_Search_Public {
 
 	/**
-	 * The ID of this plugin.
+	 * The name of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $plugin_name    The name of this plugin.
 	 */
 	private $plugin_name;
+	
+	/**
+	 * The slug of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_slug    The slug of this plugin.
+	 */
+	private $plugin_slug;
 
 	/**
 	 * The version of this plugin.
@@ -39,11 +48,13 @@ class Smart_Admin_Search_Public {
 	 *
 	 * @since    1.0.0
 	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $plugin_slug       The slug of the plugin.
 	 * @param      string $version           The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( $plugin_name, $plugin_slug, $version ) {
 
 		$this->plugin_name = $plugin_name;
+		$this->plugin_slug = $plugin_slug;
 		$this->version     = $version;
 
 	}
@@ -55,7 +66,7 @@ class Smart_Admin_Search_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -66,7 +77,7 @@ class Smart_Admin_Search_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 
