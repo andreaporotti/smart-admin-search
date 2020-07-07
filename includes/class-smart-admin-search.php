@@ -121,6 +121,11 @@ class Smart_Admin_Search {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smart-admin-search-admin.php';
+		
+		/**
+		 * The class responsible for building the options page.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smart-admin-search-options.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing side of the site.
@@ -156,14 +161,18 @@ class Smart_Admin_Search {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Smart_Admin_Search_Admin( $this->get_plugin_name(), $this->get_plugin_slug(), $this->get_version() );
-
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
+		
+		// Plugin options.
+		$plugin_options = new Smart_Admin_Search_Options( $this->get_plugin_name(), $this->get_plugin_slug() );
+		$this->loader->add_action( 'admin_menu', $plugin_options, 'options_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_options, 'options_init' );
 
+		// Search functions
 		$search_functions = new Smart_Admin_Search_Functions();
-
 		$this->loader->add_action( 'smart_admin_search_custom_function', $search_functions, 'demo_search_function' );
 
 	}
