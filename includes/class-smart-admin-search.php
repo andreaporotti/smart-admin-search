@@ -174,7 +174,7 @@ class Smart_Admin_Search {
 		// Search functions.
 		$search_functions = new Smart_Admin_Search_Functions();
 		$this->loader->add_action( 'smart_admin_search_register_function', $search_functions, 'register_demo_search_function' );
-		$this->loader->add_action( 'smart_admin_search_add_function', $search_functions, 'demo_search_function' );
+		$this->loader->add_filter( 'smart_admin_search_add_function', $search_functions, 'demo_search_function', 10, 2 );
 
 	}
 

@@ -44,6 +44,15 @@ class Smart_Admin_Search_Admin {
 	private $version;
 
 	/**
+	 * The results from the executed search functions.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $search_results    The results from the executed search functions.
+	 */
+	private $search_results = array();
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -162,7 +171,7 @@ class Smart_Admin_Search_Admin {
 	}
 
 	/**
-	 * The main search function.
+	 * The main search function called from the REST-API.
 	 *
 	 * @since    1.0.0
 	 * @param    array $data Request data.
@@ -171,11 +180,12 @@ class Smart_Admin_Search_Admin {
 
 		if ( is_user_logged_in() ) {
 
-			global $smart_admin_search_registered_functions, $smart_admin_search_results;
+			global $smart_admin_search_registered_functions;
 
+			// Get the search query.
 			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
-			$smart_admin_search_results[] = array(
+			$this->search_results[] = array(
 				'text'        => 'Main demo result',
 				'description' => 'demo result from main function...',
 				'link_url'    => '',
@@ -189,24 +199,24 @@ class Smart_Admin_Search_Admin {
 				$key = array_search( $function, array_column( $smart_admin_search_registered_functions, 'name' ), true );
 
 				if ( false === $key ) {
-					remove_action( 'smart_admin_search_add_function', $function );
+					remove_filter( 'smart_admin_search_add_function', $function );
 				}
 			}
 
 			// Run search functions.
-			do_action( 'smart_admin_search_add_function', $query );
+			$this->search_results = apply_filters( 'smart_admin_search_add_function', $this->search_results, $query );
 
 			// Add numeric IDs to the results.
-			if ( ! empty( $smart_admin_search_results ) ) {
+			if ( ! empty( $this->search_results ) ) {
 				$id = 1;
 
-				foreach ( $smart_admin_search_results as $key => $result ) {
-					$smart_admin_search_results[ $key ]['id'] = $id;
+				foreach ( $this->search_results as $key => $result ) {
+					$this->search_results[ $key ]['id'] = $id;
 					$id++;
 				}
 			}
 
-			return $smart_admin_search_results;
+			return $this->search_results;
 
 		} else {
 

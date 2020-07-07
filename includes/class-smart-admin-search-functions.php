@@ -27,15 +27,15 @@ class Smart_Admin_Search_Functions {
 		);
 	}
 
-	public function demo_search_function( $query ) {
-		global $smart_admin_search_results;
-
+	public function demo_search_function( $search_results, $query ) {
 		// Add function results.
-		$smart_admin_search_results[] = array(
+		$search_results[] = array(
 			'text'        => 'Demo result',
 			'description' => 'demo result from demo function...',
 			'link_url'    => '',
 		);
+
+		return $search_results;
 	}
 
 }
