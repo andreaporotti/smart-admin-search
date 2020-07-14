@@ -16,15 +16,15 @@
  */
 class Smart_Admin_Search_Functions {
 
-	public function register_demo_search_function() {
-		global $smart_admin_search_registered_functions;
-
+	public function register_demo_search_function( $registered_functions ) {
 		// Register function.
-		$smart_admin_search_registered_functions[] = array(
+		$registered_functions[] = array(
 			'name'         => 'demo_search_function',
 			'display_name' => 'Demo Search Function',
 			'description'  => 'A function used to test plugin functionality.',
 		);
+		
+		return $registered_functions;
 	}
 
 	public function demo_search_function( $search_results, $query ) {

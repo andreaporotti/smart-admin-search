@@ -44,6 +44,15 @@ class Smart_Admin_Search_Admin {
 	private $version;
 
 	/**
+	 * The list of registered search functions.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $registered_functions    The list of registered search functions.
+	 */
+	private $registered_functions = array();
+	
+	/**
 	 * The results from the executed search functions.
 	 *
 	 * @since    1.0.0
@@ -180,23 +189,18 @@ class Smart_Admin_Search_Admin {
 
 		if ( is_user_logged_in() ) {
 
-			global $smart_admin_search_registered_functions;
-
 			// Get the search query.
 			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
-			$this->search_results[] = array(
-				'text'        => 'Main demo result',
-				'description' => 'demo result from main function...',
-				'link_url'    => '',
-			);
+			// Register search functions.
+			$this->registered_functions = apply_filters( 'smart_admin_search_register_function', $this->registered_functions );
 
-			// Get functions added to the hook.
+			// Get functions added to the "add" hook.
 			$added_functions = $this->get_added_functions();
 
 			// Remove functions added but not registered.
 			foreach ( $added_functions as $function ) {
-				$key = array_search( $function, array_column( $smart_admin_search_registered_functions, 'name' ), true );
+				$key = array_search( $function, array_column( $this->registered_functions, 'name' ), true );
 
 				if ( false === $key ) {
 					remove_filter( 'smart_admin_search_add_function', $function );

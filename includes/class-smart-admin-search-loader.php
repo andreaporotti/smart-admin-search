@@ -121,9 +121,6 @@ class Smart_Admin_Search_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
-		// Register search functions.
-		do_action( 'smart_admin_search_register_function' );
-
 	}
 
 }

@@ -55,13 +55,6 @@ define( 'SMART_ADMIN_SEARCH_PLUGIN_NAME', 'Smart Admin Search' );
  */
 define( 'SMART_ADMIN_SEARCH_PLUGIN_SLUG', 'smart-admin-search' );
 
-/*
- * Details about the registered search functions.
- *
- * @since    1.0.0
- */
-global $smart_admin_search_registered_functions;
-
 /**
  * The code that runs during plugin activation.
  */
