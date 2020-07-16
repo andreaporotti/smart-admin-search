@@ -165,11 +165,17 @@ class Smart_Admin_Search_Admin {
 		array_walk(
 			$wp_filter['smart_admin_search_add_function']->callbacks,
 			function( $item, $key ) use ( &$added_functions ) {
-				foreach ( $item as $callback ) {
+				foreach ( $item as $key => $callback ) {
 					if ( is_string( $callback['function'] ) ) {
-						$added_functions[] = $callback['function'];
+						$added_functions[] = array(
+							'unique_id' => $key,
+							'name'      => $callback['function'],
+						);
 					} elseif ( is_array( $callback['function'] ) ) {
-						$added_functions[] = $callback['function'][1];
+						$added_functions[] = array(
+							'unique_id' => $key,
+							'name'      => $callback['function'][1],
+						);
 					}
 				}
 			}
@@ -188,6 +194,8 @@ class Smart_Admin_Search_Admin {
 	public function smart_admin_search( $data ) {
 
 		if ( is_user_logged_in() ) {
+			
+			global $wp_filter;
 
 			// Get the search query.
 			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
@@ -197,13 +205,16 @@ class Smart_Admin_Search_Admin {
 
 			// Get functions added to the "add" hook.
 			$added_functions = $this->get_added_functions();
+			
+			// Get disabled functions.
+			$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
 
-			// Remove functions added but not registered.
+			// Remove functions added but not registered and functions disabled by the user.
 			foreach ( $added_functions as $function ) {
-				$key = array_search( $function, array_column( $this->registered_functions, 'name' ), true );
+				$key = array_search( $function['name'], array_column( $this->registered_functions, 'name' ), true );
 
-				if ( false === $key ) {
-					remove_filter( 'smart_admin_search_add_function', $function );
+				if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions ) ) ) {
+					unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][$function['unique_id']] );
 				}
 			}
 
