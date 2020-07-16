@@ -193,7 +193,7 @@ class Smart_Admin_Search_Admin {
 			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
 			// Register search functions.
-			$this->registered_functions = apply_filters( 'smart_admin_search_register_function', $this->registered_functions );
+			$this->register_functions();
 
 			// Get functions added to the "add" hook.
 			$added_functions = $this->get_added_functions();
@@ -228,6 +228,30 @@ class Smart_Admin_Search_Admin {
 
 		}
 
+	}
+	
+	/**
+	 * Registers the search functions.
+	 *
+	 * @since    1.0.0
+	 */
+	public function register_functions() {
+		$this->registered_functions = apply_filters( 'smart_admin_search_register_function', $this->registered_functions );
+	}
+	
+	/**
+	 * Retrieve the registered search functions.
+	 *
+	 * @since     1.0.0
+	 * @param     bool     $run_registration    If true, runs the functions registration.
+	 * @return    array    The registered functions.
+	 */
+	public function get_registered_functions( $run_registration = false ) {
+		if ( $run_registration ) {
+			$this->register_functions();
+		}
+		
+		return $this->registered_functions;
 	}
 
 }

@@ -24,6 +24,15 @@ class Smart_Admin_Search_Activator {
 	 */
 	public static function activate() {
 
+		// --------------------------
+		// Initialize plugin options.
+		// --------------------------
+		
+		// Disabled functions.
+		if ( false === get_option( 'sas_disabled_search_functions' ) ) {
+			add_option( 'sas_disabled_search_functions', array( 'none' ), '', 'no' );
+		}
+		
 	}
 
 }

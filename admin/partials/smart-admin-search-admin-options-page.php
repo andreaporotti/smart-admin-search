@@ -15,10 +15,10 @@
 	<form action="options.php" method="post">
 	<?php
 		// Output security fields for the settings page.
-		settings_fields( $this->plugin_slug . '-options' );
+		settings_fields( $this->options_slug );
 
 		// Output settings sections and fields.
-		do_settings_sections( $this->plugin_slug . '-options' );
+		do_settings_sections( $this->options_slug );
 
 		// Output save button.
 		submit_button();
