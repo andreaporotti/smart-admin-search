@@ -52,6 +52,7 @@
 				'<div class="result-item">' +
 					'<div class="name">' + result.text + '</div>' + 
 					'<div class="description">' + result.description + '</div>' +
+					'<div class="link_url">' + result.link_url + '</div>' +
 				'</div>'
 			);
 			
@@ -115,6 +116,12 @@
 				hideSearchModal();
 			}
 		} );
+		
+		// Event triggered when a select item is selected.
+		sasSearchModalSelect.on('select2:select', function (e) {
+			let item_data = e.params.data;
+			window.location.href = item_data.link_url;
+		});
 
 	});
 
