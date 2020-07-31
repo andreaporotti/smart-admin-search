@@ -120,7 +120,10 @@
 		// Event triggered when a select item is selected.
 		sasSearchModalSelect.on('select2:select', function (e) {
 			let item_data = e.params.data;
-			window.location.href = item_data.link_url;
+			
+			if ( item_data.link_url !== null && item_data.link_url !== '' ) {
+				window.location.href = item_data.link_url;
+			}
 		});
 
 	});
