@@ -207,6 +207,17 @@ class Smart_Admin_Search_Options {
 		$admin                = new Smart_Admin_Search_Admin( '', '', '' );
 		$registered_functions = $admin->get_registered_functions( true );
 		
+		// Sort functions by display name.
+		usort(
+			$registered_functions,
+			function ( $item1, $item2 ) {
+				if ( $item1['display_name'] == $item2['display_name'] ) {
+					return 0;
+				}
+				return $item1['display_name'] < $item2['display_name'] ? -1 : 1;
+			}
+		);
+		
 		?>
 		<fieldset>
 			<?php foreach ( $registered_functions as $function ) : ?>
