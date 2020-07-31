@@ -165,14 +165,17 @@ class Smart_Admin_Search_Functions {
 						// Get item name removing any HTML code.
 						$name = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
 						
-						// Check if the item name contains the query.
-						if ( ! empty( $name ) && strpos( strtolower( $name ), strtolower( $query ) ) !== false ) {
+						// Get parent item name.
+						$parent_item_name = $this->get_admin_menu_item_name_by_key( $admin_menu, $key );
+						
+						// Set full item name.
+						$full_name = $parent_item_name . ' / ' . $name;
+						
+						// Check if the item full name contains the query.
+						if ( ! empty( $full_name ) && strpos( strtolower( $full_name ), strtolower( $query ) ) !== false ) {
 							
-							// Get parent menu name.
-							$parent_item_name = $this->get_admin_menu_item_name_by_key( $admin_menu, $key );
-							
-							// Generate item url:
-							// if the item has not a file name, use /admin.php?page=[name]
+							// Generate item url.
+							// If the item has not a file name, use /admin.php?page=[slug]
 							if ( strpos( $menu_item[2], '.php' ) === false ) {
 								$url = wp_specialchars_decode( admin_url( '/admin.php?page=' . $menu_item[2] ) );
 							} else {
@@ -181,7 +184,7 @@ class Smart_Admin_Search_Functions {
 
 							// Add the item to search results.
 							$search_results[] = array(
-								'text'        => $parent_item_name . ' / ' . $name,
+								'text'        => $full_name,
 								'description' => '',
 								'link_url'    => $url,
 							);
