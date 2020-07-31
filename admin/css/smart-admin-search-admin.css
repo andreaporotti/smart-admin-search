@@ -59,3 +59,19 @@
 	opacity: 1
   }
 }
+
+/* Search results */
+.sas-search-result__name {
+	font-size: 1.2rem;
+	margin-bottom: 4px;
+}
+
+.sas-search-result__description {
+	font-size: 0.9rem;
+	margin-left: 4px;
+}
+
+.sas-search-result__link-url {
+	font-size: 0.7rem;
+	margin-left: 4px;
+}

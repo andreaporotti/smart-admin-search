@@ -49,10 +49,10 @@
 			}
 			
 			let template = $(
-				'<div class="result-item">' +
-					'<div class="name">' + result.text + '</div>' + 
-					'<div class="description">' + result.description + '</div>' +
-					'<div class="link_url">' + result.link_url + '</div>' +
+				'<div class="sas-search-result">' +
+					'<div class="sas-search-result__name">' + result.text + '</div>' + 
+					'<div class="sas-search-result__description">' + result.description + '</div>' +
+					'<div class="sas-search-result__link-url">' + result.link_url + '</div>' +
 				'</div>'
 			);
 			

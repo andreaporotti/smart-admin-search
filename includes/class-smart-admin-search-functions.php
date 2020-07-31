@@ -145,7 +145,7 @@ class Smart_Admin_Search_Functions {
 						// Add the item to search results.
 						$search_results[] = array(
 							'text'        => $name,
-							'description' => '',
+							'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
 							'link_url'    => $url,
 						);
 						
@@ -185,7 +185,7 @@ class Smart_Admin_Search_Functions {
 							// Add the item to search results.
 							$search_results[] = array(
 								'text'        => $full_name,
-								'description' => '',
+								'description' => esc_html__( 'Admin submenu item.', 'smart-admin-search' ),
 								'link_url'    => $url,
 							);
 							
