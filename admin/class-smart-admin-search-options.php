@@ -104,9 +104,54 @@ class Smart_Admin_Search_Options {
 	 */
 	public function options_init() {
 		
-		// ----------------------------------------
+		// -------------------------------------------
+		// Set keys shortcut to open the search modal.
+		// -------------------------------------------
+		
+		// Add a section.
+		add_settings_section(
+			'sas_options_section_keys_shortcuts',
+			esc_html__( 'Keyboard shortcuts', 'smart-admin-search' ),
+			array(
+				$this,
+				'options_section_keys_shortcut',
+			),
+			$this->options_slug
+		);
+		
+		// Register a setting.
+		register_setting(
+			$this->options_slug,
+			'sas_search_keys_shortcut',
+			array(
+				'type'              => 'string',
+				'show_in_rest'      => false,
+				'default'           => '',
+				'sanitize_callback' => array(
+					$this,
+					'option_search_keys_shortcut_sanitize',
+				),
+			)
+		);
+		
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_search_keys_shortcut',
+			esc_html__( 'Open search box', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_search_keys_shortcut',
+			),
+			$this->options_slug,
+			'sas_options_section_keys_shortcuts',
+			array(
+				'name' => 'sas_search_keys_shortcut',
+			)
+		);
+		
+		// -----------------------------------
 		// Enable or disable search functions.
-		// ----------------------------------------
+		// -----------------------------------
 		
 		// Add a section.
 		add_settings_section(
@@ -150,6 +195,75 @@ class Smart_Admin_Search_Options {
 		);
 
 	}
+	
+	/**
+	 * Callback for the Keys shortcuts options section output.
+	 *
+	 * @since    1.0.0
+	 * @param    array $args Array of section attributes.
+	 */
+	public function options_section_keys_shortcut( $args ) {
+
+		?>
+		<p id="<?php echo esc_attr( $args['id'] ); ?>">
+			<?php echo esc_html__( 'Configure keyboard shortcuts to access plugin functions.', 'smart-admin-search' ); ?>
+		</p>
+		<?php
+
+	}
+	
+	/**
+	 * Callback for the search_keys_shortcut option value sanitization.
+	 *
+	 * @since    1.0.0
+	 * @param    array $value Option value.
+	 */
+	public function option_search_keys_shortcut_sanitize( $value ) {
+
+		return $value;
+
+	}
+	
+	/**
+	 * Callback for the search_keys_shortcut option field output.
+	 *
+	 * @since    1.0.0
+	 * @param    array $args Array of field attributes.
+	 */
+	public function option_search_keys_shortcut( $args ) {
+		
+		// Get the option value.
+		$option_search_keys_shortcut = get_option( $args['name'], array() );
+		
+		// Create a readable version of the current shortcut.
+		$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
+		$current_search_keys_shortcut = '';
+		foreach ( $option_search_keys_shortcut_array as $key ) {
+			$key_data = explode( '|', $key );
+			
+			if ( empty( $current_search_keys_shortcut ) ) {
+				$current_search_keys_shortcut = $key_data[1];
+			} else {
+				$current_search_keys_shortcut .= ' + ' . $key_data[1];
+			}
+		}
+		
+		?>
+		<fieldset>
+			<input type="text" id="sas-capture-search-keys" class="regular-text sas-skip-global-keypress" value="">
+			<button type="button" id="sas-capture-search-keys-reset" class="button"><?php echo esc_html__( 'Reset', 'smart-admin-search' ); ?></button>
+			<input type="hidden" id="<?php echo esc_attr( $args['name'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option_search_keys_shortcut ); ?>">
+			<p class="description">
+				<?php echo esc_html__( 'Click on the textbox and then press on the keyboard the keys that you will use to open the search box. Click the Reset button to clear the textbox.', 'smart-admin-search' ); ?>
+				<br>
+				<?php echo esc_html__( 'The current shortcut is:', 'smart-admin-search' ); ?> <strong><?php echo esc_html( $current_search_keys_shortcut ); ?></strong>.
+			</p>
+		</fieldset>
+		<?php
+		
+	}
+	
+	// ------------------------------------------------------------------------
 	
 	/**
 	 * Callback for the Search functions options section output.

@@ -6,43 +6,52 @@
 		/*
 		 * ELEMENTS
 		 */
+
 		let sasDocument          = $( document );
 		let sasSearchModal       = $( '.sas-search-modal' );
 		let sasSearchModalSelect = $( '.sas-search-modal__select' );
-		
+
 		/*
-		 * KEY PRESS
+		 * GLOBAL KEY PRESS
 		 */
+
+		// Get search keys shortcut, sorting items and converting them to int values.
+		let searchKeysShortcut = sas_options.search_keys_shortcut.sort().map( Number );
+
 		// Array of pressed keys.
 		let pressedKeys = [];
-		
+
 		// Check the pressed keys.
 		sasDocument.on( 'keydown', function( e ) {
-			if ( pressedKeys.includes( e.which ) === false ) {
-				pressedKeys.push( e.which );
-			}
-			
-			if ( pressedKeys.includes( 16 ) && pressedKeys.includes( 17 ) && pressedKeys.includes( 70 ) ) {
-				
-				// Keys: SHIFT (16), CTRL (17), F (70).
-				showSearchModal();
-				
-			} else if ( pressedKeys.includes( 27 ) ) {
-				
-				// Keys: ESC (27).
-				hideSearchModal();
-				
+			if ( ! $( e.srcElement ).hasClass( 'sas-skip-global-keypress' ) ) {
+
+				// Add pressed key to the array if not already added.
+				if ( pressedKeys.includes( e.which ) === false ) {
+					pressedKeys.push( e.which );
+				}
+
+				// If pressed keys are the same as the keys of the shortcut, open the search box.
+				if ( JSON.stringify( pressedKeys.sort() ) === JSON.stringify( searchKeysShortcut ) ) {
+					showSearchModal();
+				} else if ( pressedKeys.includes( 27 ) ) {
+					// 27 = ESC key.
+					hideSearchModal();
+				}
+
 			}
 		} );
-		
+
 		// Reset pressed keys array.
 		sasDocument.on( 'keyup', function( e ) {
-			pressedKeys = [];
+			if ( ! $( e.srcElement ).hasClass( 'sas-skip-global-keypress' ) ) {
+				pressedKeys = [];
+			}
 		} );
-		
+
 		/*
 		 * SEARCH MODAL
 		 */
+
 		function formatSearchResult( result ) {
 			if( result.loading ) {
 				return result.text;
@@ -116,15 +125,65 @@
 				hideSearchModal();
 			}
 		} );
-		
+
 		// Event triggered when a select item is selected.
 		sasSearchModalSelect.on('select2:select', function (e) {
 			let item_data = e.params.data;
-			
+
 			if ( item_data.link_url !== null && item_data.link_url !== '' ) {
 				window.location.href = item_data.link_url;
 			}
 		});
+
+		/*
+		 * SETTINGS PAGE
+		 */
+
+		if ( $( 'body' ).hasClass( 'settings_page_smart-admin-search_options' ) ) {
+
+			// Get elements.
+			let sasCaptureSearchKeys      = $( '#sas-capture-search-keys' );
+			let sasCaptureSearchKeysReset = $( '#sas-capture-search-keys-reset' );
+			let sasSearchKeysShortcut     = $( '#sas_search_keys_shortcut' );
+
+			// Get current search keys shortcut.
+			let currentSearchKeysShortcut = sasSearchKeysShortcut.val();
+
+			// Array of pressed keys.
+			let optionsPressedKeys = [];
+
+			sasCaptureSearchKeys.on( 'keydown', function( e ) {
+				e.preventDefault();
+
+				if ( optionsPressedKeys.includes( e.which + '|' + e.key ) === false ) {
+					// Add pressed key to the array.
+					optionsPressedKeys.push( e.which + '|' + e.key );
+
+					// Add pressed key to the textbox.
+					if ( $(this).val() === '' ) {
+						$(this).val( e.key );
+					} else {
+						$(this).val( $(this).val() + ' + ' + e.key );
+					}
+				}
+			} );
+
+			sasCaptureSearchKeys.on( 'keyup', function() {
+				sasSearchKeysShortcut.val( optionsPressedKeys.join() );
+			} );
+
+			sasCaptureSearchKeysReset.on( 'click', function() {
+				// Clear the pressed keys array.
+				optionsPressedKeys = [];
+
+				// Clear the textbox content.
+				sasCaptureSearchKeys.val( '' );
+
+				// Reset the option field with the current shortcut.
+				sasSearchKeysShortcut.val( currentSearchKeysShortcut );
+			} );
+
+		}
 
 	});
 

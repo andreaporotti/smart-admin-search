@@ -119,6 +119,23 @@ class Smart_Admin_Search_Admin {
 				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
 			)
 		);
+		
+		// Get plugin options.
+		$option_search_keys_shortcut       = get_option( 'sas_search_keys_shortcut', array() );
+		$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
+		$current_search_keys_shortcut      = [];
+		foreach ( $option_search_keys_shortcut_array as $key ) {
+			$key_data                       = explode( '|', $key );
+			$current_search_keys_shortcut[] = $key_data[0];
+		}
+		
+		wp_localize_script(
+			$this->plugin_slug . '-admin',
+			'sas_options',
+			array(
+				'search_keys_shortcut' => $current_search_keys_shortcut,
+			)
+		);
 
 	}
 
