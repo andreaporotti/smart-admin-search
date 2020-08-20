@@ -27,17 +27,17 @@ class Smart_Admin_Search_Activator {
 		// --------------------------
 		// Initialize plugin options.
 		// --------------------------
-		
+
 		// Keys shortcut to open search modal.
 		if ( false === get_option( 'sas_search_keys_shortcut' ) ) {
 			add_option( 'sas_search_keys_shortcut', '', '', 'no' );
 		}
-		
+
 		// Disabled functions.
 		if ( false === get_option( 'sas_disabled_search_functions' ) ) {
 			add_option( 'sas_disabled_search_functions', array( 'none' ), '', 'no' );
 		}
-		
+
 	}
 
 }

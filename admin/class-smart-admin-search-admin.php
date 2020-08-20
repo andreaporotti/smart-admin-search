@@ -51,7 +51,7 @@ class Smart_Admin_Search_Admin {
 	 * @var      array    $registered_functions    The list of registered search functions.
 	 */
 	private $registered_functions = array();
-	
+
 	/**
 	 * The results from the executed search functions.
 	 *
@@ -119,16 +119,16 @@ class Smart_Admin_Search_Admin {
 				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
 			)
 		);
-		
+
 		// Get plugin options.
 		$option_search_keys_shortcut       = get_option( 'sas_search_keys_shortcut', array() );
 		$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
-		$current_search_keys_shortcut      = [];
+		$current_search_keys_shortcut      = array();
 		foreach ( $option_search_keys_shortcut_array as $key ) {
 			$key_data                       = explode( '|', $key );
 			$current_search_keys_shortcut[] = $key_data[0];
 		}
-		
+
 		wp_localize_script(
 			$this->plugin_slug . '-admin',
 			'sas_options',
@@ -211,7 +211,7 @@ class Smart_Admin_Search_Admin {
 	public function smart_admin_search( $data ) {
 
 		if ( is_user_logged_in() ) {
-			
+
 			global $wp_filter;
 
 			// Get the search query.
@@ -222,7 +222,7 @@ class Smart_Admin_Search_Admin {
 
 			// Get functions added to the "add" hook.
 			$added_functions = $this->get_added_functions();
-			
+
 			// Get disabled functions.
 			$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
 
@@ -230,8 +230,8 @@ class Smart_Admin_Search_Admin {
 			foreach ( $added_functions as $function ) {
 				$key = array_search( $function['name'], array_column( $this->registered_functions, 'name' ), true );
 
-				if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions ) ) ) {
-					unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][$function['unique_id']] );
+				if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions, true ) ) ) {
+					unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][ $function['unique_id'] ] );
 				}
 			}
 
@@ -257,7 +257,7 @@ class Smart_Admin_Search_Admin {
 		}
 
 	}
-	
+
 	/**
 	 * Registers the search functions.
 	 *
@@ -266,19 +266,20 @@ class Smart_Admin_Search_Admin {
 	public function register_functions() {
 		$this->registered_functions = apply_filters( 'smart_admin_search_register_function', $this->registered_functions );
 	}
-	
+
 	/**
 	 * Retrieve the registered search functions.
 	 *
 	 * @since     1.0.0
-	 * @param     bool     $run_registration    If true, runs the functions registration.
+	 * @param     bool $run_registration    If true, runs the functions registration.
+	 *
 	 * @return    array    The registered functions.
 	 */
 	public function get_registered_functions( $run_registration = false ) {
 		if ( $run_registration ) {
 			$this->register_functions();
 		}
-		
+
 		return $this->registered_functions;
 	}
 

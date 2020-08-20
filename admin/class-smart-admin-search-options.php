@@ -35,7 +35,7 @@ class Smart_Admin_Search_Options {
 	 * @var      string    $plugin_slug    The slug of this plugin.
 	 */
 	private $plugin_slug;
-	
+
 	/**
 	 * The slug of options menu.
 	 *
@@ -103,11 +103,11 @@ class Smart_Admin_Search_Options {
 	 * @since    1.0.0
 	 */
 	public function options_init() {
-		
+
 		// -------------------------------------------
 		// Set keys shortcut to open the search modal.
 		// -------------------------------------------
-		
+
 		// Add a section.
 		add_settings_section(
 			'sas_options_section_keys_shortcuts',
@@ -118,7 +118,7 @@ class Smart_Admin_Search_Options {
 			),
 			$this->options_slug
 		);
-		
+
 		// Register a setting.
 		register_setting(
 			$this->options_slug,
@@ -133,7 +133,7 @@ class Smart_Admin_Search_Options {
 				),
 			)
 		);
-		
+
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_search_keys_shortcut',
@@ -148,11 +148,11 @@ class Smart_Admin_Search_Options {
 				'name' => 'sas_search_keys_shortcut',
 			)
 		);
-		
+
 		// -----------------------------------
 		// Enable or disable search functions.
 		// -----------------------------------
-		
+
 		// Add a section.
 		add_settings_section(
 			'sas_options_section_search_functions',
@@ -163,7 +163,7 @@ class Smart_Admin_Search_Options {
 			),
 			$this->options_slug
 		);
-		
+
 		// Register a setting.
 		register_setting(
 			$this->options_slug,
@@ -178,7 +178,7 @@ class Smart_Admin_Search_Options {
 				),
 			)
 		);
-		
+
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_disabled_search_functions',
@@ -195,7 +195,7 @@ class Smart_Admin_Search_Options {
 		);
 
 	}
-	
+
 	/**
 	 * Callback for the Keys shortcuts options section output.
 	 *
@@ -211,7 +211,7 @@ class Smart_Admin_Search_Options {
 		<?php
 
 	}
-	
+
 	/**
 	 * Callback for the search_keys_shortcut option value sanitization.
 	 *
@@ -223,7 +223,7 @@ class Smart_Admin_Search_Options {
 		return $value;
 
 	}
-	
+
 	/**
 	 * Callback for the search_keys_shortcut option field output.
 	 *
@@ -231,23 +231,23 @@ class Smart_Admin_Search_Options {
 	 * @param    array $args Array of field attributes.
 	 */
 	public function option_search_keys_shortcut( $args ) {
-		
+
 		// Get the option value.
 		$option_search_keys_shortcut = get_option( $args['name'], array() );
-		
+
 		// Create a readable version of the current shortcut.
 		$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
-		$current_search_keys_shortcut = '';
+		$current_search_keys_shortcut      = '';
 		foreach ( $option_search_keys_shortcut_array as $key ) {
 			$key_data = explode( '|', $key );
-			
+
 			if ( empty( $current_search_keys_shortcut ) ) {
 				$current_search_keys_shortcut = $key_data[1];
 			} else {
 				$current_search_keys_shortcut .= ' + ' . $key_data[1];
 			}
 		}
-		
+
 		?>
 		<fieldset>
 			<input type="text" id="sas-capture-search-keys" class="regular-text sas-skip-global-keypress" value="">
@@ -260,11 +260,11 @@ class Smart_Admin_Search_Options {
 			</p>
 		</fieldset>
 		<?php
-		
+
 	}
-	
+
 	// ------------------------------------------------------------------------
-	
+
 	/**
 	 * Callback for the Search functions options section output.
 	 *
@@ -320,24 +320,24 @@ class Smart_Admin_Search_Options {
 		// Get the registered functions.
 		$admin                = new Smart_Admin_Search_Admin( '', '', '' );
 		$registered_functions = $admin->get_registered_functions( true );
-		
+
 		// Sort functions by display name.
 		usort(
 			$registered_functions,
 			function ( $item1, $item2 ) {
-				if ( $item1['display_name'] == $item2['display_name'] ) {
+				if ( $item1['display_name'] === $item2['display_name'] ) {
 					return 0;
 				}
 				return $item1['display_name'] < $item2['display_name'] ? -1 : 1;
 			}
 		);
-		
+
 		?>
 		<fieldset>
 			<?php foreach ( $registered_functions as $function ) : ?>
 				<?php $id_attr = $args['name'] . '_' . $function['name']; ?>
 				<?php $checked_attr = ( ! in_array( $function['name'], $option_disabled_search_functions, true ) ) ? 'checked' : ''; ?>
-				
+
 				<input type="checkbox" id="<?php echo esc_attr( $id_attr ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>[]" value="<?php echo esc_attr( $function['name'] ); ?>" <?php echo esc_attr( $checked_attr ); ?>>
 				<label for="<?php echo esc_attr( $id_attr ); ?>"><?php echo esc_html( $function['display_name'] ); ?></label>
 				<p class="description">
