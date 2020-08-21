@@ -163,6 +163,7 @@ class Smart_Admin_Search_Admin {
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'smart_admin_search' ),
+				'permission_callback' => array( $this, 'smart_admin_search_permission_callback' ),
 			)
 		);
 
@@ -203,6 +204,15 @@ class Smart_Admin_Search_Admin {
 	}
 
 	/**
+	 * The permission callback for the main search function.
+	 *
+	 * @since    1.0.0
+	 */
+	public function smart_admin_search_permission_callback() {
+		return is_user_logged_in();
+	}
+
+	/**
 	 * The main search function called from the REST-API.
 	 *
 	 * @since    1.0.0
@@ -210,51 +220,43 @@ class Smart_Admin_Search_Admin {
 	 */
 	public function smart_admin_search( $data ) {
 
-		if ( is_user_logged_in() ) {
+		global $wp_filter;
 
-			global $wp_filter;
+		// Get the search query.
+		$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
-			// Get the search query.
-			$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
+		// Register search functions.
+		$this->register_functions();
 
-			// Register search functions.
-			$this->register_functions();
+		// Get functions added to the "add" hook.
+		$added_functions = $this->get_added_functions();
 
-			// Get functions added to the "add" hook.
-			$added_functions = $this->get_added_functions();
+		// Get disabled functions.
+		$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
 
-			// Get disabled functions.
-			$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
+		// Remove functions added but not registered and functions disabled by the user.
+		foreach ( $added_functions as $function ) {
+			$key = array_search( $function['name'], array_column( $this->registered_functions, 'name' ), true );
 
-			// Remove functions added but not registered and functions disabled by the user.
-			foreach ( $added_functions as $function ) {
-				$key = array_search( $function['name'], array_column( $this->registered_functions, 'name' ), true );
-
-				if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions, true ) ) ) {
-					unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][ $function['unique_id'] ] );
-				}
+			if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions, true ) ) ) {
+				unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][ $function['unique_id'] ] );
 			}
-
-			// Run search functions.
-			$this->search_results = apply_filters( 'smart_admin_search_add_function', $this->search_results, $query );
-
-			// Add numeric IDs to the results.
-			if ( ! empty( $this->search_results ) ) {
-				$id = 1;
-
-				foreach ( $this->search_results as $key => $result ) {
-					$this->search_results[ $key ]['id'] = $id;
-					$id++;
-				}
-			}
-
-			return $this->search_results;
-
-		} else {
-
-			return 'Access denied.';
-
 		}
+
+		// Run search functions.
+		$this->search_results = apply_filters( 'smart_admin_search_add_function', $this->search_results, $query );
+
+		// Add numeric IDs to the results.
+		if ( ! empty( $this->search_results ) ) {
+			$id = 1;
+
+			foreach ( $this->search_results as $key => $result ) {
+				$this->search_results[ $key ]['id'] = $id;
+				$id++;
+			}
+		}
+
+		return $this->search_results;
 
 	}
 
