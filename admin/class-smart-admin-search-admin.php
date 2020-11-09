@@ -62,6 +62,15 @@ class Smart_Admin_Search_Admin {
 	private $search_results = array();
 
 	/**
+	 * The name of the class containing the search functions.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      array    $search_functions_class    The name of the class containing the search functions.
+	 */
+	private $search_functions_class = 'Smart_Admin_Search_Functions';
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -161,45 +170,11 @@ class Smart_Admin_Search_Admin {
 			$this->plugin_slug . '/v1',
 			'search',
 			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'smart_admin_search' ),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'smart_admin_search' ),
 				'permission_callback' => array( $this, 'smart_admin_search_permission_callback' ),
 			)
 		);
-
-	}
-
-	/**
-	 * Creates a list of functions added by the plugin hook.
-	 *
-	 * @since    1.0.0
-	 */
-	public function get_added_functions() {
-
-		global $wp_filter;
-
-		$added_functions = array();
-
-		array_walk(
-			$wp_filter['smart_admin_search_add_function']->callbacks,
-			function( $item, $key ) use ( &$added_functions ) {
-				foreach ( $item as $key => $callback ) {
-					if ( is_string( $callback['function'] ) ) {
-						$added_functions[] = array(
-							'unique_id' => $key,
-							'name'      => $callback['function'],
-						);
-					} elseif ( is_array( $callback['function'] ) ) {
-						$added_functions[] = array(
-							'unique_id' => $key,
-							'name'      => $callback['function'][1],
-						);
-					}
-				}
-			}
-		);
-
-		return $added_functions;
 
 	}
 
@@ -220,31 +195,26 @@ class Smart_Admin_Search_Admin {
 	 */
 	public function smart_admin_search( $data ) {
 
-		global $wp_filter;
-
 		// Get the search query.
 		$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
-
-		// Register search functions.
-		$this->register_functions();
-
-		// Get functions added to the "add" hook.
-		$added_functions = $this->get_added_functions();
 
 		// Get disabled functions.
 		$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
 
-		// Remove functions added but not registered and functions disabled by the user.
-		foreach ( $added_functions as $function ) {
-			$key = array_search( $function['name'], array_column( $this->registered_functions, 'name' ), true );
+		// Register search functions.
+		$this->register_functions();
 
-			if ( ( false === $key ) || ( in_array( $function['name'], $disabled_functions, true ) ) ) {
-				unset( $wp_filter['smart_admin_search_add_function']->callbacks[10][ $function['unique_id'] ] );
-			}
-		}
+		// Get the search functions class.
+		$search_functions_class = new $this->search_functions_class();
 
 		// Run search functions.
-		$this->search_results = apply_filters( 'smart_admin_search_add_function', $this->search_results, $query );
+		foreach ( $this->registered_functions as $function ) {
+
+			// Skip disabled functions.
+			if ( ! in_array( $function['name'], $disabled_functions, true ) ) {
+				$this->search_results = $search_functions_class->{ $function['name'] }( $this->search_results, $query );
+			}
+		}
 
 		// Add numeric IDs to the results.
 		if ( ! empty( $this->search_results ) ) {
@@ -266,7 +236,24 @@ class Smart_Admin_Search_Admin {
 	 * @since    1.0.0
 	 */
 	public function register_functions() {
-		$this->registered_functions = apply_filters( 'smart_admin_search_register_function', $this->registered_functions );
+
+		// Get all the search functions class methods.
+		$search_functions_class_methods = get_class_methods( $this->search_functions_class );
+
+		// Get the search functions class.
+		$search_functions_class = new $this->search_functions_class();
+
+		// Run search functions class methods that register the search functions.
+		$register_method_prefix = 'register_';
+
+		foreach ( $search_functions_class_methods as $method ) {
+
+			// If the method name starts with the correct prefix, run it.
+			if ( substr( $method, 0, strlen( $register_method_prefix ) ) === $register_method_prefix ) {
+				$this->registered_functions = $search_functions_class->{ $method }( $this->registered_functions );
+			}
+		}
+
 	}
 
 	/**

@@ -173,12 +173,8 @@ class Smart_Admin_Search {
 
 		// Search functions.
 		$search_functions = new Smart_Admin_Search_Functions();
-		$this->loader->add_filter( 'smart_admin_search_register_function', $search_functions, 'register_demo_search_function' );
-		$this->loader->add_filter( 'smart_admin_search_add_function', $search_functions, 'demo_search_function', 10, 2 );
-
+		// Required by the admin menu search function.
 		$this->loader->add_filter( 'adminmenu', $search_functions, 'get_admin_menu' );
-		$this->loader->add_filter( 'smart_admin_search_register_function', $search_functions, 'register_search_admin_menu' );
-		$this->loader->add_filter( 'smart_admin_search_add_function', $search_functions, 'search_admin_menu', 10, 2 );
 
 	}
 
