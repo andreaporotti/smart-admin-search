@@ -130,12 +130,14 @@ class Smart_Admin_Search_Admin {
 		);
 
 		// Get plugin options.
-		$option_search_keys_shortcut       = get_option( 'sas_search_keys_shortcut', array() );
-		$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
-		$current_search_keys_shortcut      = array();
-		foreach ( $option_search_keys_shortcut_array as $key ) {
-			$key_data                       = explode( '|', $key );
-			$current_search_keys_shortcut[] = $key_data[0];
+		$option_search_keys_shortcut  = get_option( 'sas_search_keys_shortcut', '' );
+		$current_search_keys_shortcut = array();
+		if ( ! empty( $option_search_keys_shortcut ) && 'none' !== $option_search_keys_shortcut ) {
+			$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
+			foreach ( $option_search_keys_shortcut_array as $key ) {
+				$key_data                       = explode( '|', $key );
+				$current_search_keys_shortcut[] = $key_data[0];
+			}
 		}
 
 		wp_localize_script(

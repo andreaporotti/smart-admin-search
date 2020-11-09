@@ -30,7 +30,7 @@ class Smart_Admin_Search_Activator {
 
 		// Keys shortcut to open search modal.
 		if ( false === get_option( 'sas_search_keys_shortcut' ) ) {
-			add_option( 'sas_search_keys_shortcut', '', '', 'no' );
+			add_option( 'sas_search_keys_shortcut', 'none', '', 'no' );
 		}
 
 		// Disabled functions.
