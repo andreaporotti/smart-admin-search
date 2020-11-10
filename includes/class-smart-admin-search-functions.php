@@ -49,16 +49,16 @@ class Smart_Admin_Search_Functions {
 	 */
 	public function get_admin_menu() {
 
-		global $menu, $submenu;
+		global $menu, $submenu, $current_user;
 
 		// Get menus from transient.
-		$transient_menu    = get_transient( 'sas_admin_menu' );
-		$transient_submenu = get_transient( 'sas_admin_submenu' );
+		$transient_menu    = get_transient( 'sas_admin_menu_user_' . $current_user->ID );
+		$transient_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
 		// Set the transient if it is false or different from the corresponding global menu.
 		// -- menu.
 		if ( false === $transient_menu || $menu !== $transient_menu ) {
-			set_transient( 'sas_admin_menu', $menu );
+			set_transient( 'sas_admin_menu_user_' . $current_user->ID, $menu );
 		}
 
 		// -- submenu.
@@ -78,7 +78,7 @@ class Smart_Admin_Search_Functions {
 		);
 
 		if ( false === $transient_submenu || $global_submenu !== $transient_submenu ) {
-			set_transient( 'sas_admin_submenu', $global_submenu );
+			set_transient( 'sas_admin_submenu_user_' . $current_user->ID, $global_submenu );
 		}
 
 	}
@@ -111,9 +111,11 @@ class Smart_Admin_Search_Functions {
 	 */
 	public function search_admin_menu( $search_results, $query ) {
 
+		global $current_user;
+
 		// Get menus from transient.
-		$admin_menu    = get_transient( 'sas_admin_menu' );
-		$admin_submenu = get_transient( 'sas_admin_submenu' );
+		$admin_menu    = get_transient( 'sas_admin_menu_user_' . $current_user->ID );
+		$admin_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
 		if ( ! empty( $admin_menu ) && ! empty( $admin_submenu ) ) {
 
