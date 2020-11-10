@@ -129,22 +129,11 @@ class Smart_Admin_Search_Admin {
 			)
 		);
 
-		// Get plugin options.
-		$option_search_keys_shortcut  = get_option( 'sas_search_keys_shortcut', '' );
-		$current_search_keys_shortcut = array();
-		if ( ! empty( $option_search_keys_shortcut ) && 'none' !== $option_search_keys_shortcut ) {
-			$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
-			foreach ( $option_search_keys_shortcut_array as $key ) {
-				$key_data                       = explode( '|', $key );
-				$current_search_keys_shortcut[] = $key_data[0];
-			}
-		}
-
 		wp_localize_script(
 			$this->plugin_slug . '-admin',
 			'sas_options',
 			array(
-				'search_keys_shortcut' => $current_search_keys_shortcut,
+				'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),
 			)
 		);
 
@@ -165,7 +154,11 @@ class Smart_Admin_Search_Admin {
 				'href'   => '#',
 				'parent' => 'top-secondary',
 				'meta'   => array(
-					'title' => __( 'Search in the WordPress dashboard.', 'smart-admin-search' ),
+					'title' => sprintf(
+						/* translators: %s is the keyboard shortcut to open the search window */
+						__( 'Search in the WordPress dashboard (%s)', 'smart-admin-search' ),
+						$this->get_current_search_keys_shortcut( 'string' )
+					),
 				),
 			)
 		);
@@ -281,7 +274,7 @@ class Smart_Admin_Search_Admin {
 	}
 
 	/**
-	 * Retrieve the registered search functions.
+	 * Retrieves the registered search functions.
 	 *
 	 * @since     1.0.0
 	 * @param     bool $run_registration    If true, runs the functions registration.
@@ -294,6 +287,54 @@ class Smart_Admin_Search_Admin {
 		}
 
 		return $this->registered_functions;
+	}
+
+	/**
+	 * Returns the current search keys shortcut in a specific format.
+	 *
+	 * @since     1.0.0
+	 * @param     string $format    The format of shortcut to be returned.
+	 */
+	public function get_current_search_keys_shortcut( $format ) {
+
+		if ( ! empty( $format ) ) {
+
+			// Available formats.
+			$shortcut_array  = array();
+			$shortcut_string = '';
+
+			// Get the option.
+			$option_search_keys_shortcut = get_option( 'sas_search_keys_shortcut', '' );
+
+			if ( ! empty( $option_search_keys_shortcut ) && 'none' !== $option_search_keys_shortcut ) {
+
+				// Get an array from saved string.
+				$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
+
+				foreach ( $option_search_keys_shortcut_array as $key ) {
+
+					// Get key number and key name.
+					$key_data = explode( '|', $key );
+
+					if ( 'array' === $format ) {
+
+						$shortcut_array[] = $key_data[0];
+
+					} elseif ( 'string' === $format ) {
+
+						if ( empty( $shortcut_string ) ) {
+							$shortcut_string = $key_data[1];
+						} else {
+							$shortcut_string .= '+' . $key_data[1];
+						}
+					}
+				}
+			}
+
+			return ${ "shortcut_$format" };
+
+		}
+
 	}
 
 }
