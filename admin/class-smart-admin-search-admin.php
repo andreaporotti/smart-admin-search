@@ -295,7 +295,7 @@ class Smart_Admin_Search_Admin {
 	 * @since     1.0.0
 	 * @param     string $format    The format of shortcut to be returned.
 	 */
-	public function get_current_search_keys_shortcut( $format ) {
+	public static function get_current_search_keys_shortcut( $format ) {
 
 		if ( ! empty( $format ) ) {
 
@@ -329,6 +329,9 @@ class Smart_Admin_Search_Admin {
 						}
 					}
 				}
+			} else {
+				// Display a default message for the string format.
+				$shortcut_string = __( 'no keyboard shortcut set', 'smart-admin-search' );
 			}
 
 			return ${ "shortcut_$format" };

@@ -235,24 +235,8 @@ class Smart_Admin_Search_Options {
 		// Get the option value.
 		$option_search_keys_shortcut = get_option( $args['name'], '' );
 
-		// Create a readable version of the current shortcut.
-		$current_search_keys_shortcut = '';
-
-		if ( ! empty ( $option_search_keys_shortcut ) && 'none' !== $option_search_keys_shortcut ) {
-			$option_search_keys_shortcut_array = explode( ',', $option_search_keys_shortcut );
-
-			foreach ( $option_search_keys_shortcut_array as $key ) {
-				$key_data = explode( '|', $key );
-
-				if ( empty( $current_search_keys_shortcut ) ) {
-					$current_search_keys_shortcut = $key_data[1];
-				} else {
-					$current_search_keys_shortcut .= ' + ' . $key_data[1];
-				}
-			}
-		} else {
-			$current_search_keys_shortcut = __('no shortcut set', 'smart-admin-search');
-		}
+		// Get a readable version of the current shortcut.
+		$current_search_keys_shortcut = Smart_Admin_Search_Admin::get_current_search_keys_shortcut( 'string' );
 
 		?>
 		<fieldset>
@@ -307,7 +291,7 @@ class Smart_Admin_Search_Options {
 		} else {
 			$disabled_functions = array_diff( $registered_functions_names, $value );
 		}
-		
+
 		return ( ! empty( $disabled_functions ) ) ? $disabled_functions : array( 'none' );
 
 	}
