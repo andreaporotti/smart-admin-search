@@ -163,6 +163,7 @@ class Smart_Admin_Search {
 		$plugin_admin = new Smart_Admin_Search_Admin( $this->get_plugin_name(), $this->get_plugin_slug(), $this->get_version() );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'admin_bar_menu', 10 );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
 

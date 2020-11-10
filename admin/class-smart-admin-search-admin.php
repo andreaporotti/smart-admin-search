@@ -151,6 +151,28 @@ class Smart_Admin_Search_Admin {
 	}
 
 	/**
+	 * Adds the admin bar item to open the search modal.
+	 *
+	 * @since    1.0.0
+	 * @param    object $wp_admin_bar    The admin bar object.
+	 */
+	public function admin_bar_menu( $wp_admin_bar ) {
+
+		$wp_admin_bar->add_node(
+			array(
+				'id'     => 'sas_icon',
+				'title'  => SMART_ADMIN_SEARCH_PLUGIN_NAME,
+				'href'   => '#',
+				'parent' => 'top-secondary',
+				'meta'   => array(
+					'title' => __( 'Search in the WordPress dashboard.', 'smart-admin-search' ),
+				),
+			)
+		);
+
+	}
+
+	/**
 	 * Adds content to admin footer.
 	 *
 	 * @since    1.0.0

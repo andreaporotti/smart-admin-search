@@ -10,6 +10,16 @@
 		let sasDocument          = $( document );
 		let sasSearchModal       = $( '.sas-search-modal' );
 		let sasSearchModalSelect = $( '.sas-search-modal__select' );
+		let sasAdminBarIcon      = $( '#wp-admin-bar-sas_icon' );
+		
+		/*
+		 * ADMIN BAR
+		 */
+		
+		sasAdminBarIcon.on( 'click', function( e ) {
+			e.preventDefault();
+			showSearchModal();
+		} );
 
 		/*
 		 * GLOBAL KEY PRESS

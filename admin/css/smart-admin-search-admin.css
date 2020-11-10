@@ -1,4 +1,14 @@
 /*
+* ADMIN BAR
+*/
+
+/* Item icon */
+#wpadminbar #wp-admin-bar-sas_icon .ab-item::before {
+	content: "\f179";
+	top: 3px;
+}
+
+/*
 * SEARCH MODAL
 */
 
