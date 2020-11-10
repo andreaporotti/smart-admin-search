@@ -123,10 +123,11 @@
 		}
 		
 		function hideSearchModal() {
-			sasSearchModal.css( 'display', 'none' );
-			
 			if ( sasSearchModalSelect.hasClass( 'select2-hidden-accessible' ) ) {
+				sasSearchModal.css( 'display', 'none' );
+				
 				sasSearchModalSelect.select2( 'destroy' );
+				sasSearchModalSelect.empty();
 			}
 		}
 		

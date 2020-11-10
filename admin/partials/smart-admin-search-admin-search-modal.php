@@ -10,13 +10,7 @@
 ?>
 
 <div class="sas-search-modal">
-
 	<div class="sas-search-modal__content">
-
-		<select class="sas-search-modal__select">
-			<option></option>
-		</select>
-
+		<select class="sas-search-modal__select"></select>
 	</div>
-
 </div>
