@@ -114,26 +114,18 @@ class Smart_Admin_Search_Admin {
 
 		wp_localize_script(
 			$this->plugin_slug . '-admin',
-			'sas_ajax',
+			'sas_values',
 			array(
-				'search_url' => esc_url_raw( rest_url() ) . $this->plugin_slug . '/v1/search',
-				'nonce'      => wp_create_nonce( 'wp_rest' ),
-			)
-		);
-
-		wp_localize_script(
-			$this->plugin_slug . '-admin',
-			'sas_strings',
-			array(
-				'search_select_placeholder' => esc_html__( 'what are you looking for...?', 'smart-admin-search' ),
-			)
-		);
-
-		wp_localize_script(
-			$this->plugin_slug . '-admin',
-			'sas_options',
-			array(
-				'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),
+				'ajax'    => array(
+					'search_url' => esc_url_raw( rest_url() ) . $this->plugin_slug . '/v1/search',
+					'nonce'      => wp_create_nonce( 'wp_rest' ),
+				),
+				'strings' => array(
+					'search_select_placeholder' => esc_html__( 'Hello, what are you looking for?', 'smart-admin-search' ),
+				),
+				'options' => array(
+					'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),
+				),
 			)
 		);
 

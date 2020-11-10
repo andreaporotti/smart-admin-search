@@ -26,7 +26,7 @@
 		 */
 
 		// Get search keys shortcut, sorting items and converting them to int values.
-		let searchKeysShortcut = sas_options.search_keys_shortcut.sort().map( Number );
+		let searchKeysShortcut = sas_values.options.search_keys_shortcut.sort().map( Number );
 
 		// Array of pressed keys.
 		let pressedKeys = [];
@@ -80,7 +80,7 @@
 		
 		function formatSearchResultSelection( result ) {
 			if ( result.id === '' ) {
-				return sas_strings.search_select_placeholder;
+				return sas_values.strings.search_select_placeholder;
 			}
 	
 			return result.text;
@@ -92,17 +92,17 @@
 			sasSearchModalSelect.select2( {
 				dropdownParent    : sasSearchModal,
 				width             : '100%',
-				placeholder       : sas_strings.search_select_placeholder,
+				placeholder       : sas_values.strings.search_select_placeholder,
 				minimumInputLength: 3,
 				allowClear        : true,
 				templateResult    : formatSearchResult,
 				templateSelection : formatSearchResultSelection,
 				ajax              : {
 					method        : 'GET',
-					url           : sas_ajax.search_url,
+					url           : sas_values.ajax.search_url,
 					delay         : 500,
 					beforeSend    : function (xhr) {
-						xhr.setRequestHeader( 'X-WP-NONCE', sas_ajax.nonce );
+						xhr.setRequestHeader( 'X-WP-NONCE', sas_values.ajax.nonce );
 					},
 					data          : function ( params ) {
 						return {
@@ -173,7 +173,7 @@
 					if ( $(this).val() === '' ) {
 						$(this).val( e.key );
 					} else {
-						$(this).val( $(this).val() + ' + ' + e.key );
+						$(this).val( $(this).val() + '+' + e.key );
 					}
 				}
 			} );
