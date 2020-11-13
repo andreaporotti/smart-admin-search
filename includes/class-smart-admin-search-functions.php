@@ -56,9 +56,34 @@ class Smart_Admin_Search_Functions {
 		$transient_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
 		// Set the transient if it is false or different from the corresponding global menu.
+
 		// -- menu.
-		if ( false === $transient_menu || $menu !== $transient_menu ) {
-			set_transient( 'sas_admin_menu_user_' . $current_user->ID, $menu );
+		$global_menu = $menu;
+
+		// Menu items to be skipped.
+		$menu_items_to_skip = array(
+			'wp-menu-separator',
+			'menu-top menu-icon-links',
+		);
+
+		// Parse all menu items.
+		array_walk(
+			$global_menu,
+			function( $item, $key ) use ( &$global_menu, $menu_items_to_skip ) {
+
+				if ( ! in_array( $item[4], $menu_items_to_skip, true ) ) {
+					// Remove any HTML code from item name.
+					$global_menu[ $key ][0] = trim( sanitize_text_field( ( strpos( $item[0], '<' ) > 0 ) ? strstr( $item[0], '<', true ) : $item[0] ) );
+				} else {
+					// Remove the menu item.
+					unset( $global_menu[ $key ] );
+				}
+
+			}
+		);
+
+		if ( false === $transient_menu || $global_menu !== $transient_menu ) {
+			set_transient( 'sas_admin_menu_user_' . $current_user->ID, $global_menu );
 		}
 
 		// -- submenu.
@@ -70,8 +95,11 @@ class Smart_Admin_Search_Functions {
 			function( $item, $key ) use ( &$global_submenu ) {
 
 				foreach ( $item as $item_key => $menu_item ) {
+					// Remove any HTML code from item name.
+					$global_submenu[ $key ][ $item_key ][0] = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
+
 					// Remove any 'return' parameter from file name.
-					$global_submenu[ $key ][ $item_key ][2] = remove_query_arg( 'return', wp_kses_decode_entities( $global_submenu[ $key ][ $item_key ][2] ) );
+					$global_submenu[ $key ][ $item_key ][2] = remove_query_arg( 'return', wp_kses_decode_entities( $menu_item[2] ) );
 				}
 
 			}
@@ -119,39 +147,30 @@ class Smart_Admin_Search_Functions {
 
 		if ( ! empty( $admin_menu ) && ! empty( $admin_submenu ) ) {
 
-			// Menu items to be skipped.
-			$menu_items_to_skip = array(
-				'wp-menu-separator',
-				'menu-top menu-icon-links',
-			);
-
 			// Search in the first level menu items.
 			foreach ( $admin_menu as $menu_item ) {
 
-				if ( ! in_array( $menu_item[4], $menu_items_to_skip, true ) ) {
+				// Get item name.
+				$name = $menu_item[0];
 
-					// Get item name removing any HTML code.
-					$name = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
+				// Check if the item name contains the query.
+				if ( ! empty( $name ) && strpos( strtolower( $name ), strtolower( $query ) ) !== false ) {
 
-					// Check if the item name contains the query.
-					if ( ! empty( $name ) && strpos( strtolower( $name ), strtolower( $query ) ) !== false ) {
-
-						// Generate item url:
-						// if the item has not a file name, use /admin.php?page=[name].
-						if ( strpos( $menu_item[2], '.php' ) === false ) {
-							$url = wp_specialchars_decode( admin_url( '/admin.php?page=' . $menu_item[2] ) );
-						} else {
-							$url = wp_specialchars_decode( admin_url( $menu_item[2] ) );
-						}
-
-						// Add the item to search results.
-						$search_results[] = array(
-							'text'        => $name,
-							'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
-							'link_url'    => $url,
-						);
-
+					// Generate item url:
+					// if the item has not a file name, use /admin.php?page=[name].
+					if ( strpos( $menu_item[2], '.php' ) === false ) {
+						$url = wp_specialchars_decode( admin_url( '/admin.php?page=' . $menu_item[2] ) );
+					} else {
+						$url = wp_specialchars_decode( admin_url( $menu_item[2] ) );
 					}
+
+					// Add the item to search results.
+					$search_results[] = array(
+						'text'        => $name,
+						'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
+						'link_url'    => $url,
+					);
+
 				}
 			}
 
@@ -162,8 +181,8 @@ class Smart_Admin_Search_Functions {
 
 					foreach ( $item as $item_key => $menu_item ) {
 
-						// Get item name removing any HTML code.
-						$name = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
+						// Get item name.
+						$name = $menu_item[0];
 
 						// Get parent item name.
 						$parent_item_name = $this->get_admin_menu_item_name_by_key( $admin_menu, $key );
@@ -185,7 +204,7 @@ class Smart_Admin_Search_Functions {
 							// Add the item to search results.
 							$search_results[] = array(
 								'text'        => $full_name,
-								'description' => esc_html__( 'Admin submenu item.', 'smart-admin-search' ),
+								'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
 								'link_url'    => $url,
 							);
 
