@@ -8,6 +8,7 @@
 		 */
 
 		let sasDocument          = $( document );
+		let sasBody              = $( 'body' );
 		let sasSearchModal       = $( '.sas-search-modal' );
 		let sasSearchModalSelect = $( '.sas-search-modal__select' );
 		let sasAdminBarIcon      = $( '#wp-admin-bar-sas_icon' );
@@ -87,7 +88,8 @@
 		}
 		
 		function showSearchModal() {
-			sasSearchModal.css( 'display', 'block' );
+			sasSearchModal.addClass( 'sas-search-modal--opened' );
+			sasBody.addClass( 'prevent-scroll' );
 			
 			sasSearchModalSelect.select2( {
 				dropdownParent    : sasSearchModal,
@@ -101,15 +103,15 @@
 					method        : 'GET',
 					url           : sas_values.ajax.search_url,
 					delay         : 500,
-					beforeSend    : function (xhr) {
+					beforeSend    : function( xhr ) {
 						xhr.setRequestHeader( 'X-WP-NONCE', sas_values.ajax.nonce );
 					},
-					data          : function ( params ) {
+					data          : function( params ) {
 						return {
 							query: params.term
 						};
 					},
-					processResults: function ( result ) {
+					processResults: function( result ) {
 						return {
 							results: result
 						};
@@ -119,12 +121,13 @@
 			
 			setTimeout( function() {
 				sasSearchModalSelect.select2( 'open' );
-			}, 300 );
+			}, 500 ); // Time must be the same as (or greater than) the css animation duration.
 		}
 		
 		function hideSearchModal() {
 			if ( sasSearchModalSelect.hasClass( 'select2-hidden-accessible' ) ) {
-				sasSearchModal.css( 'display', 'none' );
+				sasSearchModal.removeClass( 'sas-search-modal--opened' );
+				sasBody.removeClass( 'prevent-scroll' );
 				
 				sasSearchModalSelect.select2( 'destroy' );
 				sasSearchModalSelect.empty();

@@ -1,4 +1,12 @@
 /*
+* BODY
+*/
+
+.prevent-scroll {
+	overflow: hidden;
+}
+
+/*
 * ADMIN BAR
 */
 
@@ -23,65 +31,86 @@
 	height: 100%;
 	overflow: auto;
 	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.5); /* Black with opacity */
+	background-color: rgba(0,0,0,0.7); /* Black with opacity */
+}
+
+.sas-search-modal.sas-search-modal--opened {
+	display: block;
 }
 
 /* Content/Box */
 .sas-search-modal__content {
 	position: relative;
 	background-color: #ffffff;
-	margin: 5% auto;
-	padding: 20px;
-	border: 1px solid #333333;
-	width: 60%;
-	
-	-webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
-	-moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
-	box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
+	margin: 10% auto 0 auto;
+	border-radius: 5px;
+	width: 50%;
 	
 	-webkit-animation-name: sas-search-modal-content-animate;
-	-webkit-animation-duration: 0.3s;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-out;
 	animation-name: sas-search-modal-content-animate;
-	animation-duration: 0.3s
+	animation-duration: .5s;
+	animation-timing-function: ease-out;
 }
 
 /* Animations */
 @-webkit-keyframes sas-search-modal-content-animate {
-  from {
-	top: -300px;
-	opacity: 0
-  }
-  
-  to {
-	top: 0;
-	opacity: 1
-  }
+	from {
+		top: -300px;
+		opacity: 0
+	}  
+	to {
+		top: 0;
+		opacity: 1
+	}
 }
 
 @keyframes sas-search-modal-content-animate {
-  from {
-	top: -300px;
-	opacity: 0
-  }
-  
-  to {
-	top: 0;
-	opacity: 1
-  }
+	from {
+		top: -300px;
+		opacity: 0
+	}
+	to {
+		top: 0;
+		opacity: 1
+	}
 }
 
 /* Search results */
 .sas-search-result__name {
 	font-size: 1.2rem;
+	font-weight: 600;
 	margin-bottom: 4px;
 }
 
 .sas-search-result__description {
-	font-size: 0.9rem;
-	margin-left: 4px;
+	font-size: 0.95rem;
 }
 
 .sas-search-result__link-url {
-	font-size: 0.7rem;
-	margin-left: 4px;
+	font-size: 0.68rem;
+}
+
+/*
+* SELECT2
+*/
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+	font-size: 1.5rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder{
+	font-weight: 600;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__clear {
+	font-size: 1.5rem;
+	line-height: 20px;
 }
