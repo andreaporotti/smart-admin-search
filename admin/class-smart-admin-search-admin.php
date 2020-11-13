@@ -94,7 +94,7 @@ class Smart_Admin_Search_Admin {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( $this->plugin_slug . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin.css', array( $this->plugin_slug . '-select2' ), $this->version, 'all' );
 
 	}
 
@@ -109,8 +109,8 @@ class Smart_Admin_Search_Admin {
 		$short_locale = substr( $locale, 0, 2 );
 
 		wp_enqueue_script( $this->plugin_slug . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_slug . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_slug . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_slug . '-select2-lang', plugin_dir_url( __DIR__ ) . 'assets/select2/i18n/' . $short_locale . '.js', array( 'jquery', $this->plugin_slug . '-select2' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_slug . '-admin', plugin_dir_url( __FILE__ ) . 'js/smart-admin-search-admin.js', array( 'jquery', $this->plugin_slug . '-select2' ), $this->version, true );
 
 		wp_localize_script(
 			$this->plugin_slug . '-admin',
