@@ -38,6 +38,11 @@ class Smart_Admin_Search_Activator {
 			add_option( 'sas_disabled_search_functions', array( 'none' ), '', 'no' );
 		}
 
+		// Delete settings and data when the plugin is removed.
+		if ( false === get_option( 'sas_delete_data_on_uninstall' ) ) {
+			add_option( 'sas_delete_data_on_uninstall', 0, '', 'no' );
+		}
+
 	}
 
 }

@@ -194,6 +194,51 @@ class Smart_Admin_Search_Options {
 			)
 		);
 
+		// ----------------------------------------------------
+		// Delete settings and data when the plugin is removed.
+		// ----------------------------------------------------
+
+		// Add a section.
+		add_settings_section(
+			'sas_options_section_uninstall',
+			esc_html__( 'Plugin uninstall', 'smart-admin-search' ),
+			array(
+				$this,
+				'options_section_uninstall',
+			),
+			$this->options_slug
+		);
+
+		// Register a setting.
+		register_setting(
+			$this->options_slug,
+			'sas_delete_data_on_uninstall',
+			array(
+				'type'              => 'boolean',
+				'show_in_rest'      => false,
+				'default'           => 0,
+				'sanitize_callback' => array(
+					$this,
+					'option_delete_data_on_uninstall_sanitize',
+				),
+			)
+		);
+
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_delete_data_on_uninstall',
+			esc_html__( 'Remove all data on plugin uninstall', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_delete_data_on_uninstall',
+			),
+			$this->options_slug,
+			'sas_options_section_uninstall',
+			array(
+				'label_for' => 'sas_delete_data_on_uninstall',
+			)
+		);
+
 	}
 
 	/**
@@ -337,6 +382,63 @@ class Smart_Admin_Search_Options {
 			<?php endforeach; ?>
 		</fieldset>
 		<?php
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Callback for the uninstall options section output.
+	 *
+	 * @since    1.0.0
+	 * @param    array $args Array of section attributes.
+	 */
+	public function options_section_uninstall( $args ) {
+
+		?>
+		<p id="<?php echo esc_attr( $args['id'] ); ?>">
+			<?php echo esc_html__( 'These settings are applied when you uninstall the plugin.', 'smart-admin-search' ); ?>
+		</p>
+		<?php
+
+	}
+
+	/**
+	 * Callback for the delete_data_on_uninstall option value sanitization.
+	 *
+	 * @since    1.0.0
+	 * @param    string $value Option value.
+	 */
+	public function option_delete_data_on_uninstall_sanitize( $value ) {
+
+		if ( '1' !== $value ) {
+			return 0;
+		}
+
+		return $value;
+
+	}
+
+	/**
+	 * Callback for the delete_data_on_uninstall option field output.
+	 *
+	 * @since    1.0.0
+	 * @param    array $args Array of field attributes.
+	 */
+	public function option_delete_data_on_uninstall( $args ) {
+
+		// Get the option value.
+		$option_delete_data_on_uninstall = get_option( $args['label_for'], 0 );
+
+		?>
+		<fieldset>
+			<input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" value="1" <?php checked( $option_delete_data_on_uninstall, 1 ); ?>>
+			<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><?php echo esc_html__( 'Enabled', 'smart-admin-search' ); ?></label>
+			<p class="description">
+				<?php echo esc_html__( 'Please note: enabling this option, all data and settings will be PERMANENTLY DELETED when you uninstall the plugin.', 'smart-admin-search' ); ?>
+			</p>
+		</fieldset>
+		<?php
+
 	}
 
 }
