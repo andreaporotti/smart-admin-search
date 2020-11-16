@@ -207,31 +207,33 @@ class Smart_Admin_Search_Admin {
 		// Get the search query.
 		$query = ( isset( $data['query'] ) ) ? sanitize_text_field( $data['query'] ) : '';
 
-		// Get disabled functions.
-		$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
+		if ( ! empty( $query ) ) {
 
-		// Register search functions.
-		$this->register_functions();
+			// Get disabled functions.
+			$disabled_functions = get_option( 'sas_disabled_search_functions', array() );
 
-		// Get the search functions class.
-		$search_functions_class = new $this->search_functions_class();
+			// Register search functions.
+			$this->register_functions();
 
-		// Run search functions.
-		foreach ( $this->registered_functions as $function ) {
+			// Get the search functions class.
+			$search_functions_class = new $this->search_functions_class();
 
-			// Skip disabled functions.
-			if ( ! in_array( $function['name'], $disabled_functions, true ) ) {
-				$this->search_results = $search_functions_class->{ $function['name'] }( $this->search_results, $query );
+			// Run search functions.
+			foreach ( $this->registered_functions as $function ) {
+				// Skip disabled functions.
+				if ( ! in_array( $function['name'], $disabled_functions, true ) ) {
+					$this->search_results = $search_functions_class->{ $function['name'] }( $this->search_results, $query );
+				}
 			}
-		}
 
-		// Add numeric IDs to the results.
-		if ( ! empty( $this->search_results ) ) {
-			$id = 1;
+			// Add numeric IDs to the results.
+			if ( ! empty( $this->search_results ) ) {
+				$id = 1;
 
-			foreach ( $this->search_results as $key => $result ) {
-				$this->search_results[ $key ]['id'] = $id;
-				$id++;
+				foreach ( $this->search_results as $key => $result ) {
+					$this->search_results[ $key ]['id'] = $id;
+					$id++;
+				}
 			}
 		}
 
