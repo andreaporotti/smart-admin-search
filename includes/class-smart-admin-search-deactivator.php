@@ -24,6 +24,20 @@ class Smart_Admin_Search_Deactivator {
 	 */
 	public static function deactivate() {
 
+		// Delete transients for all users.
+		$users = get_users();
+		foreach ( $users as $user ) {
+			$transient_name = 'sas_admin_menu_user_' . $user->ID;
+			if ( get_transient( $transient_name ) ) {
+				delete_transient( $transient_name );
+			}
+
+			$transient_name = 'sas_admin_submenu_user_' . $user->ID;
+			if ( get_transient( $transient_name ) ) {
+				delete_transient( $transient_name );
+			}
+		}
+
 	}
 
 }
