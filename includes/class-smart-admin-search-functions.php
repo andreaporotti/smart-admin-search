@@ -74,8 +74,14 @@ class Smart_Admin_Search_Functions {
 			function( $item, $key ) use ( &$global_menu, $menu_items_to_skip ) {
 
 				if ( ! in_array( $item[4], $menu_items_to_skip, true ) ) {
-					// Remove any HTML code from item name.
-					$global_menu[ $key ][0] = trim( sanitize_text_field( ( strpos( $item[0], '<' ) > 0 ) ? strstr( $item[0], '<', true ) : $item[0] ) );
+					// Remove any HTML code from item name. If the name is empty, remove the item.
+					$name = trim( sanitize_text_field( ( strpos( $item[0], '<' ) > 0 ) ? strstr( $item[0], '<', true ) : $item[0] ) );
+
+					if ( ! empty( $name ) ) {
+						$global_menu[ $key ][0] = $name;
+					} else {
+						unset( $global_menu[ $key ] );
+					}
 				} else {
 					// Remove the menu item.
 					unset( $global_menu[ $key ] );
