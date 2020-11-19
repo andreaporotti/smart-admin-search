@@ -78,6 +78,35 @@
 }
 
 /* Search results */
+.sas-search-result {
+	display: flex;
+}
+
+.sas-search-result__icon {
+	width: 20px;
+	height: 20px;
+	margin: 0 10px 0 5px;
+	padding: 6px;
+	border-radius: 20px;
+	background-color: #23282d;
+	background-position: center center;
+	background-size: 20px;
+	background-repeat: no-repeat;
+}
+
+.sas-search-result__icon.sas-search-result__icon--default::before {
+	content: '';
+	background-color: rgba(240, 245, 250, .6);
+	width: 12px;
+	height: 12px;
+	margin: 4px;
+	border-radius: 10px;
+}
+
+.sas-search-result__icon.wp-menu-image::before {
+	padding: 0;
+}
+
 .sas-search-result__name {
 	font-size: 1.2rem;
 	font-weight: 600;

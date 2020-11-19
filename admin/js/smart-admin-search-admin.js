@@ -70,9 +70,12 @@
 			
 			let template = $(
 				'<div class="sas-search-result">' +
-					'<div class="sas-search-result__name">' + result.text + '</div>' + 
-					'<div class="sas-search-result__description">' + result.description + '</div>' +
-					'<div class="sas-search-result__link-url">' + result.link_url + '</div>' +
+					'<div class="sas-search-result__icon wp-menu-image dashicons-before ' + result.icon_class + '" style="' + result.style + '"></div>' + 
+					'<div class="sas-search-result__info">' + 
+						'<div class="sas-search-result__name">' + result.text + '</div>' + 
+						'<div class="sas-search-result__description">' + result.description + '</div>' +
+						'<div class="sas-search-result__link-url">' + result.link_url + '</div>' +
+					'</div>' +
 				'</div>'
 			);
 			

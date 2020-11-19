@@ -33,6 +33,8 @@ class Smart_Admin_Search_Functions {
 			'text'        => 'Demo result',
 			'description' => 'demo result from demo function...',
 			'link_url'    => '',
+			'icon_class'  => '',
+			'style'       => '',
 		);
 
 		return $search_results;
@@ -153,6 +155,16 @@ class Smart_Admin_Search_Functions {
 				// Get item name.
 				$name = $menu_item[0];
 
+				// Get item icon.
+				$icon       = $menu_item[6];
+				$icon_class = '';
+				$style      = '';
+				if ( substr( $icon, 0, strlen( 'dashicons' ) ) === 'dashicons' ) { // -- if it's a dashicons class
+					$icon_class = $icon;
+				} elseif ( substr( $icon, 0, strlen( 'data:image' ) ) === 'data:image' ) { // -- if it's an image
+					$style = 'background-image: url(\'' . $icon . '\');';
+				}
+
 				// Check if the item name contains the query.
 				if ( ! empty( $name ) && strpos( strtolower( $name ), strtolower( $query ) ) !== false ) {
 
@@ -169,6 +181,8 @@ class Smart_Admin_Search_Functions {
 						'text'        => $name,
 						'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
 						'link_url'    => $url,
+						'icon_class'  => $icon_class,
+						'style'       => $style,
 					);
 
 				}
@@ -181,14 +195,24 @@ class Smart_Admin_Search_Functions {
 
 					foreach ( $item as $item_key => $menu_item ) {
 
+						// Get parent item.
+						$parent_item = $this->get_admin_menu_item_by_key( $admin_menu, $key );
+
 						// Get item name.
 						$name = $menu_item[0];
 
-						// Get parent item name.
-						$parent_item_name = $this->get_admin_menu_item_name_by_key( $admin_menu, $key );
-
 						// Set full item name.
-						$full_name = $parent_item_name . ' / ' . $name;
+						$full_name = $parent_item['name'] . ' / ' . $name;
+
+						// Get item icon.
+						$icon       = $parent_item['icon'];
+						$icon_class = '';
+						$style      = '';
+						if ( substr( $icon, 0, strlen( 'dashicons' ) ) === 'dashicons' ) { // -- if it's a dashicons class
+							$icon_class = $icon;
+						} elseif ( substr( $icon, 0, strlen( 'data:image' ) ) === 'data:image' ) { // -- if it's an image
+							$style = 'background-image: url(\'' . $icon . '\');';
+						}
 
 						// Check if the item full name contains the query.
 						if ( ! empty( $full_name ) && strpos( strtolower( $full_name ), strtolower( $query ) ) !== false ) {
@@ -206,6 +230,8 @@ class Smart_Admin_Search_Functions {
 								'text'        => $full_name,
 								'description' => esc_html__( 'Admin menu item.', 'smart-admin-search' ),
 								'link_url'    => $url,
+								'icon_class'  => $icon_class,
+								'style'       => $style,
 							);
 
 						}
@@ -221,20 +247,22 @@ class Smart_Admin_Search_Functions {
 	}
 
 	/**
-	 * Gets the name of a first level admin menu item by the item key.
+	 * Gets data of a first level admin menu item by the item key.
 	 *
 	 * @since    1.0.0
 	 * @param    array  $admin_menu    The first level admin menu.
 	 * @param    string $key           Menu item key.
 	 */
-	private function get_admin_menu_item_name_by_key( $admin_menu, $key ) {
+	private function get_admin_menu_item_by_key( $admin_menu, $key ) {
 
 		foreach ( $admin_menu as $menu_item ) {
 
 			if ( $menu_item[2] === $key ) {
 
-				$name = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
-				return $name;
+				return array(
+					'name' => $menu_item[0],
+					'icon' => $menu_item[6],
+				);
 
 			}
 		}

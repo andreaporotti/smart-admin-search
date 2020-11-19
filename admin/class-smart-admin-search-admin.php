@@ -226,13 +226,20 @@ class Smart_Admin_Search_Admin {
 				}
 			}
 
-			// Add numeric IDs to the results.
+			// Parse the results.
 			if ( ! empty( $this->search_results ) ) {
 				$id = 1;
 
 				foreach ( $this->search_results as $key => $result ) {
+
+					// Add an id to the item.
 					$this->search_results[ $key ]['id'] = $id;
 					$id++;
+
+					// Add the fallback icon class if icon class and style are empty.
+					if ( empty( $result['icon_class'] ) && empty( $result['style'] ) ) {
+						$this->search_results[ $key ]['icon_class'] = 'sas-search-result__icon--default';
+					}
 				}
 			}
 		}
