@@ -1,5 +1,13 @@
 (function( $ ) {
 	'use strict';
+	
+	// Save plugin's Select2.
+	$.fn.sasSelect2 = $.fn.select2;
+	
+	// Restore previous Select2, if any.
+	if ( typeof currentSelect2 !== 'undefined' && currentSelect2 !== null ) {
+		$.fn.select2 = currentSelect2;
+	}
 
 	$(function() {
 
@@ -94,7 +102,7 @@
 			sasSearchModal.addClass( 'sas-search-modal--opened' );
 			sasBody.addClass( 'prevent-scroll' );
 			
-			sasSearchModalSelect.select2( {
+			sasSearchModalSelect.sasSelect2( {
 				dropdownParent    : sasSearchModal,
 				width             : '100%',
 				placeholder       : sas_values.strings.search_select_placeholder,
@@ -123,7 +131,7 @@
 			} );
 			
 			setTimeout( function() {
-				sasSearchModalSelect.select2( 'open' );
+				sasSearchModalSelect.sasSelect2( 'open' );
 			}, 500 ); // Time must be the same as (or greater than) the css animation duration.
 		}
 		
@@ -132,7 +140,7 @@
 				sasSearchModal.removeClass( 'sas-search-modal--opened' );
 				sasBody.removeClass( 'prevent-scroll' );
 				
-				sasSearchModalSelect.select2( 'destroy' );
+				sasSearchModalSelect.sasSelect2( 'destroy' );
 				sasSearchModalSelect.empty();
 			}
 		}
@@ -144,13 +152,13 @@
 		} );
 
 		// Event triggered when a select item is selected.
-		sasSearchModalSelect.on('select2:select', function (e) {
+		sasSearchModalSelect.on( 'select2:select', function (e) {
 			let item_data = e.params.data;
 
 			if ( item_data.link_url !== null && item_data.link_url !== '' ) {
 				window.location.href = item_data.link_url;
 			}
-		});
+		} );
 
 		/*
 		 * SETTINGS PAGE
