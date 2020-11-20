@@ -102,12 +102,17 @@ class Smart_Admin_Search_Functions {
 			$global_submenu,
 			function( $item, $key ) use ( &$global_submenu ) {
 
-				foreach ( $item as $item_key => $menu_item ) {
-					// Remove any HTML code from item name.
-					$global_submenu[ $key ][ $item_key ][0] = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
+				if ( ! empty( $key ) ) {
+					foreach ( $item as $item_key => $menu_item ) {
+						// Remove any HTML code from item name.
+						$global_submenu[ $key ][ $item_key ][0] = trim( sanitize_text_field( ( strpos( $menu_item[0], '<' ) > 0 ) ? strstr( $menu_item[0], '<', true ) : $menu_item[0] ) );
 
-					// Remove any 'return' parameter from file name.
-					$global_submenu[ $key ][ $item_key ][2] = remove_query_arg( 'return', wp_kses_decode_entities( $menu_item[2] ) );
+						// Remove any 'return' parameter from file name.
+						$global_submenu[ $key ][ $item_key ][2] = remove_query_arg( 'return', wp_kses_decode_entities( $menu_item[2] ) );
+					}
+				} else {
+					// Remove the item if it has no parent (empty $key).
+					unset( $global_submenu[ $key ] );
 				}
 
 			}
