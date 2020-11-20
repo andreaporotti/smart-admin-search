@@ -261,19 +261,27 @@ class Smart_Admin_Search_Functions {
 	 */
 	private function get_admin_menu_item_by_key( $admin_menu, $key ) {
 
-		foreach ( $admin_menu as $menu_item ) {
+		$item_data = array(
+			'name' => '',
+			'icon' => '',
+		);
 
-			if ( $menu_item[2] === $key ) {
+		if ( ! empty( $key ) ) {
 
-				return array(
-					'name' => $menu_item[0],
-					'icon' => $menu_item[6],
-				);
+			foreach ( $admin_menu as $menu_item ) {
 
+				if ( $menu_item[2] === $key ) {
+
+					$item_data['name'] = $menu_item[0];
+					$item_data['icon'] = $menu_item[6];
+
+					return $item_data;
+
+				}
 			}
 		}
 
-		return '--';
+		return $item_data;
 
 	}
 
