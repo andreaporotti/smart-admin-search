@@ -179,12 +179,13 @@ class Smart_Admin_Search_Functions {
 				// Check if the item name contains the query.
 				if ( ! empty( $name ) && strpos( strtolower( $name ), strtolower( $query ) ) !== false ) {
 
-					// Generate item url:
-					// if the item has not a file name, use /admin.php?page=[name].
-					if ( strpos( $menu_item[2], '.php' ) === false ) {
-						$url = wp_specialchars_decode( admin_url( '/admin.php?page=' . $menu_item[2] ) );
-					} else {
+					// Generate item url.
+					if ( strpos( $menu_item[2], '.php' ) !== false ) {
+						// The item contains a file name.
 						$url = wp_specialchars_decode( admin_url( $menu_item[2] ) );
+					} else {
+						// Use admin.php if no file name has been found.
+						$url = wp_specialchars_decode( add_query_arg( 'page', $menu_item[2], admin_url( '/admin.php' ) ) );
 					}
 
 					// Add the item to search results.
@@ -229,11 +230,15 @@ class Smart_Admin_Search_Functions {
 						if ( ! empty( $full_name ) && strpos( strtolower( $full_name ), strtolower( $query ) ) !== false ) {
 
 							// Generate item url.
-							// If the item has not a file name, use /admin.php?page=[slug].
-							if ( strpos( $menu_item[2], '.php' ) === false ) {
-								$url = wp_specialchars_decode( admin_url( '/admin.php?page=' . $menu_item[2] ) );
-							} else {
+							if ( strpos( $menu_item[2], '.php' ) !== false ) {
+								// The item contains a file name.
 								$url = wp_specialchars_decode( admin_url( $menu_item[2] ) );
+							} elseif ( strpos( $key, '.php' ) !== false ) {
+								// The item parent contains a file name.
+								$url = wp_specialchars_decode( add_query_arg( 'page', $menu_item[2], admin_url( $key ) ) );
+							} else {
+								// Use admin.php if no file name has been found.
+								$url = wp_specialchars_decode( add_query_arg( 'page', $menu_item[2], admin_url( '/admin.php' ) ) );
 							}
 
 							// Add the item to search results.
