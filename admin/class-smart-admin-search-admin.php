@@ -342,4 +342,25 @@ class Smart_Admin_Search_Admin {
 
 	}
 
+	/**
+	 * Adds links to the plugin actions in the Plugins page.
+	 *
+	 * @since     1.0.0
+	 * @param     array  $plugin_actions    The plugin action links.
+	 * @param     string $plugin_file       The plugin main file name.
+	 */
+	public function plugin_action_links( $plugin_actions, $plugin_file ) {
+
+		$new_actions = array();
+
+		$new_actions['sas_settings'] = sprintf(
+			/* translators: %s is the link url */
+			__( '<a href="%s">Settings</a>', 'smart-admin-search' ),
+			esc_url( add_query_arg( 'page', 'smart-admin-search_options', admin_url( 'options-general.php' ) ) )
+		);
+
+		return array_merge( $plugin_actions, $new_actions );
+
+	}
+
 }

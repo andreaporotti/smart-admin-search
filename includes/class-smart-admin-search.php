@@ -166,6 +166,7 @@ class Smart_Admin_Search {
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'admin_bar_menu', 10 );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
+		$this->loader->add_filter( 'plugin_action_links_smart-admin-search/smart-admin-search.php', $plugin_admin, 'plugin_action_links', 10, 2 );
 
 		// Plugin options.
 		$plugin_options = new Smart_Admin_Search_Options( $this->get_plugin_name(), $this->get_plugin_slug() );
