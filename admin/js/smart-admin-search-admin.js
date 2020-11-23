@@ -25,7 +25,7 @@
 		 * ADMIN BAR
 		 */
 		
-		sasAdminBarIcon.on( 'click', function( e ) {
+		sasAdminBarIcon.on( 'mousedown', function( e ) {
 			e.preventDefault();
 			showSearchModal();
 		} );
@@ -113,7 +113,7 @@
 				ajax              : {
 					method        : 'GET',
 					url           : sas_values.ajax.search_url,
-					delay         : 500,
+					delay         : 400,
 					beforeSend    : function( xhr ) {
 						xhr.setRequestHeader( 'X-WP-NONCE', sas_values.ajax.nonce );
 					},
@@ -132,7 +132,7 @@
 			
 			setTimeout( function() {
 				sasSearchModalSelect.sasSelect2( 'open' );
-			}, 500 ); // Time must be the same as (or greater than) the css animation duration.
+			}, 300 ); // Time must be the same as (or greater than) the css animation duration.
 		}
 		
 		function hideSearchModal() {

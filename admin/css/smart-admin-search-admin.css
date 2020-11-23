@@ -47,10 +47,10 @@
 	width: 50%;
 	
 	-webkit-animation-name: sas-search-modal-content-animate;
-	-webkit-animation-duration: .5s;
+	-webkit-animation-duration: .3s;
 	-webkit-animation-timing-function: ease-out;
 	animation-name: sas-search-modal-content-animate;
-	animation-duration: .5s;
+	animation-duration: .3s;
 	animation-timing-function: ease-out;
 }
 
