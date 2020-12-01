@@ -2,9 +2,9 @@
 /**
  * Plugin Name:       Smart Admin Search
  * Plugin URI:        https://github.com/andreaporotti/smart-admin-search
- * Description:       ......
+ * Description:       A search engine to quickly find elements and contents inside the WordPress dashboard.
  * Version:           1.0.0
- * Requires at least: 4.9
+ * Requires at least: 5.0
  * Requires PHP:      5.6
  * Author:            Andrea Porotti
  * Author URI:        https://www.andreaporotti.it/
