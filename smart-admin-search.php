@@ -35,25 +35,19 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Current plugin version.
- * Based on SemVer ( https://semver.org ).
- */
-define( 'SMART_ADMIN_SEARCH_VERSION', '1.0.0' );
+// Get plugin data.
+$plugin_data = get_file_data(
+	__FILE__,
+	array(
+		'name'        => 'Plugin Name',
+		'version'     => 'Version',
+		'text_domain' => 'Text Domain',
+	)
+);
 
-/**
- * Plugin name.
- *
- * @since    1.0.0
- */
-define( 'SMART_ADMIN_SEARCH_PLUGIN_NAME', 'Smart Admin Search' );
-
-/**
- * Plugin slug.
- *
- * @since    1.0.0
- */
-define( 'SMART_ADMIN_SEARCH_PLUGIN_SLUG', 'smart-admin-search' );
+define( 'SMART_ADMIN_SEARCH_PLUGIN_VERSION', ( isset( $plugin_data['version'] ) ) ? $plugin_data['version'] : '1.0.0' );
+define( 'SMART_ADMIN_SEARCH_PLUGIN_NAME', ( isset( $plugin_data['name'] ) ) ? $plugin_data['name'] : 'Smart Admin Search' );
+define( 'SMART_ADMIN_SEARCH_PLUGIN_SLUG', ( isset( $plugin_data['text_domain'] ) ) ? $plugin_data['text_domain'] : 'smart-admin-search' );
 
 /**
  * The code that runs during plugin activation.

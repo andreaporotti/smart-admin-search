@@ -75,7 +75,7 @@ class Smart_Admin_Search {
 
 		$this->plugin_name = SMART_ADMIN_SEARCH_PLUGIN_NAME;
 		$this->plugin_slug = SMART_ADMIN_SEARCH_PLUGIN_SLUG;
-		$this->version     = SMART_ADMIN_SEARCH_VERSION;
+		$this->version     = SMART_ADMIN_SEARCH_PLUGIN_VERSION;
 
 		$this->load_dependencies();
 		$this->set_locale();
