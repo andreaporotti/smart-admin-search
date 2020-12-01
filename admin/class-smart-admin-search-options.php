@@ -113,7 +113,7 @@ class Smart_Admin_Search_Options {
 				'sas_maintenance_delete_temp_data',
 				'sas_maintenance_delete_temp_data',
 				get_transient( 'sas_options_notice' ),
-				'success'
+				'updated'
 			);
 
 			delete_transient( 'sas_options_notice' );
