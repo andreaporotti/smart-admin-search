@@ -140,21 +140,23 @@ class Smart_Admin_Search_Admin {
 	 */
 	public function admin_bar_menu( $wp_admin_bar ) {
 
-		$wp_admin_bar->add_node(
-			array(
-				'id'     => 'sas_icon',
-				'title'  => SMART_ADMIN_SEARCH_PLUGIN_NAME,
-				'href'   => '#',
-				'parent' => 'top-secondary',
-				'meta'   => array(
-					'title' => sprintf(
-						/* translators: %s is the keyboard shortcut to open the search window */
-						__( 'Search in the WordPress dashboard (%s)', 'smart-admin-search' ),
-						$this->get_current_search_keys_shortcut( 'string' )
+		if ( is_admin() ) {
+			$wp_admin_bar->add_node(
+				array(
+					'id'     => 'sas_icon',
+					'title'  => SMART_ADMIN_SEARCH_PLUGIN_NAME,
+					'href'   => '#',
+					'parent' => 'top-secondary',
+					'meta'   => array(
+						'title' => sprintf(
+							/* translators: %s is the keyboard shortcut to open the search window */
+							__( 'Search in the WordPress dashboard (%s)', 'smart-admin-search' ),
+							$this->get_current_search_keys_shortcut( 'string' )
+						),
 					),
-				),
-			)
-		);
+				)
+			);
+		}
 
 	}
 
