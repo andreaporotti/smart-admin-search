@@ -104,6 +104,75 @@ class Smart_Admin_Search_Options {
 	 */
 	public function options_init() {
 
+		// -----------------------
+		// Display actions notice.
+		// -----------------------
+
+		if ( get_transient( 'sas_options_notice' ) ) {
+			add_settings_error(
+				'sas_maintenance_delete_temp_data',
+				'sas_maintenance_delete_temp_data',
+				get_transient( 'sas_options_notice' ),
+				'success'
+			);
+
+			delete_transient( 'sas_options_notice' );
+		}
+
+		// ----------------------
+		// Run requested actions.
+		// ----------------------
+
+		$action = ( isset( $_GET['sas_action'] ) ) ? sanitize_text_field( wp_unslash( $_GET['sas_action'] ) ) : '';
+		$nonce  = ( isset( $_GET['sas_nonce'] ) ) ? sanitize_text_field( wp_unslash( $_GET['sas_nonce'] ) ) : '';
+
+		if ( 'delete_temp_data_user' === $action && wp_verify_nonce( $nonce, 'sas_delete_temp_data_user' ) ) {
+
+			// Delete current user admin menu transients.
+			global $current_user;
+
+			delete_transient( 'sas_admin_menu_user_' . $current_user->ID );
+			delete_transient( 'sas_admin_submenu_user_' . $current_user->ID );
+
+			// Save notice text.
+			set_transient(
+				'sas_options_notice',
+				esc_html__( 'Successfully deleted current user temporary data.', 'smart-admin-search' ),
+				60
+			);
+
+			// Go back to the options page.
+			wp_safe_redirect( wp_get_referer() );
+
+		} elseif ( 'delete_temp_data_all' === $action && wp_verify_nonce( $nonce, 'sas_delete_temp_data_all' ) ) {
+
+			// Delete all users admin menu transients.
+			$users = get_users();
+
+			foreach ( $users as $user ) {
+				$transient_name = 'sas_admin_menu_user_' . $user->ID;
+				if ( get_transient( $transient_name ) ) {
+					delete_transient( $transient_name );
+				}
+
+				$transient_name = 'sas_admin_submenu_user_' . $user->ID;
+				if ( get_transient( $transient_name ) ) {
+					delete_transient( $transient_name );
+				}
+			}
+
+			// Save notice text.
+			set_transient(
+				'sas_options_notice',
+				esc_html__( 'Successfully deleted all temporary data.', 'smart-admin-search' ),
+				60
+			);
+
+			// Go back to the options page.
+			wp_safe_redirect( wp_get_referer() );
+
+		}
+
 		// -------------------------------------------
 		// Set keys shortcut to open the search modal.
 		// -------------------------------------------
@@ -237,6 +306,45 @@ class Smart_Admin_Search_Options {
 			array(
 				'label_for' => 'sas_delete_data_on_uninstall',
 			)
+		);
+
+		// ----------------------------------------------------
+		// Plugin maintenance tools.
+		// ----------------------------------------------------
+
+		// Add a section.
+		add_settings_section(
+			'sas_options_section_maintenance',
+			esc_html__( 'Plugin maintenance', 'smart-admin-search' ),
+			array(
+				$this,
+				'options_section_maintenance',
+			),
+			$this->options_slug
+		);
+
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_maintenance_delete_temp_data_user',
+			esc_html__( 'Delete current user temporary data', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_maintenance_delete_temp_data_user',
+			),
+			$this->options_slug,
+			'sas_options_section_maintenance'
+		);
+
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_maintenance_delete_temp_data_all',
+			esc_html__( 'Delete all users temporary data', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_maintenance_delete_temp_data_all',
+			),
+			$this->options_slug,
+			'sas_options_section_maintenance'
 		);
 
 	}
@@ -437,6 +545,66 @@ class Smart_Admin_Search_Options {
 				<?php echo esc_html__( 'Please note: enabling this option, all data and settings will be PERMANENTLY DELETED when you uninstall the plugin.', 'smart-admin-search' ); ?>
 			</p>
 		</fieldset>
+		<?php
+
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Callback for the maintenance section output.
+	 *
+	 * @since    1.0.0
+	 * @param    array $args Array of section attributes.
+	 */
+	public function options_section_maintenance( $args ) {
+
+		?>
+		<p id="<?php echo esc_attr( $args['id'] ); ?>">
+			<?php echo esc_html__( 'Tools for the plugin maintenance.', 'smart-admin-search' ); ?>
+		</p>
+		<?php
+
+	}
+
+	/**
+	 * Callback for the "delete current user data" button.
+	 *
+	 * @since    1.0.0
+	 */
+	public function option_maintenance_delete_temp_data_user() {
+
+		// Get the current url and add the action parameter.
+		$url = add_query_arg( 'sas_action', 'delete_temp_data_user' );
+
+		// Add nonce to the url.
+		$url = wp_nonce_url( $url, 'sas_delete_temp_data_user', 'sas_nonce' );
+
+		?>
+		<a href="<?php echo esc_url( $url ); ?>" class="button">
+			<?php echo esc_html__( 'Delete data', 'smart-admin-search' ); ?>
+		</a>
+		<?php
+
+	}
+
+	/**
+	 * Callback for the "delete all users data" button.
+	 *
+	 * @since    1.0.0
+	 */
+	public function option_maintenance_delete_temp_data_all() {
+
+		// Get the current url and add the action parameter.
+		$url = add_query_arg( 'sas_action', 'delete_temp_data_all' );
+
+		// Add nonce to the url.
+		$url = wp_nonce_url( $url, 'sas_delete_temp_data_all', 'sas_nonce' );
+
+		?>
+		<a href="<?php echo esc_url( $url ); ?>" class="button">
+			<?php echo esc_html__( 'Delete data', 'smart-admin-search' ); ?>
+		</a>
 		<?php
 
 	}
