@@ -1,6 +1,6 @@
 <?php
 /**
- * The file that defines the core plugin class
+ * The file that defines the core plugin class.
  *
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
@@ -86,13 +86,6 @@ class Smart_Admin_Search {
 	/**
 	 * Load the required dependencies for this plugin.
 	 *
-	 * Include the following files that make up the plugin:
-	 *
-	 * - Smart_Admin_Search_Loader. Orchestrates the hooks of the plugin.
-	 * - Smart_Admin_Search_i18n. Defines internationalization functionality.
-	 * - Smart_Admin_Search_Admin. Defines all hooks for the admin area.
-	 * - Smart_Admin_Search_Public. Defines all hooks for the public side of the site.
-	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
@@ -112,7 +105,7 @@ class Smart_Admin_Search {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smart-admin-search-i18n.php';
 
 		/**
-		 * The class providing the custom search functions.
+		 * The class providing the search functions.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smart-admin-search-functions.php';
 
@@ -132,8 +125,6 @@ class Smart_Admin_Search {
 
 	/**
 	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Smart_Admin_Search_i18n class in order to set the domain and to register the hook with WordPress.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -167,9 +158,8 @@ class Smart_Admin_Search {
 		$this->loader->add_action( 'admin_menu', $plugin_options, 'options_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_options, 'options_init' );
 
-		// Search functions.
+		// Search functions requirements.
 		$search_functions = new Smart_Admin_Search_Functions();
-		// Required by the admin menu search function.
 		$this->loader->add_filter( 'adminmenu', $search_functions, 'get_admin_menu' );
 
 	}

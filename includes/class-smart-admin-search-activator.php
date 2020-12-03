@@ -1,6 +1,6 @@
 <?php
 /**
- * Fired during plugin activation
+ * Fired during plugin activation.
  *
  * @since      1.0.0
  * @package    Smart_Admin_Search
@@ -33,7 +33,7 @@ class Smart_Admin_Search_Activator {
 			add_option( 'sas_search_keys_shortcut', 'none', '', 'no' );
 		}
 
-		// Disabled functions.
+		// Disabled search functions.
 		if ( false === get_option( 'sas_disabled_search_functions' ) ) {
 			add_option( 'sas_disabled_search_functions', array( 'none' ), '', 'no' );
 		}

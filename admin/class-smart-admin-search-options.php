@@ -350,7 +350,7 @@ class Smart_Admin_Search_Options {
 	}
 
 	/**
-	 * Callback for the Keys shortcuts options section output.
+	 * Callback for the keys shortcut options section output.
 	 *
 	 * @since    1.0.0
 	 * @param    array $args Array of section attributes.
@@ -409,7 +409,7 @@ class Smart_Admin_Search_Options {
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Callback for the Search functions options section output.
+	 * Callback for the search functions options section output.
 	 *
 	 * @since    1.0.0
 	 * @param    array $args Array of section attributes.

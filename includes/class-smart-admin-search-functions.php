@@ -1,6 +1,6 @@
 <?php
 /**
- * The custom search functions.
+ * The available search functions.
  *
  * @since      1.0.0
  * @package    Smart_Admin_Search
@@ -8,7 +8,7 @@
  */
 
 /**
- * The custom search functions.
+ * The available search functions.
  *
  * @package    Smart_Admin_Search
  * @subpackage Smart_Admin_Search/includes
@@ -40,9 +40,9 @@ class Smart_Admin_Search_Functions {
 		return $search_results;
 	}
 
-	// ----------------------
-	// SEARCH INTO ADMIN MENU
-	// ----------------------
+	// ----------------------------
+	// Search the admin menu items.
+	// ----------------------------
 
 	/**
 	 * Saves the admin menu to the database.
@@ -53,13 +53,13 @@ class Smart_Admin_Search_Functions {
 
 		global $menu, $submenu, $current_user;
 
-		// Get menus from transient.
+		// Get menus from transients.
 		$transient_menu    = get_transient( 'sas_admin_menu_user_' . $current_user->ID );
 		$transient_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
 		// Set the transient if it is false or different from the corresponding global menu.
 
-		// -- menu.
+		// First level menu.
 		$global_menu = $menu;
 
 		// Menu items to be skipped.
@@ -94,7 +94,7 @@ class Smart_Admin_Search_Functions {
 			set_transient( 'sas_admin_menu_user_' . $current_user->ID, $global_menu );
 		}
 
-		// -- submenu.
+		// Submenu.
 		$global_submenu = $submenu;
 
 		// Parse all menu items.
@@ -154,7 +154,7 @@ class Smart_Admin_Search_Functions {
 
 		global $current_user;
 
-		// Get menus from transient.
+		// Get menus from transients.
 		$admin_menu    = get_transient( 'sas_admin_menu_user_' . $current_user->ID );
 		$admin_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
@@ -200,7 +200,7 @@ class Smart_Admin_Search_Functions {
 				}
 			}
 
-			// Search in the sub menu items.
+			// Search in the submenu items.
 			array_walk(
 				$admin_submenu,
 				function( $item, $key ) use ( &$search_results, $query, $admin_menu ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Fired during plugin deactivation
+ * Fired during plugin deactivation.
  *
  * @since      1.0.0
  * @package    Smart_Admin_Search
@@ -24,7 +24,7 @@ class Smart_Admin_Search_Deactivator {
 	 */
 	public static function deactivate() {
 
-		// Delete transients for all users.
+		// Delete all users transients.
 		$users = get_users();
 		foreach ( $users as $user ) {
 			$transient_name = 'sas_admin_menu_user_' . $user->ID;

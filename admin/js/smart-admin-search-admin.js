@@ -49,7 +49,7 @@
 					pressedKeys.push( e.which );
 				}
 
-				// If pressed keys are the same as the keys of the shortcut, open the search box.
+				// If pressed keys are the same as the shortcut keys, open the search box.
 				if ( JSON.stringify( pressedKeys.sort() ) === JSON.stringify( searchKeysShortcut ) ) {
 					showSearchModal();
 				} else if ( pressedKeys.includes( 27 ) ) {

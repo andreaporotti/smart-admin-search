@@ -1,6 +1,6 @@
 <?php
 /**
- * Register all actions and filters for the plugin
+ * Register all actions and filters for the plugin.
  *
  * @since      1.0.0
  * @package    Smart_Admin_Search
@@ -79,8 +79,7 @@ class Smart_Admin_Search_Loader {
 	}
 
 	/**
-	 * A utility function that is used to register the actions and hooks into a single
-	 * collection.
+	 * A utility function that is used to register the actions and hooks into a single collection.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -90,7 +89,7 @@ class Smart_Admin_Search_Loader {
 	 * @param    string $callback         The name of the function definition on the $component.
 	 * @param    int    $priority         The priority at which the function should be fired.
 	 * @param    int    $accepted_args    The number of arguments that should be passed to the $callback.
-	 * @return   array                                  The collection of actions and filters registered with WordPress.
+	 * @return   array                    The collection of actions and filters registered with WordPress.
 	 */
 	private function add( $hooks, $hook, $component, $callback, $priority, $accepted_args ) {
 
