@@ -72,19 +72,21 @@
 		 */
 
 		function formatSearchResult( result ) {
-			if( result.loading ) {
+			if ( result.loading ) {
 				return result.text;
 			}
-			
+	
 			let template = $(
-				'<div class="sas-search-result">' +
-					'<div class="sas-search-result__icon wp-menu-image dashicons-before ' + result.icon_class + '" style="' + result.style + '"></div>' + 
-					'<div class="sas-search-result__info">' + 
-						'<div class="sas-search-result__name">' + result.text + '</div>' + 
-						'<div class="sas-search-result__description">' + result.description + '</div>' +
-						'<div class="sas-search-result__link-url">' + result.link_url + '</div>' +
-					'</div>' +
-				'</div>'
+				`
+				<div class="sas-search-result">
+					<div class="sas-search-result__icon wp-menu-image dashicons-before ${result.icon_class}" style="${result.style}"></div>
+					<div class="sas-search-result__info">
+						<div class="sas-search-result__name">${result.text}</div>
+						<div class="sas-search-result__description">${result.description}</div>
+						<div class="sas-search-result__link-url">${result.link_url}</div>
+					</div>
+				</div>
+				`
 			);
 			
 			return template;
@@ -115,18 +117,18 @@
 					url           : sas_values.ajax.search_url,
 					delay         : 400,
 					beforeSend    : function( xhr ) {
-						xhr.setRequestHeader( 'X-WP-NONCE', sas_values.ajax.nonce );
-					},
+										xhr.setRequestHeader( 'X-WP-NONCE', sas_values.ajax.nonce );
+									},
 					data          : function( params ) {
-						return {
-							query: params.term
-						};
-					},
+										return {
+											query: params.term
+										};
+									},
 					processResults: function( result ) {
-						return {
-							results: result
-						};
-					}
+										return {
+											results: result
+										};
+									}
 				}
 			} );
 			
@@ -139,7 +141,6 @@
 			if ( sasSearchModalSelect.hasClass( 'select2-hidden-accessible' ) ) {
 				sasSearchModal.removeClass( 'sas-search-modal--opened' );
 				sasBody.removeClass( 'prevent-scroll' );
-				
 				sasSearchModalSelect.sasSelect2( 'destroy' );
 				sasSearchModalSelect.empty();
 			}
@@ -152,7 +153,7 @@
 		} );
 
 		// Event triggered when a select item is selected.
-		sasSearchModalSelect.on( 'select2:select', function (e) {
+		sasSearchModalSelect.on( 'select2:select', function ( e ) {
 			let item_data = e.params.data;
 
 			if ( item_data.link_url !== null && item_data.link_url !== '' ) {
