@@ -93,8 +93,11 @@ class Smart_Admin_Search_Admin {
 	 */
 	public function enqueue_styles() {
 
+		// Use uncompressed files if debug is enabled (remove ".min" from filename).
+		$min = ( WP_DEBUG ) ? '' : '.min';
+		
 		wp_enqueue_style( $this->plugin_slug . '-select2', plugin_dir_url( __DIR__ ) . 'assets/select2/select2.min.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin.css', array( $this->plugin_slug . '-select2' ), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_slug, plugin_dir_url( __FILE__ ) . 'css/smart-admin-search-admin' . $min . '.css', array( $this->plugin_slug . '-select2' ), $this->version, 'all' );
 
 	}
 
