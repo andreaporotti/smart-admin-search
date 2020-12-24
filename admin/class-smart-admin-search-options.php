@@ -137,7 +137,7 @@ class Smart_Admin_Search_Options {
 			// Save notice text.
 			set_transient(
 				'sas_options_notice',
-				esc_html__( 'Successfully deleted current user temporary data.', 'smart-admin-search' ),
+				esc_html__( 'Successfully deleted temporary data of the current user.', 'smart-admin-search' ),
 				60
 			);
 
@@ -164,7 +164,7 @@ class Smart_Admin_Search_Options {
 			// Save notice text.
 			set_transient(
 				'sas_options_notice',
-				esc_html__( 'Successfully deleted all temporary data.', 'smart-admin-search' ),
+				esc_html__( 'Successfully deleted temporary data of all users.', 'smart-admin-search' ),
 				60
 			);
 
@@ -206,7 +206,7 @@ class Smart_Admin_Search_Options {
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_search_keys_shortcut',
-			esc_html__( 'Open search box', 'smart-admin-search' ),
+			esc_html__( 'Open the search box', 'smart-admin-search' ),
 			array(
 				$this,
 				'option_search_keys_shortcut',
@@ -296,7 +296,7 @@ class Smart_Admin_Search_Options {
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_delete_data_on_uninstall',
-			esc_html__( 'Remove all data on plugin uninstall', 'smart-admin-search' ),
+			esc_html__( 'Delete all plugin data', 'smart-admin-search' ),
 			array(
 				$this,
 				'option_delete_data_on_uninstall',
@@ -326,7 +326,7 @@ class Smart_Admin_Search_Options {
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_maintenance_delete_temp_data_user',
-			esc_html__( 'Delete current user temporary data', 'smart-admin-search' ),
+			esc_html__( 'Delete temporary data of the current user', 'smart-admin-search' ),
 			array(
 				$this,
 				'option_maintenance_delete_temp_data_user',
@@ -338,7 +338,7 @@ class Smart_Admin_Search_Options {
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_maintenance_delete_temp_data_all',
-			esc_html__( 'Delete all users temporary data', 'smart-admin-search' ),
+			esc_html__( 'Delete temporary data of all users', 'smart-admin-search' ),
 			array(
 				$this,
 				'option_maintenance_delete_temp_data_all',
@@ -359,7 +359,7 @@ class Smart_Admin_Search_Options {
 
 		?>
 		<p id="<?php echo esc_attr( $args['id'] ); ?>">
-			<?php echo esc_html__( 'Configure keyboard shortcuts to access plugin functions.', 'smart-admin-search' ); ?>
+			<?php echo esc_html__( 'Configure keyboard shortcuts to access plugin features.', 'smart-admin-search' ); ?>
 		</p>
 		<?php
 
@@ -394,10 +394,10 @@ class Smart_Admin_Search_Options {
 		?>
 		<fieldset>
 			<input type="text" id="sas-capture-search-keys" class="regular-text sas-skip-global-keypress" value="">
-			<button type="button" id="sas-capture-search-keys-reset" class="button"><?php echo esc_html__( 'Reset', 'smart-admin-search' ); ?></button>
+			<button type="button" id="sas-capture-search-keys-reset" class="button"><?php echo esc_html__( 'Clear', 'smart-admin-search' ); ?></button>
 			<input type="hidden" id="<?php echo esc_attr( $args['name'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option_search_keys_shortcut ); ?>">
 			<p class="description">
-				<?php echo esc_html__( 'Click on the textbox and then press on the keyboard the keys that you will use to open the search box. Click the Reset button to clear the textbox.', 'smart-admin-search' ); ?>
+				<?php echo esc_html__( 'Click on the textbox and then press the keys that you will use to open the search box. Click the Clear button to empty the textbox.', 'smart-admin-search' ); ?>
 				<br>
 				<?php echo esc_html__( 'The current shortcut is:', 'smart-admin-search' ); ?> <strong><?php echo esc_html( $current_search_keys_shortcut ); ?></strong>.
 			</p>
@@ -418,7 +418,7 @@ class Smart_Admin_Search_Options {
 
 		?>
 		<p id="<?php echo esc_attr( $args['id'] ); ?>">
-			<?php echo esc_html__( 'Settings about the available search functions.', 'smart-admin-search' ); ?>
+			<?php echo esc_html__( 'Configure the available search functions.', 'smart-admin-search' ); ?>
 		</p>
 		<?php
 
@@ -540,9 +540,9 @@ class Smart_Admin_Search_Options {
 		?>
 		<fieldset>
 			<input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" value="1" <?php checked( $option_delete_data_on_uninstall, 1 ); ?>>
-			<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><?php echo esc_html__( 'Enabled', 'smart-admin-search' ); ?></label>
+			<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><?php echo esc_html__( 'enabled', 'smart-admin-search' ); ?></label>
 			<p class="description">
-				<?php echo esc_html__( 'Please note: enabling this option, all data and settings will be PERMANENTLY DELETED when you uninstall the plugin.', 'smart-admin-search' ); ?>
+				<?php echo esc_html__( 'Please note: enabling this option all data and settings will be PERMANENTLY DELETED when you uninstall the plugin.', 'smart-admin-search' ); ?>
 			</p>
 		</fieldset>
 		<?php

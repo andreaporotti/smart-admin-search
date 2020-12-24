@@ -112,7 +112,7 @@ class Smart_Admin_Search_Functions {
 		$registered_functions[] = array(
 			'name'         => 'search_admin_menu',
 			'display_name' => esc_html__( 'Admin Menu', 'smart-admin-search' ),
-			'description'  => esc_html__( 'Searches for links in the admin menu.', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search items in the admin menu.', 'smart-admin-search' ),
 		);
 
 		return $registered_functions;

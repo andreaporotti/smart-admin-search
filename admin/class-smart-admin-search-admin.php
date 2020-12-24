@@ -133,7 +133,7 @@ class Smart_Admin_Search_Admin {
 					'nonce'      => wp_create_nonce( 'wp_rest' ),
 				),
 				'strings' => array(
-					'search_select_placeholder' => esc_html__( 'Hello, what are you looking for?', 'smart-admin-search' ),
+					'search_select_placeholder' => esc_html__( 'Hello, how may I help you?', 'smart-admin-search' ),
 				),
 				'options' => array(
 					'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),
@@ -367,9 +367,9 @@ class Smart_Admin_Search_Admin {
 		$new_actions = array();
 
 		$new_actions['sas_settings'] = sprintf(
-			/* translators: %s is the link url */
-			__( '<a href="%s">Settings</a>', 'smart-admin-search' ),
-			esc_url( add_query_arg( 'page', 'smart-admin-search_options', admin_url( 'options-general.php' ) ) )
+			'<a href="%1$s">%2$s</a>',
+			esc_url( add_query_arg( 'page', 'smart-admin-search_options', admin_url( 'options-general.php' ) ) ),
+			__( 'Settings' ),
 		);
 
 		return array_merge( $plugin_actions, $new_actions );
