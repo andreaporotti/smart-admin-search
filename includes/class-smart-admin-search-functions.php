@@ -134,9 +134,9 @@ class Smart_Admin_Search_Functions {
 		$admin_menu    = get_transient( 'sas_admin_menu_user_' . $current_user->ID );
 		$admin_submenu = get_transient( 'sas_admin_submenu_user_' . $current_user->ID );
 
-		if ( ! empty( $admin_menu ) && ! empty( $admin_submenu ) ) {
+		// Search the first level menu items.
+		if ( ! empty( $admin_menu ) ) {
 
-			// Search in the first level menu items.
 			foreach ( $admin_menu as $menu_item ) {
 
 				// Get item name.
@@ -175,8 +175,11 @@ class Smart_Admin_Search_Functions {
 
 				}
 			}
+		}
+		
+		// Search the submenu items.
+		if ( ! empty( $admin_menu ) && ! empty( $admin_submenu ) ) {
 
-			// Search in the submenu items.
 			array_walk(
 				$admin_submenu,
 				function( $item, $key ) use ( &$search_results, $query, $admin_menu ) {
