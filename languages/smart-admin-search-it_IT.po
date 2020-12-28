@@ -3,149 +3,167 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smart Admin Search 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-search\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-"
+"search\n"
+"POT-Creation-Date: 2020-12-28T16:51:23+00:00\n"
+"PO-Revision-Date: 2020-12-28 17:54+0100\n"
+"Last-Translator: Andrea Porotti <info@andreaporotti.it>\n"
+"Language-Team: \n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-12-28T16:51:23+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Domain: smart-admin-search\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
 msgid "Smart Admin Search"
-msgstr ""
+msgstr "Smart Admin Search"
 
 #. Plugin URI of the plugin
 msgid "https://github.com/andreaporotti/smart-admin-search"
-msgstr ""
+msgstr "https://github.com/andreaporotti/smart-admin-search"
 
 #. Description of the plugin
-msgid "A search engine to quickly find elements and contents inside the WordPress dashboard."
+msgid ""
+"A search engine to quickly find elements and contents inside the WordPress "
+"dashboard."
 msgstr ""
+"Un motore di ricerca per trovare rapidamente elementi e contenuti "
+"all'interno della bacheca di WordPress."
 
 #. Author of the plugin
 msgid "Andrea Porotti"
-msgstr ""
+msgstr "Andrea Porotti"
 
 #. Author URI of the plugin
 msgid "https://www.andreaporotti.it/"
-msgstr ""
+msgstr "https://www.andreaporotti.it/"
 
 #: admin/class-smart-admin-search-admin.php:136
 msgid "Hello, how may I help you?"
-msgstr ""
+msgstr "Ciao, come posso aiutarti?"
 
 #. translators: %s is the keyboard shortcut to open the search window
 #: admin/class-smart-admin-search-admin.php:164
 msgid "Search in the WordPress dashboard (%s)"
-msgstr ""
+msgstr "Cerca nella bacheca di WordPress (%s)"
 
 #: admin/class-smart-admin-search-admin.php:349
 msgid "no keyboard shortcut set"
-msgstr ""
+msgstr "nessuna scorciatoia da tastiera impostata"
 
 #. translators: %s is the plugin name
 #: admin/class-smart-admin-search-options.php:73
 msgid "%s Settings"
-msgstr ""
+msgstr "Impostazioni %s"
 
 #: admin/class-smart-admin-search-options.php:140
 msgid "Successfully deleted temporary data of the current user."
-msgstr ""
+msgstr "I dati temporanei dell'utente corrente sono stati eliminati."
 
 #: admin/class-smart-admin-search-options.php:167
 msgid "Successfully deleted temporary data of all users."
-msgstr ""
+msgstr "I dati temporanei di tutti gli utenti sono stati eliminati."
 
 #: admin/class-smart-admin-search-options.php:183
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Scorciatoie da tastiera"
 
 #: admin/class-smart-admin-search-options.php:209
 msgid "Open the search box"
-msgstr ""
+msgstr "Apri la casella di ricerca"
 
 #: admin/class-smart-admin-search-options.php:228
 msgid "Search functions"
-msgstr ""
+msgstr "Funzioni di ricerca"
 
 #: admin/class-smart-admin-search-options.php:254
 msgid "Select the functions to run on each search"
-msgstr ""
+msgstr "Seleziona le funzioni da eseguire ad ogni ricerca"
 
 #: admin/class-smart-admin-search-options.php:273
 msgid "Plugin uninstall"
-msgstr ""
+msgstr "Disinstallazione plugin"
 
 #: admin/class-smart-admin-search-options.php:299
 msgid "Delete all plugin data"
-msgstr ""
+msgstr "Elimina tutti i dati del plugin"
 
 #: admin/class-smart-admin-search-options.php:318
 msgid "Plugin maintenance"
-msgstr ""
+msgstr "Manutenzione plugin"
 
 #: admin/class-smart-admin-search-options.php:329
 msgid "Delete temporary data of the current user"
-msgstr ""
+msgstr "Elimina i dati temporanei dell'utente corrente"
 
 #: admin/class-smart-admin-search-options.php:341
 msgid "Delete temporary data of all users"
-msgstr ""
+msgstr "Elimina i dati temporanei di tutti gli utenti"
 
 #: admin/class-smart-admin-search-options.php:362
 msgid "Configure keyboard shortcuts to access plugin features."
 msgstr ""
+"Configura le scorciatoie da tastiera per accedere alle funzionalità del "
+"plugin."
 
 #: admin/class-smart-admin-search-options.php:397
 msgid "Clear"
-msgstr ""
+msgstr "Cancella"
 
 #: admin/class-smart-admin-search-options.php:400
-msgid "Click on the textbox and then press the keys that you will use to open the search box. Click the Clear button to empty the textbox."
+msgid ""
+"Click on the textbox and then press the keys that you will use to open the "
+"search box. Click the Clear button to empty the textbox."
 msgstr ""
+"Clicca sulla casella di testo e premi i tasti che vuoi usare per aprire la "
+"casella di ricerca. Clicca sul pulsante Cancella per svuotare la casella di "
+"testo."
 
 #: admin/class-smart-admin-search-options.php:402
 msgid "The current shortcut is:"
-msgstr ""
+msgstr "La scorciatoia corrente è:"
 
 #: admin/class-smart-admin-search-options.php:421
 msgid "Configure the available search functions."
-msgstr ""
+msgstr "Configura le funzioni di ricerca disponibili."
 
 #: admin/class-smart-admin-search-options.php:507
 msgid "These settings are applied when you uninstall the plugin."
-msgstr ""
+msgstr "Queste impostazioni sono applicate quando disinstalli il plugin."
 
 #: admin/class-smart-admin-search-options.php:543
 msgid "enabled"
-msgstr ""
+msgstr "abilitato"
 
 #: admin/class-smart-admin-search-options.php:545
-msgid "Please note: enabling this option all data and settings will be PERMANENTLY DELETED when you uninstall the plugin."
+msgid ""
+"Please note: enabling this option all data and settings will be PERMANENTLY "
+"DELETED when you uninstall the plugin."
 msgstr ""
+"Attenzione: abilitando questa opzione tutti i dati e le impostazioni saranno "
+"ELIMINATI DEFINITIVAMENTE quando disinstalli il plugin."
 
 #: admin/class-smart-admin-search-options.php:564
 msgid "Tools for the plugin maintenance."
-msgstr ""
+msgstr "Strumenti per la manutenzione del plugin."
 
 #: admin/class-smart-admin-search-options.php:585
 #: admin/class-smart-admin-search-options.php:606
 msgid "Delete data"
-msgstr ""
+msgstr "Elimina dati"
 
 #: includes/class-smart-admin-search-functions.php:114
 msgid "Admin Menu"
-msgstr ""
+msgstr "Menu amministrativo"
 
 #: includes/class-smart-admin-search-functions.php:115
 msgid "Search items in the admin menu."
-msgstr ""
+msgstr "Cerca voci nel menu amministrativo."
 
 #: includes/class-smart-admin-search-functions.php:170
 #: includes/class-smart-admin-search-functions.php:226
 msgid "Admin menu item."
-msgstr ""
+msgstr "Voce del menu amministrativo."

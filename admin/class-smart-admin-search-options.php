@@ -251,7 +251,7 @@ class Smart_Admin_Search_Options {
 		// Add setting field to the section.
 		add_settings_field(
 			'sas_disabled_search_functions',
-			esc_html__( 'Select the fuctions to run on each search', 'smart-admin-search' ),
+			esc_html__( 'Select the functions to run on each search', 'smart-admin-search' ),
 			array(
 				$this,
 				'option_disabled_search_functions',
