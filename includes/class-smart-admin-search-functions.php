@@ -176,7 +176,7 @@ class Smart_Admin_Search_Functions {
 				}
 			}
 		}
-		
+
 		// Search the submenu items.
 		if ( ! empty( $admin_menu ) && ! empty( $admin_submenu ) ) {
 
