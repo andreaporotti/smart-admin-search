@@ -11,6 +11,7 @@
 
 <div class="sas-search-modal">
 	<div class="sas-search-modal__content">
+		<div class="sas-search-modal__close"></div>
 		<select class="sas-search-modal__select"></select>
 	</div>
 </div>

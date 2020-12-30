@@ -77,6 +77,34 @@
 	}
 }
 
+.sas-search-modal__close {
+	position: absolute;
+	top: -25px;
+	right: -30px;
+	height: 40px;
+	width: 10px;
+	background: #aaaaaa;
+	transform: rotate(45deg);
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.sas-search-modal__close::after {
+	position: absolute;
+	top: 15px;
+	left: -15px;
+	height: 10px;
+	width: 40px;
+	background: #aaaaaa;
+	content: '';
+	border-radius: 3px;
+}
+
+.sas-search-modal__close:hover, 
+.sas-search-modal__close:hover::after {
+	background: #ffffff;
+}
+
 /* Search results */
 .sas-search-result {
 	display: flex;
