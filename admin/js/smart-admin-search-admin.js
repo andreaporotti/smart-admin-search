@@ -20,14 +20,17 @@
 		let sasSearchModal       = $( '.sas-search-modal' );
 		let sasSearchModalSelect = $( '.sas-search-modal__select' );
 		let sasAdminBarIcon      = $( '#wp-admin-bar-sas_icon' );
-		
+
 		/*
 		 * ADMIN BAR
 		 */
-		
-		sasAdminBarIcon.on( 'mousedown', function( e ) {
-			e.preventDefault();
+
+		sasAdminBarIcon.on( 'mousedown', function() {
 			showSearchModal();
+		} );
+
+		sasAdminBarIcon.on( 'click', function( e ) {
+			e.preventDefault();
 		} );
 
 		/*
