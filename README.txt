@@ -79,6 +79,6 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 
 == Changelog ==
 
-**1.0.0 [20xx-xx-xx]**
+**1.0.0 [2020-12-31]**
 
 - First release.
