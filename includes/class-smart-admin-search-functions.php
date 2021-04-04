@@ -331,7 +331,7 @@ class Smart_Admin_Search_Functions {
 			$search_results[] = array(
 				'text'        => $text,
 				'description' => esc_html__( 'Post.', 'smart-admin-search' ),
-				'link_url'    => $link_url,
+				'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
 				'icon_class'  => $icon_class,
 				'style'       => $style,
 			);
