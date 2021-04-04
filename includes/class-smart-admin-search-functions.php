@@ -304,6 +304,7 @@ class Smart_Admin_Search_Functions {
 
 		$args = array(
 			'post_type'      => 'post',
+			'post_status'    => 'any',
 			'posts_per_page' => -1,
 			's'              => $query,
 			'orderby'        => 'title',
@@ -315,7 +316,13 @@ class Smart_Admin_Search_Functions {
 		wp_reset_postdata();
 
 		foreach ( $posts as $post ) {
-			$text       = $post->post_title;
+			$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)' );
+
+			if ( 'publish' !== $post->post_status ) {
+				$post_status = get_post_status_object( $post->post_status )->label;
+				$text       .= ' (' . $post_status . ')';
+			}
+
 			$link_url   = get_edit_post_link( $post->ID, '' );
 			$icon_class = 'dashicons-admin-post';
 			$style      = '';
