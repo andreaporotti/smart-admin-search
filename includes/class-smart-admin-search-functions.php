@@ -274,4 +274,63 @@ class Smart_Admin_Search_Functions {
 
 	}
 
+	/**
+	 * Registers the function that looks for posts containing the search query.
+	 *
+	 * @since    1.1.0
+	 * @param    array $registered_functions    The list of registered search functions.
+	 */
+	public function register_search_posts( $registered_functions ) {
+
+		// Register the function.
+		$registered_functions[] = array(
+			'name'         => 'search_posts',
+			'display_name' => esc_html__( 'Posts', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search posts.', 'smart-admin-search' ),
+		);
+
+		return $registered_functions;
+
+	}
+
+	/**
+	 * Looks for posts containing the search query.
+	 *
+	 * @since    1.1.0
+	 * @param    array  $search_results    The global search results.
+	 * @param    string $query             The search query.
+	 */
+	public function search_posts( $search_results, $query ) {
+
+		$args = array(
+			'post_type'      => 'post',
+			'posts_per_page' => -1,
+			's'              => $query,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		);
+
+		$posts_query = new WP_Query( $args );
+		$posts       = $posts_query->posts;
+		wp_reset_postdata();
+
+		foreach ( $posts as $post ) {
+			$text       = $post->post_title;
+			$link_url   = get_edit_post_link( $post->ID, '' );
+			$icon_class = 'dashicons-admin-post';
+			$style      = '';
+
+			// Add the item to search results.
+			$search_results[] = array(
+				'text'        => $text,
+				'description' => esc_html__( 'Post.', 'smart-admin-search' ),
+				'link_url'    => $link_url,
+				'icon_class'  => $icon_class,
+				'style'       => $style,
+			);
+		}
+
+		return $search_results;
+
+	}
 }
