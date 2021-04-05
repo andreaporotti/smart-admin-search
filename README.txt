@@ -4,7 +4,7 @@ Tags: search, admin, dashboard
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,6 +19,8 @@ Just click on the top-right link or press a keyboard shortcut to open the search
 Currently Smart Admin Search can find:
 
 - admin menu items: get a list of menu items matching your query, then press enter on the most relevant result to go to that page.
+- posts
+- pages
 - (more contents coming soon...)
 
 **Configuration**
@@ -78,6 +80,12 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.1.0 [2021-04-05]**
+
+- Added search for Posts.
+- Added search for Pages.
+- Tested with PHP 8.0.x.
 
 **1.0.0 [2020-12-31]**
 
