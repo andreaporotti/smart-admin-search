@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Smart Admin Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smart Admin Search 1.0.0\n"
+"Project-Id-Version: Smart Admin Search 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-"
 "search\n"
-"POT-Creation-Date: 2020-12-28T16:51:23+00:00\n"
-"PO-Revision-Date: 2020-12-28 17:54+0100\n"
+"POT-Creation-Date: 2021-04-05T12:38:24+00:00\n"
+"PO-Revision-Date: 2021-04-05 14:43+0200\n"
 "Last-Translator: Andrea Porotti <info@andreaporotti.it>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -167,3 +167,27 @@ msgstr "Cerca voci nel menu amministrativo."
 #: includes/class-smart-admin-search-functions.php:226
 msgid "Admin menu item."
 msgstr "Voce del menu amministrativo."
+
+#: includes/class-smart-admin-search-functions.php:288
+msgid "Posts"
+msgstr "Articoli"
+
+#: includes/class-smart-admin-search-functions.php:289
+msgid "Search posts."
+msgstr "Cerca articoli."
+
+#: includes/class-smart-admin-search-functions.php:338
+msgid "Post."
+msgstr "Articolo."
+
+#: includes/class-smart-admin-search-functions.php:362
+msgid "Pages"
+msgstr "Pagine"
+
+#: includes/class-smart-admin-search-functions.php:363
+msgid "Search pages."
+msgstr "Cerca pagine."
+
+#: includes/class-smart-admin-search-functions.php:411
+msgid "Page."
+msgstr "Pagina."
