@@ -302,45 +302,47 @@ class Smart_Admin_Search_Functions {
 	 */
 	public function search_posts( $search_results, $query ) {
 
-		$args = array(
-			'post_type'      => 'post',
-			'post_status'    => 'any',
-			'posts_per_page' => -1,
-			's'              => $query,
-			'orderby'        => 'title',
-			'order'          => 'ASC',
-		);
-
-		$posts_query = new WP_Query( $args );
-		$posts       = $posts_query->posts;
-		wp_reset_postdata();
-
-		foreach ( $posts as $post ) {
-			$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)' );
-
-			if ( 'publish' !== $post->post_status ) {
-				$post_status = get_post_status_object( $post->post_status )->label;
-				$text       .= ' (' . $post_status . ')';
-			}
-
-			$link_url   = get_edit_post_link( $post->ID, '' );
-			$icon_class = 'dashicons-admin-post';
-			$style      = '';
-
-			// Add the item to search results.
-			$search_results[] = array(
-				'text'        => $text,
-				'description' => esc_html__( 'Post.', 'smart-admin-search' ),
-				'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
-				'icon_class'  => $icon_class,
-				'style'       => $style,
+		if ( current_user_can( 'edit_posts' ) ) {
+			$args = array(
+				'post_type'      => 'post',
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				's'              => $query,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
 			);
+
+			$posts_query = new WP_Query( $args );
+			$posts       = $posts_query->posts;
+			wp_reset_postdata();
+
+			foreach ( $posts as $post ) {
+				$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)' );
+
+				if ( 'publish' !== $post->post_status ) {
+					$post_status = get_post_status_object( $post->post_status )->label;
+					$text       .= ' (' . $post_status . ')';
+				}
+
+				$link_url   = get_edit_post_link( $post->ID, '' );
+				$icon_class = 'dashicons-admin-post';
+				$style      = '';
+
+				// Add the item to search results.
+				$search_results[] = array(
+					'text'        => $text,
+					'description' => esc_html__( 'Post.', 'smart-admin-search' ),
+					'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+					'icon_class'  => $icon_class,
+					'style'       => $style,
+				);
+			}
 		}
 
 		return $search_results;
 
 	}
-	
+
 	/**
 	 * Registers the function that looks for pages containing the search query.
 	 *
@@ -359,7 +361,7 @@ class Smart_Admin_Search_Functions {
 		return $registered_functions;
 
 	}
-	
+
 	/**
 	 * Looks for pages containing the search query.
 	 *
