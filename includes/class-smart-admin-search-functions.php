@@ -316,10 +316,10 @@ class Smart_Admin_Search_Functions {
 			$posts_query = new WP_Query( $args );
 			$posts       = $posts_query->posts;
 			wp_reset_postdata();
-			
+
 			foreach ( $posts as $post ) {
 				// Skip this post if it's private and the user can't access private posts.
-				if ( ! ('private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
+				if ( ! ( 'private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
 
 					$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)' );
 
@@ -393,7 +393,7 @@ class Smart_Admin_Search_Functions {
 
 			foreach ( $pages as $page ) {
 				// Skip this page if it's private and the user can't access private pages.
-				if ( ! ('private' === $page->post_status && ! current_user_can( 'read_private_pages' ) ) ) {
+				if ( ! ( 'private' === $page->post_status && ! current_user_can( 'read_private_pages' ) ) ) {
 					$text = ( ! empty( $page->post_title ) ) ? $page->post_title : esc_html__( '(no title)' );
 
 					if ( 'publish' !== $page->post_status ) {
