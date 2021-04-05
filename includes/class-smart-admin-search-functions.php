@@ -340,4 +340,73 @@ class Smart_Admin_Search_Functions {
 		return $search_results;
 
 	}
+	
+	/**
+	 * Registers the function that looks for pages containing the search query.
+	 *
+	 * @since    1.1.0
+	 * @param    array $registered_functions    The list of registered search functions.
+	 */
+	public function register_search_pages( $registered_functions ) {
+
+		// Register the function.
+		$registered_functions[] = array(
+			'name'         => 'search_pages',
+			'display_name' => esc_html__( 'Pages', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search pages.', 'smart-admin-search' ),
+		);
+
+		return $registered_functions;
+
+	}
+	
+	/**
+	 * Looks for pages containing the search query.
+	 *
+	 * @since    1.1.0
+	 * @param    array  $search_results    The global search results.
+	 * @param    string $query             The search query.
+	 */
+	public function search_pages( $search_results, $query ) {
+
+		if ( current_user_can( 'edit_pages' ) ) {
+			$args = array(
+				'post_type'      => 'page',
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				's'              => $query,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+			);
+
+			$pages_query = new WP_Query( $args );
+			$pages       = $pages_query->posts;
+			wp_reset_postdata();
+
+			foreach ( $pages as $page ) {
+				$text = ( ! empty( $page->post_title ) ) ? $page->post_title : esc_html__( '(no title)' );
+
+				if ( 'publish' !== $page->post_status ) {
+					$page_status = get_post_status_object( $page->post_status )->label;
+					$text       .= ' (' . $page_status . ')';
+				}
+
+				$link_url   = get_edit_post_link( $page->ID, '' );
+				$icon_class = 'dashicons-admin-page';
+				$style      = '';
+
+				// Add the item to search results.
+				$search_results[] = array(
+					'text'        => $text,
+					'description' => esc_html__( 'Page.', 'smart-admin-search' ),
+					'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+					'icon_class'  => $icon_class,
+					'style'       => $style,
+				);
+			}
+		}
+
+		return $search_results;
+
+	}
 }
