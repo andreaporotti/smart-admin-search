@@ -66,7 +66,7 @@ class Smart_Admin_Search_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      array    $search_functions_class    The name of the class containing the search functions.
+	 * @var      string    $search_functions_class    The name of the class containing the search functions.
 	 */
 	private $search_functions_class = 'Smart_Admin_Search_Functions';
 
