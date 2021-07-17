@@ -369,7 +369,7 @@ class Smart_Admin_Search_Admin {
 		$new_actions['sas_settings'] = sprintf(
 			'<a href="%1$s">%2$s</a>',
 			esc_url( add_query_arg( 'page', 'smart-admin-search_options', admin_url( 'options-general.php' ) ) ),
-			__( 'Settings' ),
+			__( 'Settings', 'smart-admin-search' ),
 		);
 
 		return array_merge( $plugin_actions, $new_actions );

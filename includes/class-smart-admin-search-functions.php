@@ -321,7 +321,7 @@ class Smart_Admin_Search_Functions {
 				// Skip this post if it's private and the user can't access private posts.
 				if ( ! ( 'private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
 
-					$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)' );
+					$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)', 'smart-admin-search' );
 
 					if ( 'publish' !== $post->post_status ) {
 						$post_status = get_post_status_object( $post->post_status )->label;
@@ -394,7 +394,7 @@ class Smart_Admin_Search_Functions {
 			foreach ( $pages as $page ) {
 				// Skip this page if it's private and the user can't access private pages.
 				if ( ! ( 'private' === $page->post_status && ! current_user_can( 'read_private_pages' ) ) ) {
-					$text = ( ! empty( $page->post_title ) ) ? $page->post_title : esc_html__( '(no title)' );
+					$text = ( ! empty( $page->post_title ) ) ? $page->post_title : esc_html__( '(no title)', 'smart-admin-search' );
 
 					if ( 'publish' !== $page->post_status ) {
 						$page_status = get_post_status_object( $page->post_status )->label;
