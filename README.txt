@@ -2,9 +2,9 @@
 Contributors: andreaporotti
 Tags: search, admin, dashboard
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,13 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.1.1 [2021-07-18]**
+
+- Tested with WordPress 5.8.
+- Fixed a bug with jQuery 3.6.0 and Select2 preventing auto focus on the search field.
+- Changed style of the search field close icon.
+- Updated IT translations.
 
 **1.1.0 [2021-04-05]**
 

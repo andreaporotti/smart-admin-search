@@ -66,6 +66,13 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 
 ## Changelog
 
+**1.1.1 [2021-07-18]**
+
+- Tested with WordPress 5.8.
+- Fixed a bug with jQuery 3.6.0 and Select2 preventing auto focus on the search field.
+- Changed style of the search field close icon.
+- Updated IT translations.
+
 **1.1.0 [2021-04-05]**
 
 - Added search for Posts.
