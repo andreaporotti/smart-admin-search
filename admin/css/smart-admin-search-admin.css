@@ -14,6 +14,9 @@
 #wpadminbar #wp-admin-bar-sas_icon .ab-item::before {
 	content: "\f179";
 	top: 3px;
+	float: right;
+	margin-left: 6px;
+	margin-right: 0;
 }
 
 /*
