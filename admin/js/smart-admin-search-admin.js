@@ -175,7 +175,7 @@
 		sasSearchModalSelect.on( 'select2:open', function() {
 			// Fix bug with Select2 and Jquery 3.6.0:
 			// set focus on the search field by vanilla JS.
-			document.querySelector( '.select2-search__field' ).focus();
+			document.querySelector( '.sas-search-modal--opened .select2-search__field' ).focus();
 		} );
 	});
 
