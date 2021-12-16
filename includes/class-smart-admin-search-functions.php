@@ -420,4 +420,61 @@ class Smart_Admin_Search_Functions {
 		return $search_results;
 
 	}
+
+	/**
+	 * Registers the function that looks for users containing the search query.
+	 *
+	 * @since    1.x.x
+	 * @param    array $registered_functions    The list of registered search functions.
+	 */
+	public function register_search_users( $registered_functions ) {
+
+		// Register the function.
+		$registered_functions[] = array(
+			'name'         => 'search_users',
+			'display_name' => esc_html__( 'Users', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search users.', 'smart-admin-search' ),
+		);
+
+		return $registered_functions;
+
+	}
+
+	/**
+	 * Looks for users containing the search query.
+	 *
+	 * @since    1.x.x
+	 * @param    array  $search_results    The global search results.
+	 * @param    string $query             The search query.
+	 */
+	public function search_users( $search_results, $query ) {
+
+		if ( current_user_can( 'edit_users' ) ) {
+			$args = array(
+				'search' => '*' . $query . '*',
+			);
+
+			$users_query = new WP_User_Query( $args );
+			$users       = $users_query->get_results();
+
+			foreach ( $users as $user ) {
+				$text       = $user->data->display_name . ' (' . esc_html__( 'Username:', 'smart-admin-search' ) . ' ' . $user->data->user_login . ')';
+				$link_url   = get_edit_user_link( $user->ID );
+				$icon_class = 'dashicons-admin-users';
+				$style      = '';
+
+				// Add the item to search results.
+				$search_results[] = array(
+					'text'        => $text,
+					'description' => esc_html__( 'User.', 'smart-admin-search' ),
+					'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+					'icon_class'  => $icon_class,
+					'style'       => $style,
+				);
+			}
+		}
+
+		return $search_results;
+
+	}
 }
