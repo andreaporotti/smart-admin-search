@@ -30,6 +30,7 @@ if ( '1' === $option_delete_data_on_uninstall ) {
 		'sas_search_keys_shortcut',
 		'sas_disabled_search_functions',
 		'sas_delete_data_on_uninstall',
+		'sas_admin_bar_layout',
 	);
 
 	foreach ( $options as $option ) {

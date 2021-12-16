@@ -263,6 +263,51 @@ class Smart_Admin_Search_Options {
 			)
 		);
 
+		// ----------------------
+		// Set plugin appearance.
+		// ----------------------
+
+		// Add a section.
+		add_settings_section(
+			'sas_options_section_appearance',
+			esc_html__( 'Appearance', 'smart-admin-search' ),
+			array(
+				$this,
+				'options_section_appearance',
+			),
+			$this->options_slug
+		);
+
+		// Register a setting.
+		register_setting(
+			$this->options_slug,
+			'sas_admin_bar_layout',
+			array(
+				'type'              => 'integer',
+				'show_in_rest'      => false,
+				'default'           => 0,
+				'sanitize_callback' => array(
+					$this,
+					'option_admin_bar_layout_sanitize',
+				),
+			)
+		);
+
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_admin_bar_layout',
+			esc_html__( 'Choose the layout of the search link on the admin bar', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_admin_bar_layout',
+			),
+			$this->options_slug,
+			'sas_options_section_appearance',
+			array(
+				'name' => 'sas_admin_bar_layout',
+			)
+		);
+
 		// ----------------------------------------------------
 		// Delete settings and data when the plugin is removed.
 		// ----------------------------------------------------
@@ -488,6 +533,70 @@ class Smart_Admin_Search_Options {
 				</p>
 				<br>
 			<?php endforeach; ?>
+		</fieldset>
+		<?php
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * Callback for the appearance options section output.
+	 *
+	 * @since    1.x.x
+	 * @param    array $args Array of section attributes.
+	 */
+	public function options_section_appearance( $args ) {
+
+		?>
+		<p id="<?php echo esc_attr( $args['id'] ); ?>">
+			<?php echo esc_html__( 'Set the plugin appearance.', 'smart-admin-search' ); ?>
+		</p>
+		<?php
+
+	}
+
+	/**
+	 * Callback for the admin_bar_layout option value sanitization.
+	 *
+	 * @since    1.x.x
+	 * @param    integer $value Option value.
+	 */
+	public function option_admin_bar_layout_sanitize( $value ) {
+
+		return intval( $value );
+
+	}
+
+	/**
+	 * Callback for the admin_bar_layout option field output.
+	 *
+	 * @since    1.x.x
+	 * @param    array $args Array of field attributes.
+	 */
+	public function option_admin_bar_layout( $args ) {
+
+		// Get the option value.
+		$option_admin_bar_layout = intval( get_option( $args['name'], 0 ) );
+
+		?>
+		<fieldset>
+			<?php $id_attr = $args['name'] . '_0'; ?>
+			<?php $checked_attr = ( 0 === $option_admin_bar_layout ) ? 'checked' : ''; ?>
+
+			<input type="radio" id="<?php echo esc_attr( $id_attr ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="0" <?php echo esc_attr( $checked_attr ); ?>>
+			<label for="<?php echo esc_attr( $id_attr ); ?>"><?php echo esc_html__( 'Text and icon', 'smart-admin-search' ); ?></label>
+
+			<br>
+
+			<?php $id_attr = $args['name'] . '_1'; ?>
+			<?php $checked_attr = ( 1 === $option_admin_bar_layout ) ? 'checked' : ''; ?>
+
+			<input type="radio" id="<?php echo esc_attr( $id_attr ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="1" <?php echo esc_attr( $checked_attr ); ?>>
+			<label for="<?php echo esc_attr( $id_attr ); ?>"><?php echo esc_html__( 'Icon', 'smart-admin-search' ); ?></label>
+
+			<p class="description">
+				Changes size of the link used to open the search box. The "icon" layout makes the link smaller.
+			</p>
 		</fieldset>
 		<?php
 	}

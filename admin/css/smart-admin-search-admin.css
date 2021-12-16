@@ -10,13 +10,18 @@
 * ADMIN BAR
 */
 
-/* Item icon */
+/* Item icon -- text and icon layout */
 #wpadminbar #wp-admin-bar-sas_icon .ab-item::before {
 	content: "\f179";
 	top: 3px;
 	float: right;
 	margin-left: 6px;
 	margin-right: 0;
+}
+
+/* Item icon -- icon layout */
+#wpadminbar #wp-admin-bar-sas_icon.sas-layout-icon .ab-item::before {
+	margin-left: 0;
 }
 
 /*

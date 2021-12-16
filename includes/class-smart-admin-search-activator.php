@@ -43,6 +43,11 @@ class Smart_Admin_Search_Activator {
 			add_option( 'sas_delete_data_on_uninstall', 0, '', 'no' );
 		}
 
+		// Choose admin bar search link layout.
+		if ( false === get_option( 'sas_admin_bar_layout' ) ) {
+			add_option( 'sas_admin_bar_layout', 0, '', 'no' );
+		}
+
 	}
 
 }
