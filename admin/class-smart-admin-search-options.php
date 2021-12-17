@@ -542,7 +542,7 @@ class Smart_Admin_Search_Options {
 	/**
 	 * Callback for the appearance options section output.
 	 *
-	 * @since    1.x.x
+	 * @since    1.2.0
 	 * @param    array $args Array of section attributes.
 	 */
 	public function options_section_appearance( $args ) {
@@ -558,7 +558,7 @@ class Smart_Admin_Search_Options {
 	/**
 	 * Callback for the admin_bar_layout option value sanitization.
 	 *
-	 * @since    1.x.x
+	 * @since    1.2.0
 	 * @param    integer $value Option value.
 	 */
 	public function option_admin_bar_layout_sanitize( $value ) {
@@ -570,7 +570,7 @@ class Smart_Admin_Search_Options {
 	/**
 	 * Callback for the admin_bar_layout option field output.
 	 *
-	 * @since    1.x.x
+	 * @since    1.2.0
 	 * @param    array $args Array of field attributes.
 	 */
 	public function option_admin_bar_layout( $args ) {

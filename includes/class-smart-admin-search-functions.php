@@ -424,7 +424,7 @@ class Smart_Admin_Search_Functions {
 	/**
 	 * Registers the function that looks for users containing the search query.
 	 *
-	 * @since    1.x.x
+	 * @since    1.2.0
 	 * @param    array $registered_functions    The list of registered search functions.
 	 */
 	public function register_search_users( $registered_functions ) {
@@ -443,7 +443,7 @@ class Smart_Admin_Search_Functions {
 	/**
 	 * Looks for users containing the search query.
 	 *
-	 * @since    1.x.x
+	 * @since    1.2.0
 	 * @param    array  $search_results    The global search results.
 	 * @param    string $query             The search query.
 	 */
