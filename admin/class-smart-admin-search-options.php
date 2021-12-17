@@ -595,7 +595,7 @@ class Smart_Admin_Search_Options {
 			<label for="<?php echo esc_attr( $id_attr ); ?>"><?php echo esc_html__( 'Icon', 'smart-admin-search' ); ?></label>
 
 			<p class="description">
-				Changes size of the link used to open the search box. The "icon" layout makes the link smaller.
+				<?php echo esc_html__( 'Changes size of the link used to open the search box. Choose "icon" to have a smaller link.', 'smart-admin-search' ); ?>
 			</p>
 		</fieldset>
 		<?php
