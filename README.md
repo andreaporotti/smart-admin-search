@@ -10,9 +10,10 @@ Just click on the top-right link or press a keyboard shortcut to open the search
 
 Currently Smart Admin Search can find:
 
-- admin menu items: get a list of menu items matching your query, then press enter on the most relevant result to go to that page.
+- admin menu items (get a list of menu items matching your query, then press Enter on the most relevant result to go to that page.)
 - posts
 - pages
+- users
 - (more contents coming soon...)
 
 ## Configuration
@@ -22,7 +23,8 @@ Settings for the plugin are available on the *Settings* -> *Smart Admin Search* 
 Some things you can do in the settings page:
 
 - configure the keyboard shortcut to open the search box.
-- disable any available search function.
+- disable search functions you don't need.
+- change layout of the search link on the admin bar
 
 ## Permissions
 
@@ -65,6 +67,14 @@ All the plugin data is stored only on the WordPress database.
 Please note: by default the plugin data is kept after uninstall. You can choose to delete all data going to *Settings* -> *Smart Admin Search* and enabling data removal on uninstall.
 
 ## Changelog
+
+**1.2.0 [2021-12-17]**
+
+- Added search for Users.
+- Added an option to choose layout of the search link on the admin bar.
+- Changed default layout of the search link on the admin bar (moved icon to the right like the user menu).
+- Fixed a bug preventing auto focus on the search field.
+- Tested on WordPress 5.9.
 
 **1.1.1 [2021-07-18]**
 
