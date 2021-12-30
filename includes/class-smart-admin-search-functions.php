@@ -522,11 +522,11 @@ class Smart_Admin_Search_Functions {
 			wp_reset_postdata();
 
 			foreach ( $media as $media_item ) {
-				$text = ( ! empty( $media_item->post_title ) ) ? $media_item->post_title : esc_html__( '(no title)', 'smart-admin-search' );
-
+				$text       = ( ! empty( $media_item->post_title ) ) ? $media_item->post_title : esc_html__( '(no title)', 'smart-admin-search' );
 				$link_url   = get_edit_post_link( $media_item->ID, '' );
 				$icon_class = 'dashicons-admin-media';
 				$style      = '';
+				$image      = '<img src="' . wp_get_attachment_thumb_url( $media_item->ID ) . '" />';
 
 				// Add the item to search results.
 				$search_results[] = array(
@@ -535,6 +535,7 @@ class Smart_Admin_Search_Functions {
 					'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
 					'icon_class'  => $icon_class,
 					'style'       => $style,
+					'preview'     => $image,
 				);
 			}
 		}

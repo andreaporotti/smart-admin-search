@@ -80,6 +80,17 @@
 				return result.text;
 			}
 
+			// Add the result preview.
+			let preview = '';
+			
+			if ( typeof result.preview !== 'undefined' && result.preview !== null && result.preview !== '' ) {
+				preview = `
+					<div class="sas-search-result__preview">
+						${result.preview}
+					</div>
+				`;
+			}
+
 			let template = $(
 				`
 				<div class="sas-search-result">
@@ -89,6 +100,7 @@
 						<div class="sas-search-result__description">${result.description}</div>
 						<div class="sas-search-result__link-url">${result.link_url}</div>
 					</div>
+					${preview}
 				</div>
 				`
 			);
