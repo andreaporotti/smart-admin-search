@@ -308,6 +308,36 @@ class Smart_Admin_Search_Options {
 			)
 		);
 
+		// Register a setting.
+		register_setting(
+			$this->options_slug,
+			'sas_show_results_url',
+			array(
+				'type'              => 'boolean',
+				'show_in_rest'      => false,
+				'default'           => 0,
+				'sanitize_callback' => array(
+					$this,
+					'option_show_results_url_sanitize',
+				),
+			)
+		);
+
+		// Add setting field to the section.
+		add_settings_field(
+			'sas_show_results_url',
+			esc_html__( 'Show destination address below each result', 'smart-admin-search' ),
+			array(
+				$this,
+				'option_show_results_url',
+			),
+			$this->options_slug,
+			'sas_options_section_appearance',
+			array(
+				'label_for' => 'sas_show_results_url',
+			)
+		);
+
 		// ----------------------------------------------------
 		// Delete settings and data when the plugin is removed.
 		// ----------------------------------------------------
@@ -599,6 +629,45 @@ class Smart_Admin_Search_Options {
 			</p>
 		</fieldset>
 		<?php
+	}
+
+	/**
+	 * Callback for the show_results_url option value sanitization.
+	 *
+	 * @since    1.x.x
+	 * @param    string $value Option value.
+	 */
+	public function option_show_results_url_sanitize( $value ) {
+
+		if ( '1' !== $value ) {
+			return 0;
+		}
+
+		return $value;
+
+	}
+
+	/**
+	 * Callback for the show_results_url option field output.
+	 *
+	 * @since    1.x.x
+	 * @param    array $args Array of field attributes.
+	 */
+	public function option_show_results_url( $args ) {
+
+		// Get the option value.
+		$option_show_results_url = get_option( $args['label_for'], 0 );
+
+		?>
+		<fieldset>
+			<input type="checkbox" id="<?php echo esc_attr( $args['label_for'] ); ?>" name="<?php echo esc_attr( $args['label_for'] ); ?>" value="1" <?php checked( $option_show_results_url, 1 ); ?>>
+			<label for="<?php echo esc_attr( $args['label_for'] ); ?>"><?php echo esc_html__( 'enabled', 'smart-admin-search' ); ?></label>
+			<p class="description">
+				<?php echo esc_html__( 'Enable this option to display the address a result will redirect you to after selection.', 'smart-admin-search' ); ?>
+			</p>
+		</fieldset>
+		<?php
+
 	}
 
 	// ------------------------------------------------------------------------

@@ -137,6 +137,7 @@ class Smart_Admin_Search_Admin {
 				),
 				'options' => array(
 					'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),
+					'show_results_url'     => get_option( 'sas_show_results_url', 0 ),
 				),
 			)
 		);

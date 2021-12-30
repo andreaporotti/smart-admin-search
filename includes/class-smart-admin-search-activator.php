@@ -48,6 +48,11 @@ class Smart_Admin_Search_Activator {
 			add_option( 'sas_admin_bar_layout', 0, '', 'no' );
 		}
 
+		// Display the results url.
+		if ( false === get_option( 'sas_show_results_url' ) ) {
+			add_option( 'sas_show_results_url', 0, '', 'no' );
+		}
+
 	}
 
 }

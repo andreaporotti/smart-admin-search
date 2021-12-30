@@ -85,9 +85,16 @@
 			
 			if ( typeof result.preview !== 'undefined' && result.preview !== null && result.preview !== '' ) {
 				preview = `
-					<div class="sas-search-result__preview">
-						${result.preview}
-					</div>
+					<div class="sas-search-result__preview">${result.preview}</div>
+				`;
+			}
+
+			// Add the result url (or a line).
+			let link_url = '<hr>';
+
+			if ( sas_values.options.show_results_url == 1) {
+				link_url = `
+					<div class="sas-search-result__link-url">${result.link_url}</div>
 				`;
 			}
 
@@ -98,7 +105,7 @@
 					<div class="sas-search-result__info">
 						<div class="sas-search-result__name">${result.text}</div>
 						<div class="sas-search-result__description">${result.description}</div>
-						<div class="sas-search-result__link-url">${result.link_url}</div>
+						${link_url}
 					</div>
 					${preview}
 				</div>

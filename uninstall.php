@@ -31,6 +31,7 @@ if ( '1' === $option_delete_data_on_uninstall ) {
 		'sas_disabled_search_functions',
 		'sas_delete_data_on_uninstall',
 		'sas_admin_bar_layout',
+		'sas_show_results_url',
 	);
 
 	foreach ( $options as $option ) {
