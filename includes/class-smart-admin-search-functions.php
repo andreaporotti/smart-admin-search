@@ -477,4 +477,69 @@ class Smart_Admin_Search_Functions {
 		return $search_results;
 
 	}
+
+	/**
+	 * Registers the function that looks for media containing the search query.
+	 *
+	 * @since    1.x.x
+	 * @param    array $registered_functions    The list of registered search functions.
+	 */
+	public function register_search_media( $registered_functions ) {
+
+		// Register the function.
+		$registered_functions[] = array(
+			'name'         => 'search_media',
+			'display_name' => esc_html__( 'Media', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search media.', 'smart-admin-search' ),
+		);
+
+		return $registered_functions;
+
+	}
+
+	/**
+	 * Looks for media containing the search query.
+	 *
+	 * @since    1.x.x
+	 * @param    array  $search_results    The global search results.
+	 * @param    string $query             The search query.
+	 */
+	public function search_media( $search_results, $query ) {
+
+		if ( current_user_can( 'upload_files' ) ) {
+			$args = array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				's'              => $query,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'perm'           => 'editable',
+			);
+
+			$media_query = new WP_Query( $args );
+			$media       = $media_query->posts;
+			wp_reset_postdata();
+
+			foreach ( $media as $media_item ) {
+				$text = ( ! empty( $media_item->post_title ) ) ? $media_item->post_title : esc_html__( '(no title)', 'smart-admin-search' );
+
+				$link_url   = get_edit_post_link( $media_item->ID, '' );
+				$icon_class = 'dashicons-admin-media';
+				$style      = '';
+
+				// Add the item to search results.
+				$search_results[] = array(
+					'text'        => $text,
+					'description' => esc_html__( 'Media.', 'smart-admin-search' ),
+					'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+					'icon_class'  => $icon_class,
+					'style'       => $style,
+				);
+			}
+		}
+
+		return $search_results;
+
+	}
 }
