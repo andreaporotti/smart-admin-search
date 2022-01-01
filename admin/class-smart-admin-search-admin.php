@@ -134,6 +134,7 @@ class Smart_Admin_Search_Admin {
 				),
 				'strings' => array(
 					'search_select_placeholder' => esc_html__( 'Hello, how may I help you?', 'smart-admin-search' ),
+					'no_permissions'            => esc_html__( 'Sorry, it seems like you are not allowed to edit or view this item.', 'smart-admin-search' ),
 				),
 				'options' => array(
 					'search_keys_shortcut' => $this->get_current_search_keys_shortcut( 'array' ),

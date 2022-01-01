@@ -89,15 +89,25 @@
 				`;
 			}
 
-			// Add the result url (or a line).
-			let link_url = '<hr>';
+			// Add the result link.
+			// Show a line by default.
+			let link_content = '<hr>';
 
-			if ( sas_values.options.show_results_url == 1) {
-				link_url = `
-					<div class="sas-search-result__link-url">${result.link_url}</div>
-				`;
+			// If the setting is enabled, show the link url.
+			if ( sas_values.options.show_results_url == 1 ) {
+				link_content = result.link_url;
 			}
 
+			// If the url is missing, show a message.
+			if ( result.link_url === '' || result.link_url === null ) {
+				link_content = sas_values.strings.no_permissions;
+			}
+
+			let link_container = `
+				<div class="sas-search-result__link-url">${link_content}</div>
+			`;
+
+			// Create the result template.
 			let template = $(
 				`
 				<div class="sas-search-result">
@@ -105,7 +115,7 @@
 					<div class="sas-search-result__info">
 						<div class="sas-search-result__name">${result.text}</div>
 						<div class="sas-search-result__description">${result.description}</div>
-						${link_url}
+						${link_container}
 					</div>
 					${preview}
 				</div>

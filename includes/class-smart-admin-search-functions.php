@@ -328,7 +328,12 @@ class Smart_Admin_Search_Functions {
 						$text       .= ' (' . $post_status . ')';
 					}
 
-					$link_url   = get_edit_post_link( $post->ID, '' );
+					$link_url = get_edit_post_link( $post->ID, '' );
+
+					if ( empty( $link_url ) && 'draft' !== $post->post_status ) {
+						$link_url = get_the_permalink( $post->ID );
+					}
+
 					$icon_class = 'dashicons-admin-post';
 					$style      = '';
 
@@ -394,6 +399,7 @@ class Smart_Admin_Search_Functions {
 			foreach ( $pages as $page ) {
 				// Skip this page if it's private and the user can't access private pages.
 				if ( ! ( 'private' === $page->post_status && ! current_user_can( 'read_private_pages' ) ) ) {
+
 					$text = ( ! empty( $page->post_title ) ) ? $page->post_title : esc_html__( '(no title)', 'smart-admin-search' );
 
 					if ( 'publish' !== $page->post_status ) {
@@ -401,7 +407,12 @@ class Smart_Admin_Search_Functions {
 						$text       .= ' (' . $page_status . ')';
 					}
 
-					$link_url   = get_edit_post_link( $page->ID, '' );
+					$link_url = get_edit_post_link( $page->ID, '' );
+
+					if ( empty( $link_url ) && 'draft' !== $page->post_status ) {
+						$link_url = get_the_permalink( $page->ID );
+					}
+
 					$icon_class = 'dashicons-admin-page';
 					$style      = '';
 
