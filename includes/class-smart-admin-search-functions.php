@@ -492,7 +492,7 @@ class Smart_Admin_Search_Functions {
 	/**
 	 * Registers the function that looks for media containing the search query.
 	 *
-	 * @since    1.x.x
+	 * @since    1.3.0
 	 * @param    array $registered_functions    The list of registered search functions.
 	 */
 	public function register_search_media( $registered_functions ) {
@@ -511,7 +511,7 @@ class Smart_Admin_Search_Functions {
 	/**
 	 * Looks for media containing the search query.
 	 *
-	 * @since    1.x.x
+	 * @since    1.3.0
 	 * @param    array  $search_results    The global search results.
 	 * @param    string $query             The search query.
 	 */

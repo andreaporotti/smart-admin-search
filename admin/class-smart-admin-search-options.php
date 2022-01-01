@@ -634,7 +634,7 @@ class Smart_Admin_Search_Options {
 	/**
 	 * Callback for the show_results_url option value sanitization.
 	 *
-	 * @since    1.x.x
+	 * @since    1.3.0
 	 * @param    string $value Option value.
 	 */
 	public function option_show_results_url_sanitize( $value ) {
@@ -650,7 +650,7 @@ class Smart_Admin_Search_Options {
 	/**
 	 * Callback for the show_results_url option field output.
 	 *
-	 * @since    1.x.x
+	 * @since    1.3.0
 	 * @param    array $args Array of field attributes.
 	 */
 	public function option_show_results_url( $args ) {
