@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Smart Admin Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smart Admin Search 1.2.0\n"
+"Project-Id-Version: Smart Admin Search 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-"
 "search\n"
-"POT-Creation-Date: 2021-12-17T11:34:46+00:00\n"
-"PO-Revision-Date: 2021-12-17 12:36+0100\n"
+"POT-Creation-Date: 2022-01-01T16:16:36+00:00\n"
+"PO-Revision-Date: 2022-01-01 17:25+0100\n"
 "Last-Translator: Andrea Porotti <info@andreaporotti.it>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -45,16 +45,22 @@ msgstr "https://www.andreaporotti.it/"
 msgid "Hello, how may I help you?"
 msgstr "Ciao, come posso aiutarti?"
 
+#: admin/class-smart-admin-search-admin.php:137
+msgid "Sorry, it seems like you are not allowed to edit or view this item."
+msgstr ""
+"Sembra che tu non abbia i permessi per modificare o visualizzare questo "
+"elemento."
+
 #. translators: %s is the keyboard shortcut to open the search window
-#: admin/class-smart-admin-search-admin.php:158
+#: admin/class-smart-admin-search-admin.php:160
 msgid "Search in the WordPress dashboard (%s)"
 msgstr "Cerca nella bacheca di WordPress (%s)"
 
-#: admin/class-smart-admin-search-admin.php:370
+#: admin/class-smart-admin-search-admin.php:372
 msgid "no keyboard shortcut set"
 msgstr "nessuna scorciatoia da tastiera impostata"
 
-#: admin/class-smart-admin-search-admin.php:393
+#: admin/class-smart-admin-search-admin.php:395
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -95,37 +101,41 @@ msgstr "Aspetto"
 msgid "Choose the layout of the search link on the admin bar"
 msgstr "Scegli il layout del link di ricerca posto sulla barra amministrativa"
 
-#: admin/class-smart-admin-search-options.php:318
+#: admin/class-smart-admin-search-options.php:329
+msgid "Show destination address below each result"
+msgstr "Mostra l'indirizzo di destinazione sotto ogni risultato"
+
+#: admin/class-smart-admin-search-options.php:348
 msgid "Plugin uninstall"
 msgstr "Disinstallazione plugin"
 
-#: admin/class-smart-admin-search-options.php:344
+#: admin/class-smart-admin-search-options.php:374
 msgid "Delete all plugin data"
 msgstr "Elimina tutti i dati del plugin"
 
-#: admin/class-smart-admin-search-options.php:363
+#: admin/class-smart-admin-search-options.php:393
 msgid "Plugin maintenance"
 msgstr "Manutenzione plugin"
 
-#: admin/class-smart-admin-search-options.php:374
+#: admin/class-smart-admin-search-options.php:404
 msgid "Delete temporary data of the current user"
 msgstr "Elimina i dati temporanei dell'utente corrente"
 
-#: admin/class-smart-admin-search-options.php:386
+#: admin/class-smart-admin-search-options.php:416
 msgid "Delete temporary data of all users"
 msgstr "Elimina i dati temporanei di tutti gli utenti"
 
-#: admin/class-smart-admin-search-options.php:407
+#: admin/class-smart-admin-search-options.php:437
 msgid "Configure keyboard shortcuts to access plugin features."
 msgstr ""
 "Configura le scorciatoie da tastiera per accedere alle funzionalità del "
 "plugin."
 
-#: admin/class-smart-admin-search-options.php:442
+#: admin/class-smart-admin-search-options.php:472
 msgid "Clear"
 msgstr "Cancella"
 
-#: admin/class-smart-admin-search-options.php:445
+#: admin/class-smart-admin-search-options.php:475
 msgid ""
 "Click on the textbox and then press the keys that you will use to open the "
 "search box. Click the Clear button to empty the textbox."
@@ -134,27 +144,27 @@ msgstr ""
 "casella di ricerca. Clicca sul pulsante Cancella per svuotare la casella di "
 "testo."
 
-#: admin/class-smart-admin-search-options.php:447
+#: admin/class-smart-admin-search-options.php:477
 msgid "The current shortcut is:"
 msgstr "La scorciatoia corrente è:"
 
-#: admin/class-smart-admin-search-options.php:466
+#: admin/class-smart-admin-search-options.php:496
 msgid "Configure the available search functions."
 msgstr "Configura le funzioni di ricerca disponibili."
 
-#: admin/class-smart-admin-search-options.php:552
+#: admin/class-smart-admin-search-options.php:582
 msgid "Set the plugin appearance."
 msgstr "Imposta l'aspetto del plugin."
 
-#: admin/class-smart-admin-search-options.php:587
+#: admin/class-smart-admin-search-options.php:617
 msgid "Text and icon"
 msgstr "Testo e icona"
 
-#: admin/class-smart-admin-search-options.php:595
+#: admin/class-smart-admin-search-options.php:625
 msgid "Icon"
 msgstr "Icona"
 
-#: admin/class-smart-admin-search-options.php:598
+#: admin/class-smart-admin-search-options.php:628
 msgid ""
 "Changes size of the link used to open the search box. Choose \"icon\" to "
 "have a smaller link."
@@ -162,15 +172,24 @@ msgstr ""
 "Modifica le dimensioni del collegamento utilizzato per aprire la casella di "
 "ricerca. Scegli \"icona\" per avere un collegamento più piccolo."
 
-#: admin/class-smart-admin-search-options.php:616
-msgid "These settings are applied when you uninstall the plugin."
-msgstr "Queste impostazioni sono applicate quando disinstalli il plugin."
-
-#: admin/class-smart-admin-search-options.php:652
+#: admin/class-smart-admin-search-options.php:664
+#: admin/class-smart-admin-search-options.php:721
 msgid "enabled"
 msgstr "abilitato"
 
-#: admin/class-smart-admin-search-options.php:654
+#: admin/class-smart-admin-search-options.php:666
+msgid ""
+"Enable this option to display the address a result will redirect you to "
+"after selection."
+msgstr ""
+"Abilita questa opzione per visualizzare l'indirizzo a cui un risultato ti "
+"reindirizzerà dopo la selezione."
+
+#: admin/class-smart-admin-search-options.php:685
+msgid "These settings are applied when you uninstall the plugin."
+msgstr "Queste impostazioni sono applicate quando disinstalli il plugin."
+
+#: admin/class-smart-admin-search-options.php:723
 msgid ""
 "Please note: enabling this option all data and settings will be PERMANENTLY "
 "DELETED when you uninstall the plugin."
@@ -178,12 +197,12 @@ msgstr ""
 "Attenzione: abilitando questa opzione tutti i dati e le impostazioni saranno "
 "ELIMINATI DEFINITIVAMENTE quando disinstalli il plugin."
 
-#: admin/class-smart-admin-search-options.php:673
+#: admin/class-smart-admin-search-options.php:742
 msgid "Tools for the plugin maintenance."
 msgstr "Strumenti per la manutenzione del plugin."
 
-#: admin/class-smart-admin-search-options.php:694
-#: admin/class-smart-admin-search-options.php:715
+#: admin/class-smart-admin-search-options.php:763
+#: admin/class-smart-admin-search-options.php:784
 msgid "Delete data"
 msgstr "Elimina dati"
 
@@ -209,38 +228,51 @@ msgid "Search posts."
 msgstr "Cerca articoli."
 
 #: includes/class-smart-admin-search-functions.php:324
-#: includes/class-smart-admin-search-functions.php:397
+#: includes/class-smart-admin-search-functions.php:403
+#: includes/class-smart-admin-search-functions.php:536
 msgid "(no title)"
 msgstr "(senza titolo)"
 
-#: includes/class-smart-admin-search-functions.php:338
+#: includes/class-smart-admin-search-functions.php:343
 msgid "Post."
 msgstr "Articolo."
 
-#: includes/class-smart-admin-search-functions.php:362
+#: includes/class-smart-admin-search-functions.php:367
 msgid "Pages"
 msgstr "Pagine"
 
-#: includes/class-smart-admin-search-functions.php:363
+#: includes/class-smart-admin-search-functions.php:368
 msgid "Search pages."
 msgstr "Cerca pagine."
 
-#: includes/class-smart-admin-search-functions.php:411
+#: includes/class-smart-admin-search-functions.php:422
 msgid "Page."
 msgstr "Pagina."
 
-#: includes/class-smart-admin-search-functions.php:435
+#: includes/class-smart-admin-search-functions.php:446
 msgid "Users"
 msgstr "Utenti"
 
-#: includes/class-smart-admin-search-functions.php:436
+#: includes/class-smart-admin-search-functions.php:447
 msgid "Search users."
 msgstr "Cerca utenti."
 
-#: includes/class-smart-admin-search-functions.php:461
+#: includes/class-smart-admin-search-functions.php:472
 msgid "Username:"
 msgstr "Nome utente:"
 
-#: includes/class-smart-admin-search-functions.php:469
+#: includes/class-smart-admin-search-functions.php:480
 msgid "User."
 msgstr "Utente."
+
+#: includes/class-smart-admin-search-functions.php:503
+msgid "Media"
+msgstr "Media"
+
+#: includes/class-smart-admin-search-functions.php:504
+msgid "Search media."
+msgstr "Cerca media."
+
+#: includes/class-smart-admin-search-functions.php:545
+msgid "Media."
+msgstr "Media."
