@@ -4,7 +4,7 @@ Tags: search, admin, dashboard
 Requires at least: 5.0
 Tested up to: 5.9
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,11 +18,12 @@ Just click on the top-right link or press a keyboard shortcut to open the search
 
 Currently Smart Admin Search can find:
 
-- admin menu items (get a list of menu items matching your query, then press Enter on the most relevant result to go to that page.)
+- admin menu items
 - posts
 - pages
 - users
-- (more contents coming soon...)
+- media
+- (more contents coming soon... maybe!)
 
 **Configuration**
 
@@ -37,6 +38,11 @@ Some things you can do in the settings page:
 **Permissions**
 
 The search box can be used by users of any role. Each user will get results available for the assigned role.
+
+For pages and posts results, these actions will be triggered on result selection, according to the user permissions:
+- edit item
+- view item
+- show a message if no access to the item is allowed
 
 **Support**
 
@@ -82,6 +88,13 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.3.0 [2022-01-01]**
+
+- Added search for Media with image preview.
+- Added an option to display the url of each result, which was always visible. Starting with this version, the url is hidden by default.
+- For pages and posts results, these actions will be triggered on result selection, according to the user permissions: "edit item" or "view item" or "show a message if no access to the item is allowed".
+- Small changes to the results style.
 
 **1.2.0 [2021-12-17]**
 
