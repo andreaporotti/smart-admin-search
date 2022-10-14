@@ -45,8 +45,8 @@
 			// Clear the pressed keys array.
 			optionsPressedKeys = [];
 
-			// Clear the textbox content.
-			sasCaptureSearchKeys.val( '' );
+			// Clear the textbox content and set focus on it.
+			sasCaptureSearchKeys.val( '' ).focus();
 
 			// Reset the option field with the current shortcut.
 			sasSearchKeysShortcut.val( currentSearchKeysShortcut );
