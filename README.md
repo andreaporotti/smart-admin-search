@@ -32,6 +32,7 @@ Some things you can do in the settings page:
 The search box can be used by users of any role. Each user will get results available for the assigned role.
 
 For pages and posts results, these actions will be triggered on result selection, according to the user permissions:
+
 - edit item
 - view item
 - show a message if no access to the item is allowed
