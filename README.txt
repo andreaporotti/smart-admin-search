@@ -2,9 +2,9 @@
 Contributors: andreaporotti
 Tags: search, admin, dashboard
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ Currently Smart Admin Search can find:
 - pages
 - users
 - media
-- (more contents coming soon... maybe!)
+- custom post types contents
 
 **Configuration**
 
@@ -89,6 +89,12 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.4.0 [2022-10-16]**
+
+- Added search for custom post types contents. I cannot assure this will work for all existing plugins, so please let me know if you have any problems in the support forum.
+- In the plugin settings, clicking the keyboard shortcut "Clear" button will clear the option value AND set the focus on the textbox.
+- Tested on WordPress 6.1.
 
 **1.3.0 [2022-01-01]**
 
