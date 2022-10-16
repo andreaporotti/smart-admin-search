@@ -554,4 +554,97 @@ class Smart_Admin_Search_Functions {
 		return $search_results;
 
 	}
+
+	/**
+	 * Registers the function that looks for custom post types containing the search query.
+	 *
+	 * @since    1.4.0
+	 * @param    array $registered_functions    The list of registered search functions.
+	 */
+	public function register_search_cpt( $registered_functions ) {
+
+		// Register the function.
+		$registered_functions[] = array(
+			'name'         => 'search_cpt',
+			'display_name' => esc_html__( 'Custom post types', 'smart-admin-search' ),
+			'description'  => esc_html__( 'Search custom post type content.', 'smart-admin-search' ),
+		);
+
+		return $registered_functions;
+
+	}
+
+	/**
+	 * Looks for custom post types containing the search query.
+	 *
+	 * @since    1.4.0
+	 * @param    array  $search_results    The global search results.
+	 * @param    string $query             The search query.
+	 */
+	public function search_cpt( $search_results, $query ) {
+
+		if ( current_user_can( 'edit_posts' ) ) {
+			// Get all custom post types.
+			$cpt_obj = get_post_types(
+				array(
+					'_builtin' => false,
+					'public'   => true,
+				),
+				'objects',
+				'and'
+			);
+
+			$cpt_names = array_keys( $cpt_obj );
+
+			// Search custom post types posts.
+			$args = array(
+				'post_type'      => $cpt_names,
+				'post_status'    => 'any',
+				'posts_per_page' => -1,
+				's'              => $query,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'perm'           => 'editable',
+			);
+
+			$posts_query = new WP_Query( $args );
+			$posts       = $posts_query->posts;
+			wp_reset_postdata();
+
+			foreach ( $posts as $post ) {
+				// Skip this post if it's private and the user can't access private posts.
+				if ( ! ( 'private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
+
+					$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)', 'smart-admin-search' );
+
+					if ( 'publish' !== $post->post_status ) {
+						$post_status = get_post_status_object( $post->post_status )->label;
+						$text       .= ' (' . $post_status . ')';
+					}
+
+					$link_url = get_edit_post_link( $post->ID, '' );
+
+					if ( empty( $link_url ) && 'draft' !== $post->post_status ) {
+						$link_url = get_the_permalink( $post->ID );
+					}
+
+					$cpt_icon   = $cpt_obj[ $post->post_type ]->menu_icon;
+					$icon_class = ( ! empty( $cpt_icon ) ) ? $cpt_icon : 'dashicons-admin-post';
+					$style      = '';
+
+					// Add the item to search results.
+					$search_results[] = array(
+						'text'        => $text,
+						'description' => $cpt_obj[ $post->post_type ]->labels->singular_name,
+						'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+						'icon_class'  => $icon_class,
+						'style'       => $style,
+					);
+				}
+			}
+		}
+
+		return $search_results;
+
+	}
 }
