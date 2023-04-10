@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Smart Admin Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smart Admin Search 1.4.0\n"
+"Project-Id-Version: Smart Admin Search 1.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-"
 "search\n"
-"POT-Creation-Date: 2022-10-16T15:31:10+00:00\n"
-"PO-Revision-Date: 2022-10-16 17:37+0200\n"
+"POT-Creation-Date: 2023-04-10T09:44:45+00:00\n"
+"PO-Revision-Date: 2023-04-10 11:49+0200\n"
 "Last-Translator: Andrea Porotti <info@andreaporotti.it>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Domain: smart-admin-search\n"
 
 #. Plugin Name of the plugin
@@ -230,7 +230,7 @@ msgstr "Cerca articoli."
 #: includes/class-smart-admin-search-functions.php:324
 #: includes/class-smart-admin-search-functions.php:403
 #: includes/class-smart-admin-search-functions.php:536
-#: includes/class-smart-admin-search-functions.php:618
+#: includes/class-smart-admin-search-functions.php:619
 msgid "(no title)"
 msgstr "(senza titolo)"
 
