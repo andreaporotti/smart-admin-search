@@ -594,52 +594,54 @@ class Smart_Admin_Search_Functions {
 				'and'
 			);
 
-			$cpt_names = array_keys( $cpt_obj );
+			if ( ! empty( $cpt_obj ) ) {
+				$cpt_names = array_keys( $cpt_obj );
 
-			// Search custom post types posts.
-			$args = array(
-				'post_type'      => $cpt_names,
-				'post_status'    => 'any',
-				'posts_per_page' => -1,
-				's'              => $query,
-				'orderby'        => 'title',
-				'order'          => 'ASC',
-				'perm'           => 'editable',
-			);
+				// Search custom post types posts.
+				$args = array(
+					'post_type'      => $cpt_names,
+					'post_status'    => 'any',
+					'posts_per_page' => -1,
+					's'              => $query,
+					'orderby'        => 'title',
+					'order'          => 'ASC',
+					'perm'           => 'editable',
+				);
 
-			$posts_query = new WP_Query( $args );
-			$posts       = $posts_query->posts;
-			wp_reset_postdata();
+				$posts_query = new WP_Query( $args );
+				$posts       = $posts_query->posts;
+				wp_reset_postdata();
 
-			foreach ( $posts as $post ) {
-				// Skip this post if it's private and the user can't access private posts.
-				if ( ! ( 'private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
+				foreach ( $posts as $post ) {
+					// Skip this post if it's private and the user can't access private posts.
+					if ( ! ( 'private' === $post->post_status && ! current_user_can( 'read_private_posts' ) ) ) {
 
-					$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)', 'smart-admin-search' );
+						$text = ( ! empty( $post->post_title ) ) ? $post->post_title : esc_html__( '(no title)', 'smart-admin-search' );
 
-					if ( 'publish' !== $post->post_status ) {
-						$post_status = get_post_status_object( $post->post_status )->label;
-						$text       .= ' (' . $post_status . ')';
+						if ( 'publish' !== $post->post_status ) {
+							$post_status = get_post_status_object( $post->post_status )->label;
+							$text       .= ' (' . $post_status . ')';
+						}
+
+						$link_url = get_edit_post_link( $post->ID, '' );
+
+						if ( empty( $link_url ) && 'draft' !== $post->post_status ) {
+							$link_url = get_the_permalink( $post->ID );
+						}
+
+						$cpt_icon   = $cpt_obj[ $post->post_type ]->menu_icon;
+						$icon_class = ( ! empty( $cpt_icon ) ) ? $cpt_icon : 'dashicons-admin-post';
+						$style      = '';
+
+						// Add the item to search results.
+						$search_results[] = array(
+							'text'        => $text,
+							'description' => $cpt_obj[ $post->post_type ]->labels->singular_name,
+							'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
+							'icon_class'  => $icon_class,
+							'style'       => $style,
+						);
 					}
-
-					$link_url = get_edit_post_link( $post->ID, '' );
-
-					if ( empty( $link_url ) && 'draft' !== $post->post_status ) {
-						$link_url = get_the_permalink( $post->ID );
-					}
-
-					$cpt_icon   = $cpt_obj[ $post->post_type ]->menu_icon;
-					$icon_class = ( ! empty( $cpt_icon ) ) ? $cpt_icon : 'dashicons-admin-post';
-					$style      = '';
-
-					// Add the item to search results.
-					$search_results[] = array(
-						'text'        => $text,
-						'description' => $cpt_obj[ $post->post_type ]->labels->singular_name,
-						'link_url'    => ( ! empty( $link_url ) ) ? $link_url : '',
-						'icon_class'  => $icon_class,
-						'style'       => $style,
-					);
 				}
 			}
 		}
