@@ -75,6 +75,12 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 
 ## Changelog
 
+**1.4.1 [2023-04-10]**
+
+- Fixed a bug in the search when the site has no custom post types.
+- Tested on WordPress 6.2.
+- Tested on PHP 8.0.
+
 **1.4.0 [2022-10-16]**
 
 - Added search for custom post types contents. I cannot assure this will work for all existing plugins, so please let me know if you have any problems in the support forum.
