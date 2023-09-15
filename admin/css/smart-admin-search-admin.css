@@ -119,6 +119,7 @@
 
 .sas-search-result__icon.wp-menu-image::before {
 	padding: 0;
+	color: #ffffff;
 }
 
 .sas-search-result__info {
@@ -156,7 +157,13 @@
 */
 
 .sas-search-modal .select2-container--default .select2-search--dropdown .select2-search__field {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
+	font-weight: 600;
+	padding: 5px 10px;
+}
+
+.sas-search-modal .select2-container--default .select2-selection--single {
+	border-bottom: none;
 }
 
 .sas-search-modal .select2-container--default .select2-selection--single .select2-selection__placeholder{
@@ -176,4 +183,12 @@
 
 .sas-search-modal .select2-container--default .select2-results__option {
 	margin-bottom: 0;
+}
+
+.sas-search-modal .select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: #2271b1;
+}
+
+.sas-search-modal .select2-container--default .select2-results__option--highlighted[aria-selected] .sas-search-result__icon {
+	background-color: transparent;
 }
