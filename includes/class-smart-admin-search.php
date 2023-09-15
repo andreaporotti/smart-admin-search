@@ -150,6 +150,7 @@ class Smart_Admin_Search {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_bar_menu', $plugin_admin, 'admin_bar_menu', 10 );
 		$this->loader->add_action( 'admin_footer', $plugin_admin, 'admin_footer' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'show_admin_notice_keys_shortcut' );
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'rest_api_register_search' );
 		$this->loader->add_filter( 'plugin_action_links_smart-admin-search/smart-admin-search.php', $plugin_admin, 'plugin_action_links', 10, 2 );
 

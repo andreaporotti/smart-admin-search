@@ -53,6 +53,10 @@ class Smart_Admin_Search_Activator {
 			add_option( 'sas_show_results_url', 0, '', 'no' );
 		}
 
+		// Display admin notice suggesting to configure a keyboard shortcut.
+		if ( false === get_option( 'sas_show_admin_notice_keys_shortcut' ) && 'none' === get_option( 'sas_search_keys_shortcut' ) ) {
+			add_option( 'sas_show_admin_notice_keys_shortcut', 1, '', 'no' );
+		}
 	}
 
 }

@@ -399,4 +399,33 @@ class Smart_Admin_Search_Admin {
 
 	}
 
+	/**
+	 * Shows admin notice suggesting to configure a keyboard shortcut.
+	 *
+	 * @since     1.5.0
+	 */
+	public function show_admin_notice_keys_shortcut() {
+
+		if ( get_option( 'sas_show_admin_notice_keys_shortcut' ) ) {
+			?>
+			<div class="notice notice-warning">
+				<p>
+					<?php
+						printf(
+							/* translators: %1$s is the plugin name, %2$s is the settings page url. */
+							wp_kses( __( 'Thank you for using %1$s, I hope you will like it! Please take a look at the <a href="%2$s">settings</a> page to choose a keyboard shortcut or configure the other plugin options.', 'smart-admin-search' ), array( 'a' => array( 'href' => array() ) ) ),
+							esc_html( $this->plugin_name ),
+							esc_url( add_query_arg( 'page', 'smart-admin-search_options', admin_url( 'options-general.php' ) ) )
+						);
+					?>
+				</p>
+			</div>
+			<?php
+
+			// Delete the option to prevent showing the notice again.
+			delete_option( 'sas_show_admin_notice_keys_shortcut' );
+		}
+
+	}
+
 }
