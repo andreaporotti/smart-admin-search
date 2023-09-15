@@ -2,9 +2,9 @@
 Contributors: andreaporotti
 Tags: search, admin, dashboard
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,11 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.5.0 [2023-09-15]**
+- Added a notice after plugin activation to suggest visiting plugin settings and choose a keyboard shortcut.
+- Small changes to the search field appearance.
+- Tested on WordPress 6.3.
 
 **1.4.1 [2023-04-10]**
 - Fixed a bug in the search when the site has no custom post types.

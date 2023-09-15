@@ -75,6 +75,12 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 
 ## Changelog
 
+**1.5.0 [2023-09-15]**
+
+- Added a notice after plugin activation to suggest visiting plugin settings and choose a keyboard shortcut.
+- Small changes to the search field appearance.
+- Tested on WordPress 6.3.
+
 **1.4.1 [2023-04-10]**
 
 - Fixed a bug in the search when the site has no custom post types.
