@@ -135,7 +135,6 @@
 
 		function showSearchModal() {
 			sasSearchModal.addClass( 'sas-search-modal--opened' );
-			sasBody.addClass( 'prevent-scroll' );
 
 			sasSearchModalSelect.sasSelect2( {
 				dropdownParent    : sasSearchModal,
@@ -173,7 +172,6 @@
 		function hideSearchModal() {
 			if ( sasSearchModalSelect.hasClass( 'select2-hidden-accessible' ) ) {
 				sasSearchModal.removeClass( 'sas-search-modal--opened' );
-				sasBody.removeClass( 'prevent-scroll' );
 				sasSearchModalSelect.sasSelect2( 'destroy' );
 				sasSearchModalSelect.empty();
 			}
