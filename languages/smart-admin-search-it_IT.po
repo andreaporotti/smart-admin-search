@@ -2,11 +2,11 @@
 # This file is distributed under the same license as the Smart Admin Search plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smart Admin Search 1.4.1\n"
+"Project-Id-Version: Smart Admin Search 1.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-admin-"
 "search\n"
-"POT-Creation-Date: 2023-04-10T09:44:45+00:00\n"
-"PO-Revision-Date: 2023-04-10 11:49+0200\n"
+"POT-Creation-Date: 2023-09-15T15:02:22+00:00\n"
+"PO-Revision-Date: 2023-09-15 17:10+0200\n"
 "Last-Translator: Andrea Porotti <info@andreaporotti.it>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Domain: smart-admin-search\n"
 
 #. Plugin Name of the plugin
@@ -63,6 +63,17 @@ msgstr "nessuna scorciatoia da tastiera impostata"
 #: admin/class-smart-admin-search-admin.php:395
 msgid "Settings"
 msgstr "Impostazioni"
+
+#. translators: %1$s is the plugin name, %2$s is the settings page url.
+#: admin/class-smart-admin-search-admin.php:416
+msgid ""
+"Thank you for using %1$s, I hope you will like it! Please take a look at the "
+"<a href=\"%2$s\">settings</a> page to choose a keyboard shortcut or "
+"configure the other plugin options."
+msgstr ""
+"Grazie per aver installato %1$s, spero che ti piacerà! Dai un'occhiata alla "
+"pagina delle <a href=\"%2$s\">impostazioni</a> per scegliere una scorciatoia "
+"da tastiera o configurare le altre opzioni del plugin."
 
 #. translators: %s is the plugin name
 #: admin/class-smart-admin-search-options.php:73
@@ -280,7 +291,7 @@ msgstr "Media."
 
 #: includes/class-smart-admin-search-functions.php:569
 msgid "Custom post types"
-msgstr "Tipi di contenuto personalizzati."
+msgstr "Tipi di contenuto personalizzati"
 
 #: includes/class-smart-admin-search-functions.php:570
 msgid "Search custom post type content."
