@@ -75,6 +75,10 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 
 ## Changelog
 
+**1.5.1 [2024-07-14]**
+- Tested on WordPress 6.6.
+- Fixed admin bar position on WordPress 6.6.
+
 **1.5.0 [2023-09-15]**
 
 - Added a notice after plugin activation to suggest visiting plugin settings and choose a keyboard shortcut.

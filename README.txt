@@ -2,9 +2,9 @@
 Contributors: andreaporotti
 Tags: search, admin, dashboard
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ Please note: by default the plugin data is kept after uninstall. You can choose 
 4. The keyboard shortcut to open the search box can be configured in the settings page.
 
 == Changelog ==
+
+**1.5.1 [2024-07-14]**
+- Tested on WordPress 6.6.
+- Fixed admin bar position on WordPress 6.6.
 
 **1.5.0 [2023-09-15]**
 - Added a notice after plugin activation to suggest visiting plugin settings and choose a keyboard shortcut.
