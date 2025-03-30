@@ -2,7 +2,7 @@
 Contributors: andreaporotti
 Tags: search, admin, dashboard
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 5.6
 Stable tag: 1.5.1
 License: GPLv2 or later
